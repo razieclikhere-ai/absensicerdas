@@ -1424,9 +1424,37 @@ function doLogout(){
 }
 
 function handleError(msg){
-  Swal.close();const s=String(msg||'');
-  if(s.includes('Token')||s.includes('Session')||s.includes('Sesi')){ Swal.fire({title:'Sesi Berakhir',text:'Silakan login kembali.',icon:'info'}).then(()=>{localStorage.clear();location.reload();}); }
-  else Swal.fire('Kesalahan Server',s||'Terjadi kesalahan.','error');
+  Swal.close();
+  const s = String(msg || '');
+  if(s.includes('Token') || s.includes('Session') || s.includes('Sesi')){ 
+    Swal.fire({
+      title: 'Sesi Berakhir', 
+      text: 'Silakan login kembali.', 
+      icon: 'info'
+    }).then(() => {
+      localStorage.clear(); 
+      sessionStorage.clear(); 
+      location.reload();
+    }); 
+  } else {
+    Swal.fire({
+      title: 'Kesalahan Server',
+      text: s || 'Terjadi kesalahan jaringan atau server.',
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonText: 'Tutup',
+      confirmButtonColor: 'var(--acc)',
+      cancelButtonText: 'Reset Aplikasi',
+      cancelButtonColor: '#b91c1c'
+    }).then((result) => {
+      // Jika user menekan tombol Reset Aplikasi (Merah)
+      if (result.dismiss === Swal.DismissReason.cancel) {
+        localStorage.clear();
+        sessionStorage.clear();
+        location.reload();
+      }
+    });
+  }
 }
 
 /* ═══════════════════════════════════════════
