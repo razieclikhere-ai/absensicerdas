@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Absensi Pro | Enterprise Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F9F6;
+        }
+
+        /* Desain Bingkai HP (Mockup) */
+        .phone-mockup {
+            border: 10px solid #1e293b;
+            border-radius: 40px;
+            overflow: hidden;
+            width: 280px;
+            height: 580px;
+            box-shadow: 0 25px 50px -12px rgba(45, 122, 93, 0.25);
+            position: relative;
+            background: #ffffff;
+            margin: 0 auto;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phone-mockup:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px -15px rgba(45, 122, 93, 0.4);
+        }
+
+        .notch {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 100px; height: 25px;
+            background-color: #1e293b;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        /* Teks Gradasi */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(135deg, #206a4b 0%, #4ade80 100%);
+        }
+
+        /* Animasi Mengambang */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Tombol Toggle Switch (Bulanan/Tahunan) */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #15803d;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #15803d;
+        }
+        
+        /* Animasi Nadi (Pulse) untuk Tombol WhatsApp */
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .btn-whatsapp {
+            animation: pulse-wa 2s infinite;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased selection:bg-green-200 selection:text-green-900">
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/6285277479990?text=Halo%20tim%20E-Absensi%20Pro,%20saya%20ingin%20bertanya%20seputar%20aplikasi%20ini." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20bd5a] text-white p-4 rounded-full shadow-2xl transition-transform duration-300 hover:scale-110 btn-whatsapp flex items-center justify-center group">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="absolute right-16 bg-white text-gray-800 text-sm font-bold py-2 px-4 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+            Hubungi via WhatsApp
+        </span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-green-700 text-white rounded-xl flex items-center justify-center shadow-md">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+                    </div>
+                    <span class="ml-3 font-extrabold text-2xl tracking-tight text-gray-900">E-ABSENSI PRO</span>
+                </div>
+                <div class="flex items-center space-x-2 md:space-x-6">
+                    <a href="#fitur" class="text-gray-500 hover:text-green-700 font-medium hidden md:block transition">Fitur</a>
+                    <a href="#demo" class="text-gray-500 hover:text-green-700 font-medium hidden md:block transition">Tampilan</a>
+                    <a href="#harga" class="text-gray-500 hover:text-green-700 font-medium hidden md:block transition">Harga</a>
+                    
+                    <!-- Diubah ke absensidemo.html -->
+                    <a href="absensidemo.html" class="hidden sm:inline-block text-green-700 hover:text-green-800 font-bold py-2 px-4 transition">Masuk</a>
+                    <a href="absensidemo.html" class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-5 rounded-lg transition shadow-md hover:shadow-green-600/30 flex items-center gap-2">
+                        <span>Coba Gratis</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden pt-16 pb-24 lg:pb-32 bg-gradient-to-b from-[#F3F9F6] to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                
+                <div class="w-full lg:w-1/2 pt-10 text-center lg:text-left z-10">
+                    <div class="inline-flex items-center gap-2 bg-green-100 text-green-800 text-xs sm:text-sm font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-6 border border-green-200">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-600"></span>
+                        </span>
+                        Edisi Sekolah & Madrasah
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.15]">
+                        Sistem Absensi Pintar <br>
+                        <span class="text-gradient">Profesional Enterprise</span>
+                    </h1>
+                    
+                    <p class="mt-6 text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto lg:mx-0 font-medium">
+                        Ucapkan selamat tinggal pada rekap manual. Kelola kehadiran siswa dan guru secara real-time dengan teknologi QR Code dan penguncian GPS. Buktikan sendiri tanpa risiko!
+                    </p>
+                    
+                    <div class="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <!-- Diubah ke absensidemo.html -->
+                        <a href="absensidemo.html" class="group bg-green-700 hover:bg-green-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-green-700/30 transition-all text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                            Mulai Uji Coba Gratis
+                        </a>
+                        <a href="#harga" class="bg-white text-green-700 border-2 border-green-200 hover:border-green-700 font-bold py-4 px-8 rounded-xl shadow-sm transition-all text-lg flex items-center justify-center transform hover:-translate-y-1">
+                            Lihat Paket Harga
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/2 mt-16 lg:mt-0 flex justify-center animate-float">
+                    <div class="phone-mockup">
+                        <div class="notch"></div>
+                        <!-- Placeholder Image agar tidak broken link -->
+                        <img src="https://i.ibb.co.com/RxkxR84/Whats-App-Image-2026-04-14-at-00-51-59.jpg" alt="Login App" class="phone-screen" id="img-login">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="fitur" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl tracking-tight">Teknologi Mutakhir <br class="sm:hidden">Dalam Satu Genggaman</h2>
+                <div class="h-1 w-20 bg-green-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-green-50 group-hover:bg-green-600 rounded-2xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Multi-Scanner Kehadiran</h3>
+                    <p class="text-gray-500">Dukung absensi melalui scan QR Code, Foto Wajah, hingga validasi manual dengan penguncian radius lokasi (GPS).</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-blue-50 group-hover:bg-blue-600 rounded-2xl flex items-center justify-center mb-6 text-blue-600 group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Dashboard Real-Time</h3>
+                    <p class="text-gray-500">Pantau statistik kehadiran (Hadir, Sakit, Izin, Alpha) secara langsung dan akurat setiap detik.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-orange-50 group-hover:bg-orange-500 rounded-2xl flex items-center justify-center mb-6 text-orange-600 group-hover:text-white transition-colors">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Laporan & Ekspor XLSX</h3>
+                    <p class="text-gray-500">Filter laporan absen berdasarkan bulan atau kelas, lalu cetak atau unduh ke format Excel (XLSX) dengan satu klik.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="harga" class="py-20 bg-[#F8FAFC]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Pilihan Paket Fleksibel</h2>
+                <p class="mt-4 text-lg text-gray-500">Mulai dari coba gratis hingga investasi terbaik untuk madrasah/sekolah Anda.</p>
+                
+                <div class="flex items-center justify-center mt-8">
+                    <span class="text-gray-600 font-semibold mr-3">Bulanan</span>
+                    <div class="relative inline-block w-14 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="toggle" id="billing-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200" onchange="updatePricing()"/>
+                        <label for="billing-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                    </div>
+                    <span class="text-gray-900 font-bold ml-3">Tahunan <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full ml-1">(Hemat 2 Bulan)</span></span>
+                </div>
+            </div>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900">Uji Coba</h3>
+                    <p class="text-gray-500 mt-2">Coba semua fitur dasar tanpa risiko sepeser pun.</p>
+                    <div class="mt-6 flex items-baseline text-5xl font-extrabold text-gray-900">
+                        <span class="text-2xl mr-1">Rp</span>
+                        <span>0</span>
+                        <span class="text-xl text-gray-500 font-medium ml-1"> / 14 hari</span>
+                    </div>
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Akses Penuh 14 Hari</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Maksimal 50 Siswa/Guru</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Uji Coba QR Code</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tanpa Kartu Kredit</li>
+                    </ul>
+                    <!-- Diubah ke absensidemo.html -->
+                    <a href="absensidemo.html" class="mt-8 block w-full bg-white border-2 border-green-700 text-green-700 hover:bg-green-50 font-bold py-3 px-4 rounded-xl text-center transition">Mulai Coba Gratis</a>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-2xl font-bold text-gray-900">Paket Lite</h3>
+                    <p class="text-gray-500 mt-2">Cocok untuk sekolah dengan jumlah siswa terbatas.</p>
+                    <div class="mt-6 flex items-baseline text-5xl font-extrabold text-gray-900">
+                        <span class="text-2xl mr-1">Rp</span>
+                        <span id="price-lite">150</span>
+                        <span class="text-xl text-gray-500 font-medium ml-1">.000 <span id="period-lite">/ bln</span></span>
+                    </div>
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Maksimal 500 Siswa/Guru</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Scan QR Code Biasa</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Dashboard & Laporan PDF</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 1 Akun Admin</li>
+                    </ul>
+                    <!-- Diubah ke absensidemo.html -->
+                    <a href="absensidemo.html" class="mt-8 block w-full bg-green-50 text-green-700 hover:bg-green-100 font-bold py-3 px-4 rounded-xl text-center transition">Pilih Paket Lite</a>
+                </div>
+
+                <div class="bg-gray-900 rounded-3xl p-8 border-2 border-green-500 shadow-2xl relative transform md:-translate-y-4">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <span class="bg-green-500 text-white text-sm font-bold px-4 py-1 rounded-full uppercase tracking-wide">Paling Laris</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">Paket Pro</h3>
+                    <p class="text-gray-400 mt-2">Solusi lengkap untuk madrasah/sekolah besar.</p>
+                    <div class="mt-6 flex items-baseline text-5xl font-extrabold text-white">
+                        <span class="text-2xl mr-1">Rp</span>
+                        <span id="price-pro">350</span>
+                        <span class="text-xl text-gray-400 font-medium ml-1">.000 <span id="period-pro">/ bln</span></span>
+                    </div>
+                    <ul class="mt-8 space-y-4 text-gray-300">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong class="text-white ml-1">Unlimited</strong> Siswa & Guru</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Face Recognition & GPS Lock</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Ekspor Laporan Excel (XLSX)</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Peringkat Teladan (Gamifikasi)</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong class="text-white ml-1">Unlimited</strong> Akun Admin/Guru</li>
+                    </ul>
+                    <!-- Diubah ke absensidemo.html -->
+                    <a href="absensidemo.html" class="mt-8 block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl text-center shadow-lg transition">Pilih Paket Pro</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updatePricing() {
+            const isYearly = document.getElementById('billing-toggle').checked;
+            
+            // Harga Lite
+            document.getElementById('price-lite').innerText = isYearly ? '1.500' : '150';
+            document.getElementById('period-lite').innerText = isYearly ? '/ thn' : '/ bln';
+            
+            // Harga Pro
+            document.getElementById('price-pro').innerText = isYearly ? '3.500' : '350';
+            document.getElementById('period-pro').innerText = isYearly ? '/ thn' : '/ bln';
+        }
+    </script>
+
+    <!-- Bottom CTA -->
+    <div class="bg-gradient-to-br from-green-800 to-green-900 py-20 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Mulai Transformasi Digital Sekolah Anda Hari Ini</h2>
+            <p class="text-green-100 text-lg mb-10">Coba gratis 14 hari tanpa syarat. Jika ada pertanyaan, tim spesialis kami siap membantu menjelaskan langsung ke Anda.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- Diubah ke absensidemo.html -->
+                <a href="absensidemo.html" class="inline-flex items-center justify-center gap-3 bg-white text-green-800 font-bold py-4 px-8 rounded-full shadow-lg hover:bg-green-50 transition-all text-lg transform hover:scale-105">
+                    Mulai Coba Gratis Sekarang
+                </a>
+                <a href="https://wa.me/6285277479990?text=Halo%20tim%20E-Absensi%20Pro,%20saya%20ingin%20tanya%20sebelum%20mencoba%20gratis." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-[#20bd5a] transition-all text-lg transform hover:scale-105">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Tanya via WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-gray-400 py-10 border-t border-gray-800 text-center">
+        <div class="mb-4">
+            <span class="text-white font-bold text-lg">E-Hudhuri Maan</span>
+            <p class="mt-2 text-sm">Layanan Bantuan: 0852-7747-9990</p>
+        </div>
+        <p class="font-medium text-sm">&copy; 2026 E-Absensi Pro - Sekolah/Madrasah Edition. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
