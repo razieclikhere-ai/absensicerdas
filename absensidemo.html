@@ -290,7 +290,7 @@ tr:last-child td { border-bottom:none; } tr:hover td { background:var(--bg2); }
   <div class="login-w">
     <div class="login-logo">
       <div class="login-logo-icon"><span class="material-symbols-rounded">school</span></div>
-      <div><div class="login-t">E-Absensi Pro</div><div class="login-s">Profesional Enterprise</div></div>
+      <div><div class="login-t" id="login-app-name">E-Absensi Pro</div><div class="login-s">Profesional Enterprise</div></div>
     </div>
     <div class="login-card">
       <div class="tabs">
@@ -300,17 +300,21 @@ tr:last-child td { border-bottom:none; } tr:hover td { background:var(--bg2); }
       <form onsubmit="event.preventDefault();checkDeviceBindingAndLogin();" autocomplete="off">
         <div class="field"><label id="lbl-uid">Email / NIP</label><input class="input" type="text" id="inp-uid" placeholder="admin@sekolah.sch.id" required autocomplete="username"></div>
         <div class="field" id="field-pass"><label>Kata Sandi</label><div style="position:relative;"><input class="input" type="password" id="inp-pass" placeholder="••••••••" autocomplete="current-password"><button type="button" onclick="toggleLoginPass('inp-pass', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--tx4);padding:2px;"><span class="material-symbols-rounded" style="font-size:18px;">visibility</span></button></div></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; margin-top:-4px;">
-          <label style="display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--tx2); cursor:pointer; font-weight:500;"><input type="checkbox" id="chk-remember" checked style="accent-color:var(--acc); width:14px; height:14px; cursor:pointer;"> Ingat Saya</label>
+        <div id="wrap-lupa-pass" style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:14px; margin-top:-4px;">
           <a href="#" onclick="forgotPassword()" style="font-size:0.75rem; font-weight:600; color:var(--acc); text-decoration:none;">Lupa Password?</a>
         </div>
-        <button type="submit" class="btn btn-p wf" style="height:42px;"><span class="material-symbols-rounded ms">login</span> Masuk Sistem</button>
-        <button type="button" class="btn btn-s wf mt-2" style="height:42px;" onclick="openModal('modal-register')"><span class="material-symbols-rounded ms">person_add</span> Daftar Akun Baru</button>
         
-        <div style="margin-top: 18px; padding-top: 15px; border-top: 1px dashed var(--bdr); text-align: center;">
-          <button type="button" class="btn wf" onclick="showDemoCredentials()" style="background: transparent; color: var(--tx3); border: 1px solid var(--bdr); height: 36px; font-size: 0.8rem; font-weight: 600; gap: 6px;">
-            <span class="material-symbols-rounded" style="font-size: 18px;">key</span> Lihat Kredensial Akun Demo
-          </button>
+        <button type="submit" class="btn btn-p wf mb-2" style="height:44px; font-size:0.9rem;"><span class="material-symbols-rounded ms">login</span> Masuk Sistem</button>
+        
+        <div style="display:flex; align-items:center; gap:10px; margin: 16px 0 14px;">
+          <div style="flex:1; height:1px; background:var(--bdr);"></div>
+          <div style="font-size:0.65rem; color:var(--tx4); font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Atau</div>
+          <div style="flex:1; height:1px; background:var(--bdr);"></div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn btn-s wf" style="flex:1; height:42px; border-color:#bfdbfe; color:var(--blu); background:var(--blu-b);" onclick="showDemoAccounts()"><span class="material-symbols-rounded ms">visibility</span> Mode Demo</button>
+          <button type="button" class="btn btn-s wf" style="flex:1; height:42px;" onclick="openModal('modal-register')"><span class="material-symbols-rounded ms">person_add</span> Daftar Baru</button>
         </div>
       </form>
     </div>
@@ -319,23 +323,30 @@ tr:last-child td { border-bottom:none; } tr:hover td { background:var(--bg2); }
 </div>
 <div class="sbar-ov" id="sbar-ov" onclick="closeSidebar()"></div>
 <aside class="sidebar" id="sidebar" style="display:none;">
-  <div class="sbar-logo"><div class="logo-icon"><span class="material-symbols-rounded">school</span></div><div><div class="logo-name" id="nav-school-name">E-Absensi Pro</div><div class="logo-ver">Profesional Enterprise</div></div></div>
+  <div class="sbar-logo"><div class="logo-icon"><span class="material-symbols-rounded">school</span></div><div><div class="logo-name" id="nav-app-name">E-Absensi Pro</div><div class="logo-ver">Profesional Enterprise</div></div></div>
   <div id="nav-links" style="flex:1;overflow-y:auto;padding:6px 0;"></div>
   <div class="sbar-foot"><button class="logout-btn" onclick="doLogout()"><span class="material-symbols-rounded ms">logout</span> Keluar</button></div>
 </aside>
 <div class="main-wrap" id="main-wrap" style="display:none;">
   <header class="topbar">
     <div class="top-left"><button class="ham" onclick="toggleSidebar()"><span class="material-symbols-rounded">menu</span></button><div style="min-width:0;"><div class="top-title" id="page-title">Dashboard</div><div class="top-date" id="topbar-date">—</div></div></div>
-    <div class="user-chip" id="user-chip-btn" onclick="toggleAccDropdown(event)" title="Pengaturan Akun">
-      <div class="u-info"><div class="u-name" id="u-name">—</div><div class="u-role" id="u-role">—</div></div>
-      <div class="u-avatar" id="u-initial">?</div>
-      <div class="acc-dropdown" id="acc-dropdown" onclick="event.stopPropagation()">
-        <div class="acc-dd-header"><div class="acc-dd-name" id="dd-nama">—</div><div class="acc-dd-role" id="dd-role-id">—</div></div>
-        <button class="acc-dd-item" onclick="loadPage('account');closeAccDropdown()"><span class="material-symbols-rounded">manage_accounts</span> Pengaturan Akun</button>
-        <button class="acc-dd-item" onclick="openChangePassword();closeAccDropdown()"><span class="material-symbols-rounded">lock_reset</span> Ganti Password</button>
-        <button class="acc-dd-item" onclick="openEditProfile();closeAccDropdown()"><span class="material-symbols-rounded">edit</span> Edit Profil</button>
-        <hr class="acc-dd-sep">
-        <button class="acc-dd-item danger" onclick="closeAccDropdown();doLogout()"><span class="material-symbols-rounded">logout</span> Keluar</button>
+    
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="btn btn-g btn-ic btn-sm" onclick="toggleFullScreen()" title="Mode Layar Penuh" style="border-radius:var(--rfull); background:var(--bg2);">
+        <span class="material-symbols-rounded ms" id="fs-icon">fullscreen</span>
+      </button>
+      
+      <div class="user-chip" id="user-chip-btn" onclick="toggleAccDropdown(event)" title="Pengaturan Akun">
+        <div class="u-info"><div class="u-name" id="u-name">—</div><div class="u-role" id="u-role">—</div></div>
+        <div class="u-avatar" id="u-initial">?</div>
+        <div class="acc-dropdown" id="acc-dropdown" onclick="event.stopPropagation()">
+          <div class="acc-dd-header"><div class="acc-dd-name" id="dd-nama">—</div><div class="acc-dd-role" id="dd-role-id">—</div></div>
+          <button class="acc-dd-item" onclick="loadPage('account');closeAccDropdown()"><span class="material-symbols-rounded">manage_accounts</span> Pengaturan Akun</button>
+          <button class="acc-dd-item" onclick="openChangePassword();closeAccDropdown()"><span class="material-symbols-rounded">lock_reset</span> Ganti Password</button>
+          <button class="acc-dd-item" onclick="openEditProfile();closeAccDropdown()"><span class="material-symbols-rounded">edit</span> Edit Profil</button>
+          <hr class="acc-dd-sep">
+          <button class="acc-dd-item danger" onclick="closeAccDropdown();doLogout()"><span class="material-symbols-rounded">logout</span> Keluar</button>
+        </div>
       </div>
     </div>
   </header>
@@ -345,6 +356,8 @@ tr:last-child td { border-bottom:none; } tr:hover td { background:var(--bg2); }
     <div id="pg-download"  class="view hidden"></div> 
     <div id="pg-scanner"   class="view hidden"></div>
     <div id="pg-laporan"   class="view hidden"></div>
+    <div id="pg-teladan"   class="view hidden"></div>
+    <div id="pg-broadcast" class="view hidden"></div> 
     <div id="pg-libur"     class="view hidden"></div>
     <div id="pg-idcard"    class="view hidden"></div>
     <div id="pg-config"    class="view hidden"></div>
@@ -395,7 +408,107 @@ tr:last-child td { border-bottom:none; } tr:hover td { background:var(--bg2); }
     </div>
   </div>
 </div>
+<div class="modal-bd" id="modal-import">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-head"><h3 id="import-title">Import Data Excel</h3><button class="btn btn-g btn-sm btn-ic" onclick="closeModal('modal-import')"><span class="material-symbols-rounded ms">close</span></button></div>
+    <div class="modal-body">
+      <div style="background:var(--blu-b); padding:14px; border-radius:var(--r2); border:1px solid #bfdbfe; margin-bottom:16px; font-size:0.8rem; color:var(--tx2); line-height: 1.5;">
+        <strong style="color:var(--blu);">Langkah Mudah Import:</strong><br>
+        1. Unduh (Download) template format Excel di bawah.<br>
+        2. Buka Excel, isi data, lalu simpan file tersebut.<br>
+        3. Upload file yang sudah diisi ke dalam kotak di bawah ini.<br>
+        <span style="color:var(--red); font-size:0.75rem; margin-top:5px; display:inline-block;">*Penting: Password default akun baru otomatis diset: <b>123456</b></span>
+      </div>
+      
+      <button class="btn btn-s wf mb-3" onclick="downloadTemplateExcel()" style="color:var(--acc); border-color:var(--acc); height:42px;"><span class="material-symbols-rounded ms">download</span> Unduh Template Excel</button>
+      
+      <div class="field" style="border-top: 1px dashed var(--bdr); padding-top:14px;">
+        <label>Upload File Excel yang Sudah Diisi</label>
+        <input type="file" id="inp-import-file" class="input" accept=".xlsx, .xls" style="padding: 6px; cursor:pointer;">
+      </div>
+      
+      <button class="btn btn-p wf mt-2" onclick="submitImportExcel()" style="height:44px; font-size:0.95rem;"><span class="material-symbols-rounded ms">cloud_upload</span> Proses Import Sekarang</button>
+    </div>
+  </div>
+</div>
 
+<script>
+let IMPORT_TYPE = 'SISWA';
+
+function openImportModal(type) {
+  IMPORT_TYPE = type;
+  document.getElementById('import-title').textContent = 'Import Data ' + (type === 'GURU' ? 'Guru/Pegawai' : 'Siswa');
+  document.getElementById('inp-import-file').value = '';
+  openModal('modal-import');
+}
+
+function downloadTemplateExcel() {
+  const isGuru = IMPORT_TYPE === 'GURU';
+  const headers = isGuru 
+    ? [['ID_NIP', 'NAMA', 'EMAIL', 'JK_L_P', 'ROLE', 'DEPARTEMEN', 'KELAS_DIURUS', 'JAM_KERJA', 'NO_HP', 'ALAMAT']]
+    : [['NISN', 'NAMA', 'JK_L_P', 'KELAS', 'AGAMA', 'NAMA_AYAH', 'NAMA_IBU', 'NO_HP', 'ALAMAT']];
+  
+  const ws = XLSX.utils.aoa_to_sheet(headers);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Format_Data");
+  XLSX.writeFile(wb, `Template_Import_${IMPORT_TYPE}.xlsx`);
+}
+
+function submitImportExcel() {
+  const fileInput = document.getElementById('inp-import-file');
+  if (!fileInput.files.length) return Swal.fire('Peringatan', 'Silakan pilih file Excel terlebih dahulu!', 'warning');
+  
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+  
+  Swal.fire({title:'Membaca File...', text:'Sistem sedang membaca isi file Excel...', allowOutsideClick:false, didOpen:()=>Swal.showLoading()});
+  
+  reader.onload = function(e) {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, {type: 'array'});
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      const json = XLSX.utils.sheet_to_json(worksheet, {defval: ""});
+      
+      if (json.length === 0) return Swal.fire('Data Kosong', 'Tidak ada data di dalam file Excel. Pastikan Anda telah mengisi baris di bawah judul kolom.', 'error');
+      
+      const payloadData = json.map(row => {
+        if (IMPORT_TYPE === 'GURU') {
+          return {
+            id: row['ID_NIP'], nama: row['NAMA'], email: row['EMAIL'], jk: row['JK_L_P'],
+            role: row['ROLE'] || 'Guru', dept: row['DEPARTEMEN'], kelas: row['KELAS_DIURUS'],
+            jam: row['JAM_KERJA'] || 'Pagi', hp: row['NO_HP'], alamat: row['ALAMAT']
+          };
+        } else {
+          return {
+            id: row['NISN'], nama: row['NAMA'], jk: row['JK_L_P'], kelas: row['KELAS'],
+            agama: row['AGAMA'], ayah: row['NAMA_AYAH'], ibu: row['NAMA_IBU'],
+            hp: row['NO_HP'], alamat: row['ALAMAT']
+          };
+        }
+      });
+
+      Swal.fire({title:'Mengimpor Data...', text:`Mengirim ${payloadData.length} baris data ke database...`, allowOutsideClick:false, didOpen:()=>Swal.showLoading()});
+      
+      callAPI('importMassal', { type: IMPORT_TYPE, data: payloadData })
+        .then(r => {
+          if (r.status === 'success') {
+            Swal.fire('Selesai!', r.message, 'success');
+            closeModal('modal-import');
+            loadPage('data-' + IMPORT_TYPE.toLowerCase());
+          } else {
+            Swal.fire('Gagal', r.message, 'error');
+          }
+        }).catch(handleError);
+        
+    } catch(err) {
+      Swal.fire('Error File', 'Gagal memproses file. Pastikan format file adalah Excel (.xlsx) murni.', 'error');
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+</script>
 <div class="modal-bd" id="modal-form">
   <div class="modal-box">
     <div class="modal-head"><h3 id="modal-title">Form Data</h3><button class="btn btn-g btn-sm btn-ic" onclick="closeModal('modal-form')"><span class="material-symbols-rounded ms">close</span></button></div>
@@ -436,6 +549,68 @@ tr:last-child td { border-bottom:none; } tr:hover td { background:var(--bg2); }
     </div>
   </div>
 </div>
+<div class="modal-bd" id="modal-import-libur">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-head"><h3>Import Kalender Libur</h3><button class="btn btn-g btn-sm btn-ic" onclick="closeModal('modal-import-libur')"><span class="material-symbols-rounded ms">close</span></button></div>
+    <div class="modal-body">
+      <div style="background:var(--red-b); padding:14px; border-radius:var(--r2); border:1px solid #fca5a5; margin-bottom:16px; font-size:0.8rem; color:var(--tx2); line-height: 1.5;">
+        <strong style="color:var(--red);">Petunjuk Cepat:</strong><br>
+        1. Unduh template Excel di bawah.<br>
+        2. Isi tanggal dengan format wajib <b>YYYY-MM-DD</b> (Contoh: 2026-08-17).<br>
+        3. Upload kembali ke sini. Tanggal yang sudah ada akan otomatis dilewati.
+      </div>
+      <button class="btn btn-s wf mb-3" onclick="downloadTemplateLibur()" style="color:var(--red); border-color:var(--red);"><span class="material-symbols-rounded ms">download</span> Unduh Template Libur</button>
+      <div class="field" style="border-top: 1px dashed var(--bdr); padding-top:14px;">
+        <label>Upload File Excel</label>
+        <input type="file" id="inp-import-libur" class="input" accept=".xlsx, .xls" style="padding: 6px; cursor:pointer;">
+      </div>
+      <button class="btn btn-p wf mt-2" style="background:var(--red);" onclick="submitImportLibur()"><span class="material-symbols-rounded ms">cloud_upload</span> Mulai Import</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function downloadTemplateLibur() {
+  const ws = XLSX.utils.aoa_to_sheet([
+    ['TANGGAL_YYYY_MM_DD', 'KETERANGAN'], 
+    ['2026-08-17', 'Hari Kemerdekaan RI'],
+    ['2026-12-25', 'Hari Raya Natal']
+  ]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Libur");
+  XLSX.writeFile(wb, "Template_Hari_Libur.xlsx");
+}
+
+function submitImportLibur() {
+  const fileInput = document.getElementById('inp-import-libur');
+  if (!fileInput.files.length) return Swal.fire('Peringatan', 'Pilih file Excel terlebih dahulu!', 'warning');
+  
+  const reader = new FileReader();
+  Swal.fire({title:'Membaca File...', text:'Menyusun jadwal libur...', allowOutsideClick:false, didOpen:()=>Swal.showLoading()});
+  
+  reader.onload = function(e) {
+    try {
+      const workbook = XLSX.read(new Uint8Array(e.target.result), {type: 'array'});
+      const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {defval: ""});
+      if (json.length === 0) throw new Error("File kosong");
+      
+      const payloadData = json.map(r => ({ tanggal: r['TANGGAL_YYYY_MM_DD'], keterangan: r['KETERANGAN'] }));
+      
+      callAPI('importLiburMassal', { data: payloadData })
+        .then(r => {
+          if (r.status === 'success') {
+            Swal.fire('Selesai!', r.message, 'success');
+            closeModal('modal-import-libur');
+            fetchAndRenderCalendar();
+          } else { Swal.fire('Gagal', r.message, 'error'); }
+        }).catch(handleError);
+    } catch(err) {
+      Swal.fire('Error File', 'Gagal memproses file. Pastikan baris excel sesuai dengan format kolom TANGGAL_YYYY_MM_DD.', 'error');
+    }
+  };
+  reader.readAsArrayBuffer(fileInput.files[0]);
+}
+</script>
 <div id="print-area" style="display:none;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
@@ -449,9 +624,117 @@ tr:last-child td { border-bottom:none; } tr:hover td { background:var(--bg2); }
 /// ==========================================
 // [UPDATE] KONFIGURASI API & OFFLINE ENGINE
 // ==========================================
-const GAS_API_URL = "----------";
+const GAS_API_URL = "Ttes";
+
+// --- SISTEM DEMO MOCK DATA (SUPER LENGKAP) ---
+const DEMO_DATA = {
+  config: { NAMA_APLIKASI: "E-Absensi (DEMO)", NAMA_SEKOLAH: "SMA Negeri 1 Simulasi", ALAMAT_SEKOLAH: "Jl. Pendidikan No. 1, Kota Teknologi", TIPE_ABSENSI: "PRO", SHIFT_PAGI_AKTIF: "AKTIF", SHIFT_MALAM_AKTIF: "NONAKTIF", JAM_MASUK_PAGI: "07:00", JAM_PULANG_PAGI: "14:00", ABSENSI_GURU_AKTIF: "AKTIF", ABSENSI_SISWA_AKTIF: "AKTIF" },
+  guru: [
+    { id: "NIP-001", nama: "Budi Santoso, S.Pd", role: "Admin", status: "Aktif", dept: "Kurikulum", jk: "L", hp: "081122334455", email: "admin@demo.com", kelas: "-", kelasDiurus: "-", jam_kerja: "Pagi", foto: "https://ui-avatars.com/api/?name=Budi+Santoso&background=2d6a4f&color=fff" },
+    { id: "NIP-002", nama: "Siti Aminah, M.Pd", role: "Guru", status: "Aktif", kelas: "X IPA 1", kelasDiurus: "X IPA 1", dept: "Matematika", jk: "P", hp: "082233445566", email: "guru@demo.com", jam_kerja: "Pagi", isPetugas: true, foto: "https://ui-avatars.com/api/?name=Siti+Aminah&background=40916c&color=fff" }
+  ],
+  siswa: [
+    { id: "1234567890", nama: "Andi Saputra", role: "Siswa", kelas: "X IPA 1", status: "Aktif", jk: "L", hp: "081234567890", ayah: "Bapak Andi", ibu: "Ibu Andi", tgl_lahir: "2010-05-12" },
+    { id: "0987654321", nama: "Rina Melati", role: "Siswa", kelas: "X IPA 1", status: "Aktif", jk: "P", hp: "081298765432", ayah: "Bapak Rina", ibu: "Ibu Rina", tgl_lahir: "2010-08-20" },
+    { id: "1122334455", nama: "Bima Sakti", role: "Siswa", kelas: "X IPS 2", status: "Aktif", jk: "L", hp: "085611223344", ayah: "Bapak Bima", ibu: "Ibu Bima", tgl_lahir: "2009-11-01" }
+  ],
+  absenSiswa: [
+    { tanggal: new Date().toISOString().slice(0,10), nama: "Andi Saputra", id: "1234567890", kelas: "X IPA 1", waktu: "Pagi", masuk: "06:45", keluar: "14:05", status: "Hadir", ket: "Tepat Waktu", jarak: 15, foto: "" },
+    { tanggal: new Date().toISOString().slice(0,10), nama: "Rina Melati", id: "0987654321", kelas: "X IPA 1", waktu: "Pagi", masuk: "07:15", keluar: "-", status: "Hadir", ket: "Terlambat", jarak: 22, foto: "" },
+    { tanggal: new Date().toISOString().slice(0,10), nama: "Bima Sakti", id: "1122334455", kelas: "X IPS 2", waktu: "Pagi", masuk: "-", keluar: "-", status: "Alpha", ket: "Tanpa Keterangan", jarak: 0, foto: "" }
+  ],
+  absenGuru: [
+    { tanggal: new Date().toISOString().slice(0,10), nama: "Budi Santoso, S.Pd", id: "NIP-001", kelas: "-", waktu: "Pagi", masuk: "06:30", keluar: "14:30", status: "Hadir", ket: "Tepat Waktu", jarak: 10, foto: "" },
+    { tanggal: new Date().toISOString().slice(0,10), nama: "Siti Aminah, M.Pd", id: "NIP-002", kelas: "X IPA 1", waktu: "Pagi", masuk: "06:50", keluar: "14:10", status: "Hadir", ket: "Tepat Waktu", jarak: 12, foto: "" }
+  ],
+  teladanGuru: [
+    { nama: "Budi Santoso, S.Pd", id: "NIP-001", info: "Kurikulum", hadir: 26, tepatWaktu: 26, foto: "https://ui-avatars.com/api/?name=Budi+Santoso&background=2d6a4f&color=fff" },
+    { nama: "Siti Aminah, M.Pd", id: "NIP-002", info: "Matematika", hadir: 25, tepatWaktu: 24, foto: "https://ui-avatars.com/api/?name=Siti+Aminah&background=40916c&color=fff" }
+  ],
+  teladanSiswa: [
+    { nama: "Andi Saputra", id: "1234567890", info: "X IPA 1", hadir: 26, tepatWaktu: 26, foto: "" },
+    { nama: "Rina Melati", id: "0987654321", info: "X IPA 1", hadir: 25, tepatWaktu: 20, foto: "" },
+    { nama: "Bima Sakti", id: "1122334455", info: "X IPS 2", hadir: 22, tepatWaktu: 19, foto: "" }
+  ]
+};
 
 async function callAPI(actionName, payloadData = {}) {
+  // --- INTERCEPTOR MODE DEMO ---
+  if (sessionStorage.getItem('isDemo') === 'true' || actionName === 'handleLogin') {
+    if (actionName === 'handleLogin') {
+      const { username, password, type } = payloadData;
+      if (username === 'admin@demo.com' && password === 'admin123') {
+        sessionStorage.setItem('isDemo', 'true');
+        return { status: 'success', data: { token: 'demo-token', user: DEMO_DATA.guru[0] } };
+      }
+      if (username === 'guru@demo.com' && password === 'guru123') {
+        sessionStorage.setItem('isDemo', 'true');
+        return { status: 'success', data: { token: 'demo-token', user: DEMO_DATA.guru[1] } };
+      }
+      if (type === 'SISWA' && username === '1234567890') {
+        sessionStorage.setItem('isDemo', 'true');
+        return { status: 'success', data: { token: 'demo-token', user: DEMO_DATA.siswa[0] } };
+      }
+      
+      // Jika login pakai akun lain saat mode demo mati, biarkan turun ke API asli
+      if (username.includes('@demo.com') || username === '1234567890') {
+        return { status: 'error', message: 'Password akun demo salah.' };
+      }
+    }
+
+    if (sessionStorage.getItem('isDemo') === 'true') {
+      await new Promise(r => setTimeout(r, 450)); // Simulasi loading network agar realistis
+      
+      switch(actionName) {
+        case 'getDashboardData':
+          return { status: 'success', data: { 
+            config: DEMO_DATA.config, 
+            serverTime: new Date().toISOString().slice(0,10),
+            stats: { 
+              guru: { pagi: {h:2, s:0, i:0, a:0, total:2}, malam: {h:0, s:0, i:0, a:0, total:0} }, 
+              siswa: { pagi: {h:2, s:0, i:0, a:1, total:3}, malam: {h:0, s:0, i:0, a:0, total:0}, targetKelas: APP.user?.kelasDiurus || '-' },
+              my: {h:24, s:0, i:1, a:0} 
+            },
+            studentData: { stats: {hadir:24, sakit:0, izin:1, alpha:0}, today: {masuk: "06:45", pulang: "14:05", status: "Hadir", ket: "Tepat Waktu"} },
+            libur: [ { tanggal: "2026-12-25", keterangan: "Libur Semester (Demo)" } ],
+            birthdays: [ { nama: "Siti Aminah, M.Pd", detail: "Guru Matematika" } ],
+            broadcast: "✨ Selamat datang di E-Absensi Pro versi Simulasi!\nIni adalah tampilan demo interaktif. Anda dapat menavigasi menu, melihat laporan, dan menjelajahi fitur dengan bebas."
+          }};
+        case 'getMasterData':
+          return { status: 'success', data: payloadData.type === 'GURU' ? DEMO_DATA.guru : DEMO_DATA.siswa };
+        case 'getHistoryReport':
+          return { status: 'success', data: payloadData.type === 'GURU' ? DEMO_DATA.absenGuru : DEMO_DATA.absenSiswa };
+        case 'getMyAttendance':
+          const targetArr = (payloadData.targetId || '').includes('NIP') ? DEMO_DATA.absenGuru : DEMO_DATA.absenSiswa;
+          return { status: 'success', data: targetArr.filter(x => x.id === payloadData.targetId) };
+        case 'pingOnlineStatus':
+          return { status: 'success', data: [DEMO_DATA.guru[0], DEMO_DATA.guru[1], DEMO_DATA.siswa[0]] };
+        case 'submitAttendance':
+          return { status: 'success', message: 'Absensi mode demo berhasil direkam di sistem virtual!' };
+        case 'getMyProfile':
+          return { status: 'success', data: APP.user };
+        case 'getDetailData':
+          const searchArr = payloadData.type === 'GURU' ? DEMO_DATA.guru : DEMO_DATA.siswa;
+          const found = searchArr.find(x => x.id === payloadData.id) || searchArr[0];
+          return { status: 'success', data: found };
+        case 'getTopTeladan':
+          return { status: 'success', data: { guru: DEMO_DATA.teladanGuru, siswa: DEMO_DATA.teladanSiswa } };
+        case 'getDropdownList':
+          return { status: 'success', data: payloadData.type === 'GURU' ? DEMO_DATA.guru : DEMO_DATA.siswa };
+        case 'generateReportFile':
+          return { status: 'success', data: { pdfUrl: "#", excelUrl: "#" } };
+        case 'updateAttendanceStatus':
+          // Simulasi update data asli di dalam memori Demo
+          const tgtArray = payloadData.type === 'GURU' ? DEMO_DATA.absenGuru : DEMO_DATA.absenSiswa;
+          const rec = tgtArray.find(x => x.id === payloadData.targetId && x.tanggal === payloadData.dateStr);
+          if (rec) rec.status = payloadData.newStatus;
+          return { status: 'success', message: 'Status berhasil diubah (Mode Demo)' };
+        default:
+          return { status: 'success', message: 'Aksi simulasi berhasil.', data: [] };
+      }
+    }
+  }
+
   // 1. CEK JIKA OFFLINE
   if (!navigator.onLine) {
     if (actionName === 'submitAttendance') {
@@ -461,7 +744,7 @@ async function callAPI(actionName, payloadData = {}) {
     throw new Error("Anda sedang offline. Hubungkan ke internet untuk memuat data terbaru.");
   }
 
-  // 2. JIKA ONLINE, EKSEKUSI NORMAL
+  // 2. JIKA ONLINE, EKSEKUSI NORMAL KE DATABASE
   try {
     const response = await fetch(GAS_API_URL, {
       method: "POST",
@@ -471,13 +754,40 @@ async function callAPI(actionName, payloadData = {}) {
     const result = await response.json();
     return typeof result === 'string' ? JSON.parse(result) : result;
   } catch (error) {
-    // 3. JIKA FETCH GAGAL (Sinyal tiba-tiba hilang saat mengirim)
+    // 3. JIKA FETCH GAGAL
     if (actionName === 'submitAttendance') {
       saveToOfflineQueue(actionName, payloadData);
       return { status: 'success', message: 'Koneksi terputus. Absen disimpan sementara di perangkat.' };
     }
     throw new Error("Gagal terhubung ke server. Periksa koneksi internet Anda.");
   }
+}
+
+function showDemoAccounts() {
+  Swal.fire({
+    title: 'Informasi Akun Demo',
+    html: `
+      <div style="text-align:left; font-size:0.85rem; color:var(--tx2); line-height:1.6;">
+        <div style="background:var(--blu-b); padding:10px; border-radius:8px; border:1px solid #bfdbfe; margin-bottom:10px;">
+          <b style="color:var(--blu);">Role Admin / SuperAdmin</b><br>
+          Email: <code class="mono">admin@demo.com</code><br>
+          Pass: <code class="mono">admin123</code>
+        </div>
+        <div style="background:var(--grn-b); padding:10px; border-radius:8px; border:1px solid #bbf7d0; margin-bottom:10px;">
+          <b style="color:var(--grn);">Role Guru / Petugas</b><br>
+          Email: <code class="mono">guru@demo.com</code><br>
+          Pass: <code class="mono">guru123</code>
+        </div>
+        <div style="background:var(--ylw-b); padding:10px; border-radius:8px; border:1px solid #fde68a;">
+          <b style="color:var(--ylw);">Role Siswa</b> (Gunakan tab Siswa di atas)<br>
+          NISN: <code class="mono">1234567890</code>
+        </div>
+      </div>
+    `,
+    icon: 'info',
+    confirmButtonText: 'Tutup',
+    confirmButtonColor: 'var(--acc)'
+  });
 }
 
 // --- OFFLINE QUEUE ENGINE ---
@@ -618,6 +928,34 @@ function formatIndo(dateStr) {
   if (!d || isNaN(d)) return dateStr || '-';
   const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
   return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+/* ═══════════════════════════════════════════
+   FULLSCREEN MANAGER
+═══════════════════════════════════════════ */
+function toggleFullScreen() {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); } 
+    else if (document.documentElement.webkitRequestFullscreen) { document.documentElement.webkitRequestFullscreen(); } 
+    else if (document.documentElement.msRequestFullscreen) { document.documentElement.msRequestFullscreen(); }
+  } else {
+    if (document.exitFullscreen) { document.exitFullscreen(); } 
+    else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); } 
+    else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+  }
+}
+
+// Ubah Ikon Jika Pengguna Menekan ESC di Keyboard
+document.addEventListener('fullscreenchange', updateFsIcon);
+document.addEventListener('webkitfullscreenchange', updateFsIcon);
+function updateFsIcon() {
+  const icon = document.getElementById('fs-icon');
+  if (!icon) return;
+  if (document.fullscreenElement || document.webkitFullscreenElement) {
+    icon.textContent = 'fullscreen_exit';
+  } else {
+    icon.textContent = 'fullscreen';
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -1273,12 +1611,15 @@ function setLoginMode(mode,btnEl){
   if(btnEl)btnEl.classList.add('active');
   const lbl=document.getElementById('lbl-uid'),inp=document.getElementById('inp-uid');
   const pf=document.getElementById('field-pass'),pi=document.getElementById('inp-pass');
+  const wrapLupa=document.getElementById('wrap-lupa-pass');
   if(mode==='SISWA'){
     lbl.textContent='Nomor NISN';inp.placeholder='Contoh: 1234567890';
     pf.classList.add('hidden');pi.removeAttribute('required');
+    if(wrapLupa) wrapLupa.classList.add('hidden');
   } else {
     lbl.textContent='Email / NIP';inp.placeholder='admin@sekolah.sch.id';
     pf.classList.remove('hidden');pi.setAttribute('required','true');
+    if(wrapLupa) wrapLupa.classList.remove('hidden');
   }
 }
 
@@ -1286,6 +1627,8 @@ function setLoginMode(mode,btnEl){
    CEK DEVICE BINDING SEBELUM LOGIN
 ═══════════════════════════════════════════ */
 function checkDeviceBindingAndLogin() {
+  // Paksa Fullscreen saat tombol ditekan (syarat keamanan browser)
+  try { if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); } catch(e) {}
   // Mengecek apakah perangkat ini sudah pernah menyetujui ketentuan
   const hasAgreed = localStorage.getItem('device_bound_agreed');
   
@@ -1328,26 +1671,21 @@ function checkDeviceBindingAndLogin() {
 async function doLogin(){
   const u = document.getElementById('inp-uid').value.trim();
   const p = LOGIN_TYPE === 'SISWA' ? '' : document.getElementById('inp-pass').value;
-  const isRemember = document.getElementById('chk-remember').checked;
   const devId = getPersistentDeviceId();
 
-  // === INTERCEPT: CEK APAKAH INI AKUN DEMO ===
-  if (LOGIN_TYPE === 'GURU' && u === 'admin@demo.com' && p === 'admin123') return startDemoMode('Admin');
-  if (LOGIN_TYPE === 'GURU' && u === 'guru@demo.com' && p === 'guru123') return startDemoMode('Guru');
-  if (LOGIN_TYPE === 'SISWA' && u === '1234567890') return startDemoMode('Siswa');
-
-  // Jika bukan akun demo, lanjutkan login normal ke server
   Swal.fire({title:'Otorisasi...',text:'Menghubungi server...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
   
   try {
     const r = await callAPI('handleLogin', { username: u, password: p, type: LOGIN_TYPE, deviceId: devId });
     if(r.status === 'success'){
       APP.token = r.data.token; APP.user = r.data.user;
-      if(isRemember) {
-        localStorage.setItem('auth_token',APP.token); localStorage.setItem('auth_user',JSON.stringify(APP.user)); sessionStorage.removeItem('auth_token');
-      } else {
-        sessionStorage.setItem('auth_token',APP.token); sessionStorage.setItem('auth_user',JSON.stringify(APP.user)); localStorage.removeItem('auth_token');
-      }
+      
+      // DEMO MODE: Paksa selalu logout saat aplikasi/tab ditutup (Gunakan SessionStorage)
+      sessionStorage.setItem('auth_token', APP.token); 
+      sessionStorage.setItem('auth_user', JSON.stringify(APP.user)); 
+      localStorage.removeItem('auth_token'); 
+      localStorage.removeItem('auth_user');
+      
       Swal.close(); initApp();
     } else {
       Swal.fire('Login Gagal', r.message, 'error');
@@ -1416,7 +1754,7 @@ function doLogout(){
         localStorage.clear();
         if(typeof mapInstance!=='undefined'&&mapInstance){mapInstance.remove();mapInstance=null;mapMarker=null;mapCircle=null;}
         document.getElementById('main-wrap').style.display='none'; document.getElementById('sidebar').style.display='none'; document.getElementById('bottom-nav').classList.remove('active-nav'); document.getElementById('sbar-ov').classList.remove('open'); document.getElementById('sidebar').classList.remove('open'); document.body.removeAttribute('data-role'); document.getElementById('inp-uid').value='';document.getElementById('inp-pass').value='';
-        LOGIN_TYPE='GURU'; document.querySelectorAll('#view-login .tab').forEach((b,i)=>{b.classList.toggle('active',i===0);}); document.getElementById('lbl-uid').textContent='Email / NIP'; document.getElementById('inp-uid').placeholder='admin@sekolah.sch.id'; document.getElementById('field-pass').classList.remove('hidden'); document.getElementById('inp-pass').setAttribute('required','true');
+        LOGIN_TYPE='GURU'; document.querySelectorAll('#view-login .tab').forEach((b,i)=>{b.classList.toggle('active',i===0);}); document.getElementById('lbl-uid').textContent='Email / NIP'; document.getElementById('inp-uid').placeholder='admin@sekolah.sch.id'; document.getElementById('field-pass').classList.remove('hidden'); document.getElementById('inp-pass').setAttribute('required','true'); const wLupa = document.getElementById('wrap-lupa-pass'); if(wLupa) wLupa.classList.remove('hidden');
         const loginEl=document.getElementById('view-login'); loginEl.style.opacity='0';loginEl.style.display='flex';loginEl.style.transition='opacity .3s ease'; requestAnimationFrame(()=>requestAnimationFrame(()=>{loginEl.style.opacity='1';}));
         Swal.fire({icon:'success',title:'Berhasil Keluar',timer:2000,timerProgressBar:true,showConfirmButton:false});
       }
@@ -1424,44 +1762,50 @@ function doLogout(){
 }
 
 function handleError(msg){
-  Swal.close();
-  const s = String(msg || '');
-  if(s.includes('Token') || s.includes('Session') || s.includes('Sesi')){ 
-    Swal.fire({
-      title: 'Sesi Berakhir', 
-      text: 'Silakan login kembali.', 
-      icon: 'info'
-    }).then(() => {
-      localStorage.clear(); 
-      sessionStorage.clear(); 
-      location.reload();
-    }); 
-  } else {
-    Swal.fire({
-      title: 'Kesalahan Server',
-      text: s || 'Terjadi kesalahan jaringan atau server.',
-      icon: 'error',
-      showCancelButton: true,
-      confirmButtonText: 'Tutup',
-      confirmButtonColor: 'var(--acc)',
-      cancelButtonText: 'Reset Aplikasi',
-      cancelButtonColor: '#b91c1c'
-    }).then((result) => {
-      // Jika user menekan tombol Reset Aplikasi (Merah)
-      if (result.dismiss === Swal.DismissReason.cancel) {
-        localStorage.clear();
-        sessionStorage.clear();
-        location.reload();
-      }
-    });
-  }
+  Swal.close();const s=String(msg||'');
+  if(s.includes('Token')||s.includes('Session')||s.includes('Sesi')){ Swal.fire({title:'Sesi Berakhir',text:'Silakan login kembali.',icon:'info'}).then(()=>{localStorage.clear();location.reload();}); }
+  else Swal.fire('Kesalahan Server',s||'Terjadi kesalahan.','error');
 }
 
 /* ═══════════════════════════════════════════
    APP INIT
 ═══════════════════════════════════════════ */
+function applyAppBranding(name, logoUrl) {
+  let link = document.querySelector("link[rel~='icon']");
+  if (!link) {
+    link = document.createElement('link');
+    link.rel = 'icon';
+    document.head.appendChild(link);
+  }
+  link.href = logoUrl ? logoUrl : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+
+  const logoHtml = logoUrl ? `<img src="${logoUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:inherit;">` : `<span class="material-symbols-rounded">school</span>`;
+  
+  const loginIcon = document.querySelector('.login-logo-icon');
+  if(loginIcon) {
+    loginIcon.innerHTML = logoHtml;
+    loginIcon.style.background = logoUrl ? 'transparent' : 'var(--acc)';
+  }
+  
+  const sidebarIcon = document.querySelector('.logo-icon');
+  if(sidebarIcon) {
+    sidebarIcon.innerHTML = logoHtml;
+    sidebarIcon.style.background = logoUrl ? 'transparent' : 'var(--acc)';
+  }
+  
+  const loginAppEl = document.getElementById('login-app-name');
+  if(loginAppEl) loginAppEl.textContent = name;
+  const navAppEl = document.getElementById('nav-app-name');
+  if(navAppEl) navAppEl.textContent = name;
+  document.title = name;
+}
+
 window.addEventListener('load',()=>{
   checkInAppBrowser();
+  const savedAppName = localStorage.getItem('app_custom_name') || 'E-Absensi Pro';
+  const savedAppLogo = localStorage.getItem('app_custom_logo') || '';
+  applyAppBranding(savedAppName, savedAppLogo);
+  
   document.getElementById('topbar-date').textContent= new Date().toLocaleDateString('id-ID',{weekday:'short',year:'numeric',month:'short',day:'numeric'});
   const tok = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
   const user = localStorage.getItem('auth_user') || sessionStorage.getItem('auth_user');
@@ -1532,12 +1876,37 @@ function initApp(){
   document.getElementById('dd-role-id').textContent = `${role} · ${id}`;
   
   buildNav(); 
-  loadPage('dashboard'); 
-  startOnlinePing();
+  
+  // ROUTING SYSTEM: Cek URL khusus saat pertama kali buka
+  const hashPage = window.location.hash.substring(1);
+  const validPages = ['dashboard', 'scanner', 'data-guru', 'data-siswa', 'laporan-guru', 'laporan-siswa', 'laporan-saya', 'download', 'teladan', 'broadcast', 'libur', 'idcard', 'config', 'account', 'about'];
+  
+  if (hashPage && validPages.includes(hashPage)) {
+    loadPage(hashPage);
+  } else {
+    loadPage('dashboard'); 
+  }
+  
+ startOnlinePing();
 
   requestNativeNotification();
 
   document.addEventListener('click', e=>{ if(!document.getElementById('user-chip-btn')?.contains(e.target)) closeAccDropdown(); });
+
+  // --- POPUP NOTIFIKASI MODE DEMO ---
+  if (sessionStorage.getItem('isDemo') === 'true' && !sessionStorage.getItem('demo_welcomed')) {
+    sessionStorage.setItem('demo_welcomed', 'true');
+    setTimeout(() => {
+      Swal.fire({
+        title: '✨ Mode Simulasi Aktif',
+        html: '<div style="font-size:0.9rem; color:var(--tx2); line-height:1.6;">Anda saat ini masuk menggunakan <b>Akun Demo</b>.<br><br>Semua data yang ditampilkan (termasuk riwayat absen, lokasi, dan profil) adalah data virtual. Silakan tekan tombol apa saja dan jelajahi fitur sepuasnya!</div>',
+        icon: 'info',
+        confirmButtonText: 'Mulai Menjelajah',
+        confirmButtonColor: 'var(--acc)',
+        backdrop: `rgba(13, 35, 24, 0.75)`
+      });
+    }, 600); // Muncul dengan jeda setengah detik agar estetik
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -1606,22 +1975,47 @@ const NAV_DEFS={
   SuperAdmin: [ 
     {id:'dashboard',label:'Panel Kendali',icon:'admin_panel_settings',section:'Utama'}, 
     {id:'config',label:'Konfigurasi Sistem',icon:'settings',section:'Sistem'}, 
+    {id:'broadcast',label:'Broadcast',icon:'campaign',section:'Sistem'}, 
     {id:'about',label:'Tentang Aplikasi',icon:'info',section:'Informasi'} 
   ],
-  Admin:[ {id:'dashboard',label:'Dashboard',icon:'dashboard',section:'Utama'}, {id:'scanner',label:'Scanner Absen',icon:'qr_code_scanner',section:'Utama'}, {id:'data-guru',label:'Data Guru',icon:'supervisor_account',section:'Master'}, {id:'data-siswa',label:'Data Siswa',icon:'groups',section:'Master'}, {id:'laporan-guru',label:'Laporan Guru',icon:'badge',section:'Laporan'}, {id:'laporan-siswa',label:'Laporan Siswa',icon:'summarize',section:'Laporan'}, {id:'laporan-saya',label:'Laporan Saya',icon:'history',section:'Laporan'}, {id:'config',label:'Konfigurasi',icon:'settings',section:'Sistem'}, {id:'libur',label:'Hari Libur',icon:'event_busy',section:'Sistem'}, {id:'idcard',label:'Kartu Identitas',icon:'badge',section:'Profil'},  {id:'account',label:'Pengaturan Akun',icon:'manage_accounts',section:'Profil'}, {id:'about',label:'Tentang Aplikasi',icon:'info',section:'Informasi'} ],
-  Guru:[ {id:'dashboard',label:'Dashboard',icon:'dashboard',section:'Utama'}, {id:'scanner',label:'Scanner Absen',icon:'qr_code_scanner',section:'Utama'}, {id:'data-siswa',label:'Data Siswa',icon:'groups',section:'Data'}, {id:'laporan-siswa',label:'Laporan Siswa',icon:'summarize',section:'Laporan'}, {id:'laporan-saya',label:'Laporan Saya',icon:'history',section:'Laporan'}, {id:'idcard',label:'Kartu Identitas',icon:'badge',section:'Profil'}, {id:'account',label:'Pengaturan Akun',icon:'manage_accounts',section:'Profil'}, {id:'about',label:'Tentang Aplikasi',icon:'info',section:'Informasi'} ],
-  Siswa:[ {id:'dashboard',label:'Dashboard',icon:'dashboard',section:'Utama'}, {id:'laporan-siswa',label:'Riwayat Absen',icon:'history',section:'Laporan'}, {id:'idcard',label:'Kartu Pelajar',icon:'badge',section:'Profil'}, {id:'account',label:'Pengaturan Akun',icon:'manage_accounts',section:'Profil'}, {id:'about',label:'Tentang Aplikasi',icon:'info',section:'Informasi'} ]
+  Admin:[ 
+    {id:'dashboard',label:'Dashboard',icon:'dashboard',section:'Utama'}, 
+    {id:'scanner',label:'Scanner Absen',icon:'qr_code_scanner',section:'Utama'}, 
+    {id:'data-guru',label:'Data Guru',icon:'supervisor_account',section:'Master'}, 
+    {id:'data-siswa',label:'Data Siswa',icon:'groups',section:'Master'}, 
+    {id:'laporan-guru',label:'Laporan Guru',icon:'badge',section:'Laporan'}, 
+    {id:'laporan-siswa',label:'Laporan Siswa',icon:'summarize',section:'Laporan'}, 
+    {id:'laporan-saya',label:'Laporan Saya',icon:'history',section:'Laporan'}, 
+    {id:'download',label:'Pusat Download',icon:'cloud_download',section:'Laporan'},
+    {id:'teladan',label:'Peringkat Teladan',icon:'emoji_events',section:'Laporan'}, 
+    {id:'config',label:'Konfigurasi',icon:'settings',section:'Sistem'}, 
+    {id:'libur',label:'Hari Libur',icon:'event_busy',section:'Sistem'}, 
+    {id:'broadcast',label:'Broadcast',icon:'campaign',section:'Sistem'}, 
+    {id:'idcard',label:'Kartu Identitas',icon:'badge',section:'Profil'},  
+    {id:'account',label:'Pengaturan Akun',icon:'manage_accounts',section:'Profil'}, 
+    {id:'about',label:'Tentang Aplikasi',icon:'info',section:'Informasi'} 
+  ],
+  Guru:[ {id:'dashboard',label:'Dashboard',icon:'dashboard',section:'Utama'}, {id:'scanner',label:'Scanner Absen',icon:'qr_code_scanner',section:'Utama'}, {id:'data-siswa',label:'Data Siswa',icon:'groups',section:'Data'}, {id:'laporan-siswa',label:'Laporan Siswa',icon:'summarize',section:'Laporan'}, {id:'laporan-saya',label:'Laporan Saya',icon:'history',section:'Laporan'}, {id:'teladan',label:'Peringkat Teladan',icon:'emoji_events',section:'Laporan'}, {id:'idcard',label:'Kartu Identitas',icon:'badge',section:'Profil'}, {id:'account',label:'Pengaturan Akun',icon:'manage_accounts',section:'Profil'}, {id:'about',label:'Tentang Aplikasi',icon:'info',section:'Informasi'} ],
+  Siswa:[ {id:'dashboard',label:'Dashboard',icon:'dashboard',section:'Utama'}, {id:'laporan-siswa',label:'Riwayat Absen',icon:'history',section:'Laporan'}, {id:'teladan',label:'Peringkat Teladan',icon:'emoji_events',section:'Laporan'}, {id:'idcard',label:'Kartu Pelajar',icon:'badge',section:'Profil'}, {id:'account',label:'Pengaturan Akun',icon:'manage_accounts',section:'Profil'}, {id:'about',label:'Tentang Aplikasi',icon:'info',section:'Informasi'} ]
 };
 
 function buildNav(){
   const role = APP.user.role; 
+  const conf = APP.config || {};
+  const isGuruAktif = conf.ABSENSI_GURU_AKTIF !== 'NONAKTIF';
+  const isSiswaAktif = conf.ABSENSI_SISWA_AKTIF !== 'NONAKTIF';
+
   // Clone array agar tidak mengubah data asli NAV_DEFS
-  const items = JSON.parse(JSON.stringify(NAV_DEFS[role] || NAV_DEFS.Siswa)); 
-  
-  // UBAH DI SINI: Hapus '|| role === 'SuperAdmin'' agar hanya tampil di Admin
-  if (role === 'Admin' && APP.config.HALAMAN_DOWNLOAD_AKTIF === 'AKTIF') {
-      items.push({ id:'download', label:'Pusat Download', icon:'cloud_download', section:'Laporan' });
-  }
+  let items = JSON.parse(JSON.stringify(NAV_DEFS[role] || NAV_DEFS.Siswa)); 
+
+  // Filter item navigasi berdasarkan status mesin aktif/nonaktif & hak akses
+  items = items.filter(it => {
+    if (it.id === 'download' && (role !== 'Admin' || conf.HALAMAN_DOWNLOAD_AKTIF !== 'AKTIF')) return false;
+    if (it.id === 'broadcast' && role !== 'SuperAdmin' && conf.HALAMAN_BROADCAST_AKTIF === 'NONAKTIF') return false;
+    if (!isGuruAktif && (it.id.includes('guru') || it.id === 'wa-guru')) return false;
+    if (!isSiswaAktif && (it.id.includes('siswa') || it.id === 'wa-siswa')) return false;
+    return true;
+  });
 
   let sections={};
   items.forEach(it=>{if(!sections[it.section])sections[it.section]=[];sections[it.section].push(it);});
@@ -1631,6 +2025,7 @@ function buildNav(){
     list.forEach(it=>{html+=`<div class="nav-item" id="nav-${it.id}" onclick="loadPage('${it.id}');closeSidebar();"><span class="material-symbols-rounded">${it.icon}</span>${it.label}</div>`;});
   });
   document.getElementById('nav-links').innerHTML=html;
+  
   let bhtml='';
   if (role === 'SuperAdmin') {
     bhtml += `<button class="bnav-item" id="bnav-dashboard" onclick="loadPage('dashboard')"><span class="material-symbols-rounded">admin_panel_settings</span>Panel</button>`;
@@ -1644,9 +2039,11 @@ function buildNav(){
     if (role === 'Siswa') { 
       bhtml += `<button class="bnav-item" id="bnav-laporan-siswa" onclick="loadPage('laporan-siswa')"><span class="material-symbols-rounded">history</span>Riwayat</button>`; 
     } else if (role === 'Guru') { 
-      bhtml += `<button class="bnav-item" id="bnav-laporan-siswa" onclick="loadPage('laporan-siswa')"><span class="material-symbols-rounded">summarize</span>Laporan</button>`; 
+      if (isSiswaAktif) bhtml += `<button class="bnav-item" id="bnav-laporan-siswa" onclick="loadPage('laporan-siswa')"><span class="material-symbols-rounded">summarize</span>Laporan</button>`; 
     } else { 
-      bhtml += `<button class="bnav-item" id="bnav-laporan-guru" onclick="loadPage('laporan-guru')"><span class="material-symbols-rounded">badge</span>Lap. Guru</button>`; 
+      // Admin
+      if (isGuruAktif) bhtml += `<button class="bnav-item" id="bnav-laporan-guru" onclick="loadPage('laporan-guru')"><span class="material-symbols-rounded">badge</span>Lap. Guru</button>`; 
+      else if (isSiswaAktif) bhtml += `<button class="bnav-item" id="bnav-laporan-siswa" onclick="loadPage('laporan-siswa')"><span class="material-symbols-rounded">summarize</span>Lap. Siswa</button>`; 
     }
     
     const hasScanner = items.some(it => it.id === 'scanner');
@@ -1661,7 +2058,9 @@ function buildNav(){
     } else if(role === 'Guru') { 
       bhtml += `<button class="bnav-item" id="bnav-idcard" onclick="loadPage('idcard')"><span class="material-symbols-rounded">badge</span>Kartu QR</button>`; 
     } else { 
-      bhtml += `<button class="bnav-item" id="bnav-laporan-siswa" onclick="loadPage('laporan-siswa')"><span class="material-symbols-rounded">summarize</span>Lap. Siswa</button>`; 
+      // Admin
+      if (isSiswaAktif && isGuruAktif) bhtml += `<button class="bnav-item" id="bnav-laporan-siswa" onclick="loadPage('laporan-siswa')"><span class="material-symbols-rounded">summarize</span>Lap. Siswa</button>`; 
+      else bhtml += `<button class="bnav-item" id="bnav-account" onclick="loadPage('account')"><span class="material-symbols-rounded">manage_accounts</span>Akun</button>`;
     }
     
     bhtml += `<button class="bnav-item" id="bnav-menu" onclick="toggleSidebar()"><span class="material-symbols-rounded">menu</span>Lainnya</button>`;
@@ -1683,22 +2082,40 @@ function closeSidebar(){ document.getElementById('sidebar').classList.remove('op
    PAGE ROUTING
 ═══════════════════════════════════════════ */
 let modeInterval=null;
-function loadPage(page){
+
+// ROUTER: Mendengarkan tombol Back/Forward di browser
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.substring(1);
+  const validPages = ['dashboard', 'scanner', 'data-guru', 'data-siswa', 'laporan-guru', 'laporan-siswa', 'laporan-saya', 'download', 'teladan', 'broadcast', 'libur', 'idcard', 'config', 'account', 'about'];
+  if (hash && hash !== APP.currentPage && validPages.includes(hash)) {
+    loadPage(hash, false); // false = jangan timpa history URL lagi
+  }
+});
+
+function loadPage(page, updateUrl = true){
   CamManager.stopAll();
   if(modeInterval){clearInterval(modeInterval);modeInterval=null;}
   APP.currentPage=page;setActiveNav(page);
-  const titles={dashboard:'Dashboard',scanner:'Scanner Absen',config:'Konfigurasi',libur:'Hari Libur',idcard:'Kartu Identitas','data-guru':'Data Guru','data-siswa':'Data Siswa','laporan-guru':'Laporan Guru','laporan-siswa':'Laporan Siswa','laporan-saya':'Laporan Saya',account:'Pengaturan Akun',about:'Tentang Aplikasi'};
+  
+  // Update URL Browser agar bisa di-copy & di-bookmark
+  if (updateUrl) {
+    window.history.pushState(null, null, '#' + page);
+  }
+  const titles={dashboard:'Dashboard',scanner:'Scanner Absen',teladan:'Peringkat Teladan',broadcast:'Pusat Broadcast',config:'Konfigurasi',libur:'Hari Libur',idcard:'Kartu Identitas','data-guru':'Data Guru','data-siswa':'Data Siswa','laporan-guru':'Laporan Guru','laporan-siswa':'Laporan Siswa','laporan-saya':'Laporan Saya',account:'Pengaturan Akun',about:'Tentang Aplikasi'};
   document.getElementById('page-title').textContent=titles[page]||page;
   document.querySelectorAll('.scroll-area>.view').forEach(v=>v.classList.add('hidden'));
+  
   if(page==='dashboard')            renderDashboardPage();
   else if(page.startsWith('data-')) renderMasterPage(page);
   else if(page==='scanner')         initScannerPage();
   else if(page.startsWith('laporan')) renderLaporanPage(page);
-  else if(page==='download')         renderDownloadPage();
+  else if(page==='download')        renderDownloadPage();
+  else if(page==='broadcast')       renderBroadcastPage();
   else if(page==='libur')           renderLiburPage();
   else if(page==='idcard')          renderIdCardPage();
   else if(page==='config')          initConfigPage();
   else if(page==='account')         renderAccountPage();
+  else if(page==='teladan')         renderTeladanPage();
   else if(page==='about')           renderAboutPage();
 }
 
@@ -1733,7 +2150,15 @@ async function renderDashboardPage(){
     const r = await callAPI('getDashboardData', {});
     if(r.status === 'success'){ 
       APP.config = r.data.config || {}; 
-      document.getElementById('nav-school-name').textContent = APP.config.NAMA_SEKOLAH ? APP.config.NAMA_SEKOLAH.split(' ')[0] : 'E-Absensi'; 
+      const appName = APP.config.NAMA_APLIKASI || 'E-Absensi Pro';
+      const navAppEl = document.getElementById('nav-app-name');
+      if (navAppEl) navAppEl.textContent = appName;
+      document.title = appName;
+      localStorage.setItem('app_custom_name', appName); 
+      
+      const logoUrl = APP.config.URL_LOGO || '';
+      localStorage.setItem('app_custom_logo', logoUrl);
+      applyAppBranding(appName, logoUrl);
       
       buildNav(); // <--- FIX: Bangun ulang menu setelah config berhasil didapat
       setActiveNav(APP.currentPage); // <--- Pertahankan warna aktif pada menu
@@ -1753,9 +2178,15 @@ function renderDashboardContent(container, data){
     return;
   }
   
-  if (APP.user.role === 'SuperAdmin') {
+  const role = APP.user.role;
+  const conf = data.config || {}; 
+  
+  // --- LOGIKA AKTIF/NONAKTIF MESIN ABSENSI ---
+  const isGuruAktif = conf.ABSENSI_GURU_AKTIF !== 'NONAKTIF';
+  const isSiswaAktif = conf.ABSENSI_SISWA_AKTIF !== 'NONAKTIF';
+
+  if (role === 'SuperAdmin') {
     const isLocked = data.isLocked === true;
-    
     const statusBanner = isLocked 
       ? `<div style="background:#fef2f2; color:#991b1b; padding:12px; border-radius:8px; border:2px solid #ef4444; font-weight:bold; margin-bottom:20px; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:8px; animation:pulse 2s infinite;"><span class="material-symbols-rounded">warning</span> SISTEM SAAT INI MATI TOTAL</div>`
       : `<div style="background:#f0fdf4; color:#166534; padding:12px; border-radius:8px; border:2px solid #22c55e; font-weight:bold; margin-bottom:20px; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:8px;"><span class="material-symbols-rounded">check_circle</span> SISTEM AKTIF & NORMAL</div>`;
@@ -1764,14 +2195,11 @@ function renderDashboardContent(container, data){
         <div class="card" style="text-align:center; padding:40px 20px; background:var(--surf); border:2px solid ${isLocked ? 'var(--red)' : 'var(--acc)'}; box-shadow:var(--sh3);">
           <span class="material-symbols-rounded" style="font-size:72px; color:${isLocked ? 'var(--red)' : 'var(--acc)'}; margin-bottom:10px;">admin_panel_settings</span>
           <h2 style="color:var(--tx); margin-bottom:14px; font-size:1.6rem; font-weight:800;">PANEL SUPER ADMIN</h2>
-          
           ${statusBanner}
           <p style="color:var(--tx2); margin-bottom:30px; font-size:0.9rem;">Area berbahaya. Tombol di bawah ini akan mengontrol akses masuk seluruh aplikasi E-Absensi.</p>
-          
           <button class="btn wf" style="background:var(--red); color:white; height:60px; font-size:1.1rem; font-weight:bold; margin-bottom:12px; box-shadow:0 4px 15px rgba(192, 57, 43, 0.4); opacity:${isLocked ? '0.4' : '1'}; cursor:${isLocked ? 'not-allowed' : 'pointer'};" onclick="${isLocked ? '' : 'executeSystemLock(true)'}">
             <span class="material-symbols-rounded ms" style="font-size:24px;">lock</span> MATIKAN SISTEM SEKARANG
           </button>
-          
           <button class="btn wf" style="background:var(--grn); color:white; height:60px; font-size:1.1rem; font-weight:bold; box-shadow:0 4px 15px rgba(45, 106, 79, 0.3); opacity:${!isLocked ? '0.4' : '1'}; cursor:${!isLocked ? 'not-allowed' : 'pointer'};" onclick="${!isLocked ? '' : 'executeSystemLock(false)'}">
             <span class="material-symbols-rounded ms" style="font-size:24px;">lock_open</span> AKTIFKAN SISTEM KEMBALI
           </button>
@@ -1784,44 +2212,32 @@ function renderDashboardContent(container, data){
     return; 
   }
   
-  const role = APP.user.role, conf = data.config || {}; 
   const C = 2 * Math.PI * 50;
-  
-  const todayStr = data.serverTime; 
-  const liburMatch = (data.libur || []).find(l => l.tanggal === todayStr);
-  const isLibur = !!liburMatch;
-  const ketLibur = isLibur ? liburMatch.keterangan : '';
+  const todayStr = data.serverTime; 
+  const liburMatch = (data.libur || []).find(l => l.tanggal === todayStr);
+  const isLibur = !!liburMatch;
+  const ketLibur = isLibur ? liburMatch.keterangan : '';
 
-  const dateObj = new Date();
-  const namaHari = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
-  const tglPanjang = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-  
-  // Logika Penambahan Kata Sapaan
+  const dateObj = new Date();
+  const namaHari = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
+  const tglPanjang = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  
   const namaAsli = APP.user.nama || 'User';
-  const jkUser = APP.user.jk || 'L'; // Ambil data Jenis Kelamin, default Laki-laki
+  const jkUser = APP.user.jk || 'L'; 
   
   let sapaan = '';
   if (role === 'Siswa') {
-    sapaan = 'Ananda, ';
+    sapaan = jkUser.toUpperCase() === 'P' ? (conf.SAPAAN_SISWA_P || 'Ananda, ') : (conf.SAPAAN_SISWA_L || 'Ananda, ');
   } else if (role === 'Guru' || role === 'Admin') {
-    sapaan = jkUser.toUpperCase() === 'P' ? 'Ibu ' : 'Bpk. ';
+    sapaan = jkUser.toUpperCase() === 'P' ? (conf.SAPAAN_GURU_P || 'Ibu ') : (conf.SAPAAN_GURU_L || 'Bpk. ');
   }
   const namaLengkap = sapaan + namaAsli;
 
-  // Logika Warna Hero Card Sesuai Role (Selaras dengan Halaman Akun)
-  const bgGradients = {
-    Admin: 'linear-gradient(135deg, var(--acc), var(--acc2))',
-    Guru: 'linear-gradient(135deg, #059669, #047857)',
-    Siswa: 'linear-gradient(135deg, #2563eb, #1e40af)'
-  };
-  const shadowGradients = {
-    Admin: 'rgba(45, 106, 79, 0.3)',
-    Guru: 'rgba(4, 120, 87, 0.3)',
-    Siswa: 'rgba(30, 64, 175, 0.3)'
-  };
+  const bgGradients = { Admin: 'linear-gradient(135deg, var(--acc), var(--acc2))', Guru: 'linear-gradient(135deg, #059669, #047857)', Siswa: 'linear-gradient(135deg, #2563eb, #1e40af)' };
+  const shadowGradients = { Admin: 'rgba(45, 106, 79, 0.3)', Guru: 'rgba(4, 120, 87, 0.3)', Siswa: 'rgba(30, 64, 175, 0.3)' };
 
-  const bgHero = isLibur ? 'linear-gradient(135deg, #e11d48, #9f1239)' : (bgGradients[role] || bgGradients.Admin);
-  const shadowHero = isLibur ? 'rgba(225, 29, 72, 0.3)' : (shadowGradients[role] || shadowGradients.Admin);
+  const bgHero = isLibur ? 'linear-gradient(135deg, #e11d48, #9f1239)' : (bgGradients[role] || bgGradients.Admin);
+  const shadowHero = isLibur ? 'rgba(225, 29, 72, 0.3)' : (shadowGradients[role] || shadowGradients.Admin);
   const iconHero = isLibur ? 'event_busy' : 'calendar_month';
   const badgeHero = isLibur 
     ? `<div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.25); padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:800; color:#fff; border:1px solid rgba(255,255,255,0.4); box-shadow:0 4px 10px rgba(0,0,0,0.15); backdrop-filter:blur(4px); letter-spacing:0.03em;"><span class="material-symbols-rounded" style="font-size:16px;">celebration</span> HARI LIBUR: ${ketLibur.toUpperCase()}</div>`
@@ -1832,20 +2248,16 @@ function renderDashboardContent(container, data){
       <div style="position:absolute; top:-30px; right:-20px; width:160px; height:160px; background:rgba(255,255,255,0.06); border-radius:50%;"></div>
       <div style="position:absolute; bottom:-40px; right:60px; width:100px; height:100px; background:rgba(255,255,255,0.04); border-radius:50%;"></div>
       <span class="material-symbols-rounded" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:110px; color:rgba(255,255,255,0.15); pointer-events:none;">${iconHero}</span>
-
       <div style="position:relative; z-index:2;">
         <div style="font-size:0.85rem; font-weight:500; opacity:0.9; margin-bottom:2px; letter-spacing:0.02em;">Selamat datang,</div>
         <div style="font-size:1.4rem; font-weight:700; line-height:1.3; margin-bottom:12px; word-wrap:break-word; padding-right:40px;">${namaLengkap} 👋</div>
-        
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
           <div style="background:rgba(0,0,0,0.15); padding:6px 12px; border-radius:var(--rfull); font-size:0.75rem; font-weight:600; display:flex; align-items:center; gap:6px; backdrop-filter:blur(4px);">
             <span class="material-symbols-rounded" style="font-size:14px;">calendar_today</span>
             ${namaHari}, ${tglPanjang}
           </div>
         </div>
-
         ${badgeHero}
-
         ${extraContent}
       </div>
     </div>
@@ -1853,12 +2265,8 @@ function renderDashboardContent(container, data){
 
   const getSafeStat = (obj, shiftKey) => { if(obj && obj[shiftKey]) return obj[shiftKey]; if(shiftKey === 'pagi' && obj && obj.h !== undefined) return obj; return {h:0, s:0, i:0, a:0, total:0}; };
   const buildStatCards = (tipeData, statsObj, shiftName) => {
-    const h = statsObj.h || 0; 
-    const s = statsObj.s || 0; 
-    const i = statsObj.i || 0; 
-    const a = statsObj.a || 0; 
-    const total = statsObj.total || (h + s + i + a); 
-    const pct = total > 0 ? Math.round((h/total)*100) : 0; 
+    const h = statsObj.h || 0; const s = statsObj.s || 0; const i = statsObj.i || 0; const a = statsObj.a || 0; 
+    const total = statsObj.total || (h + s + i + a); const pct = total > 0 ? Math.round((h/total)*100) : 0; 
     const pc = pct >= 75 ? '#10b981' : pct >= 50 ? '#f59e0b' : '#ef4444'; 
     const reportTarget = tipeData.toUpperCase();
     const shiftParam = shiftName === 'Pagi' ? 'Pagi' : (shiftName === 'Malam' ? 'Malam' : 'Semua');
@@ -1875,9 +2283,7 @@ function renderDashboardContent(container, data){
           <div style="width:${pct}%; background:${pc}; height:100%; border-radius:var(--rfull); transition:width 1.2s var(--ease); box-shadow: inset 0 -2px 4px rgba(0,0,0,0.15);"></div>
         </div>
       </div>
-
       <div class="stat-grid" style="padding:0 16px 20px; margin-bottom:0;">
-        
         <div style="background:linear-gradient(135deg, #10b981, #047857); color:#fff; border-radius:var(--r3); padding:16px 10px; cursor:pointer; display:flex; flex-direction:column; align-items:center; position:relative; overflow:hidden; box-shadow:0 6px 16px rgba(16, 185, 129, 0.25); border: 1px solid rgba(255,255,255,0.15); transition: transform 0.2s var(--spring);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'" onclick="goToReportFiltered('${reportTarget}', 'Hadir', '${shiftParam}', true)" title="Klik untuk rincian">
           <div style="position:absolute; top:-15px; right:-15px; width:65px; height:65px; background:rgba(255,255,255,0.1); border-radius:50%;"></div>
           <div style="width:38px; height:38px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px; backdrop-filter:blur(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -1886,7 +2292,6 @@ function renderDashboardContent(container, data){
           <div style="font-size:1.6rem; font-weight:800; font-family:var(--fm); line-height:1; margin-bottom:4px; z-index:2;">${h}</div>
           <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; opacity:0.95; z-index:2;">Hadir</div>
         </div>
-
         <div style="background:linear-gradient(135deg, #3b82f6, #1d4ed8); color:#fff; border-radius:var(--r3); padding:16px 10px; cursor:pointer; display:flex; flex-direction:column; align-items:center; position:relative; overflow:hidden; box-shadow:0 6px 16px rgba(59, 130, 246, 0.25); border: 1px solid rgba(255,255,255,0.15); transition: transform 0.2s var(--spring);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'" onclick="goToReportFiltered('${reportTarget}', 'Sakit', '${shiftParam}', true)" title="Klik untuk rincian">
           <div style="position:absolute; top:-15px; right:-15px; width:65px; height:65px; background:rgba(255,255,255,0.1); border-radius:50%;"></div>
           <div style="width:38px; height:38px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px; backdrop-filter:blur(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -1895,7 +2300,6 @@ function renderDashboardContent(container, data){
           <div style="font-size:1.6rem; font-weight:800; font-family:var(--fm); line-height:1; margin-bottom:4px; z-index:2;">${s}</div>
           <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; opacity:0.95; z-index:2;">Sakit</div>
         </div>
-
         <div style="background:linear-gradient(135deg, #f59e0b, #b45309); color:#fff; border-radius:var(--r3); padding:16px 10px; cursor:pointer; display:flex; flex-direction:column; align-items:center; position:relative; overflow:hidden; box-shadow:0 6px 16px rgba(245, 158, 11, 0.25); border: 1px solid rgba(255,255,255,0.15); transition: transform 0.2s var(--spring);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'" onclick="goToReportFiltered('${reportTarget}', 'Izin', '${shiftParam}', true)" title="Klik untuk rincian">
           <div style="position:absolute; top:-15px; right:-15px; width:65px; height:65px; background:rgba(255,255,255,0.1); border-radius:50%;"></div>
           <div style="width:38px; height:38px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px; backdrop-filter:blur(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -1904,7 +2308,6 @@ function renderDashboardContent(container, data){
           <div style="font-size:1.6rem; font-weight:800; font-family:var(--fm); line-height:1; margin-bottom:4px; z-index:2;">${i}</div>
           <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; opacity:0.95; z-index:2;">Izin</div>
         </div>
-
         <div style="background:linear-gradient(135deg, #ef4444, #b91c1c); color:#fff; border-radius:var(--r3); padding:16px 10px; cursor:pointer; display:flex; flex-direction:column; align-items:center; position:relative; overflow:hidden; box-shadow:0 6px 16px rgba(239, 68, 68, 0.25); border: 1px solid rgba(255,255,255,0.15); transition: transform 0.2s var(--spring);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'" onclick="goToReportFiltered('${reportTarget}', 'Alpha', '${shiftParam}', true)" title="Klik untuk rincian">
           <div style="position:absolute; top:-15px; right:-15px; width:65px; height:65px; background:rgba(255,255,255,0.1); border-radius:50%;"></div>
           <div style="width:38px; height:38px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px; backdrop-filter:blur(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -1913,19 +2316,13 @@ function renderDashboardContent(container, data){
           <div style="font-size:1.6rem; font-weight:800; font-family:var(--fm); line-height:1; margin-bottom:4px; z-index:2;">${a}</div>
           <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; opacity:0.95; z-index:2;">Alpha</div>
         </div>
-
       </div>
     `;
   };
   
   let bannerUlangTahun = '';
   if (data.birthdays && data.birthdays.length > 0) {
-    const listNama = data.birthdays.map(b => `
-      <div style="display:inline-block; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:8px; margin:2px 4px 2px 0;">
-        <b>${b.nama}</b> <span style="font-size:0.75rem; opacity:0.9;">(${b.detail})</span>
-      </div>
-    `).join('');
-
+    const listNama = data.birthdays.map(b => `<div style="display:inline-block; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:8px; margin:2px 4px 2px 0;"><b>${b.nama}</b> <span style="font-size:0.75rem; opacity:0.9;">(${b.detail})</span></div>`).join('');
     bannerUlangTahun = `
       <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 14px 18px; border-radius: var(--r3); margin-bottom: 14px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2); animation: fadeUp 0.5s ease;">
         <div style="width: 44px; height: 44px; background: rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
@@ -1933,9 +2330,7 @@ function renderDashboardContent(container, data){
         </div>
         <div style="flex:1; min-width:0;">
           <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; opacity: 0.95;">🎉 Selamat Ulang Tahun</div>
-          <div style="line-height: 1.5; font-size:0.86rem;">
-            ${listNama}
-          </div>
+          <div style="line-height: 1.5; font-size:0.86rem;">${listNama}</div>
         </div>
       </div>
     `;
@@ -1943,7 +2338,6 @@ function renderDashboardContent(container, data){
 
   let bannerPengumuman = '';
   if (data.broadcast) {
-    // Menggunakan gradasi Violet/Ungu agar kontras dengan card user
     bannerPengumuman = `
       <div style="background: linear-gradient(135deg, #8b5cf6, #5b21b6); color: white; padding: 14px 18px; border-radius: var(--r3); margin-bottom: 14px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); animation: fadeUp 0.5s ease;">
         <div style="width: 44px; height: 44px; background: rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; border: 1px solid rgba(255,255,255,0.2);">
@@ -2055,13 +2449,27 @@ function renderDashboardContent(container, data){
       </div>
     `;
 
+    // Susun Tombol Quick Action secara dinamis
+    let qaAdmin = [];
+    if (isGuruAktif) {
+      qaAdmin.push(['data-guru','supervisor_account','var(--blu-b)','var(--blu)','Data Guru']);
+      qaAdmin.push(['laporan-guru','badge','var(--ylw-b)','var(--ylw)','Lap. Guru']);
+    }
+    if (isSiswaAktif) {
+      qaAdmin.push(['data-siswa','groups','var(--grn-b)','var(--grn)','Data Siswa']);
+      qaAdmin.push(['laporan-siswa','summarize','var(--red-b)','var(--red)','Lap. Siswa']);
+    }
+    let qaGridHtml = qaAdmin.length > 0 ? `<div class="qa-grid" style="grid-template-columns:repeat(2,1fr);">${qaAdmin.map(([pg,ic,bg,cl,lbl])=>`<button class="qa-btn" onclick="loadPage('${pg}')"><div class="qa-icon" style="background:${bg};color:${cl};"><span class="material-symbols-rounded">${ic}</span></div><div><div class="qa-lbl">${lbl}</div></div></button>`).join('')}</div>` : '';
+
+    let guruSectionHtml = isGuruAktif ? `<div class="sdiv"><div class="sdiv-t">Guru — Hari Ini</div><div class="sdiv-l"></div></div><div class="card" style="padding:0; overflow:hidden; margin-bottom:10px;">${buildShiftSection('Guru', s.guru, 'admin-guru')}</div>` : '';
+    let siswaSectionHtml = isSiswaAktif ? `<div class="sdiv"><div class="sdiv-t">Siswa — Hari Ini</div><div class="sdiv-l"></div></div><div class="card" style="padding:0; overflow:hidden; margin-bottom:10px;">${buildShiftSection('Siswa', s.siswa, 'admin-siswa')}</div>` : '';
+
     container.innerHTML=`
       ${bannerUlangTahun}
       ${bannerPengumuman} ${heroCardTemplate(extraAdmin)}
-
-      <div class="qa-grid" style="grid-template-columns:repeat(2,1fr);">${[['data-guru','supervisor_account','var(--blu-b)','var(--blu)','Data Guru'],['data-siswa','groups','var(--grn-b)','var(--grn)','Data Siswa'],['laporan-guru','badge','var(--ylw-b)','var(--ylw)','Lap. Guru'],['laporan-siswa','summarize','var(--red-b)','var(--red)','Lap. Siswa']].map(([pg,ic,bg,cl,lbl])=>`<button class="qa-btn" onclick="loadPage('${pg}')"><div class="qa-icon" style="background:${bg};color:${cl};"><span class="material-symbols-rounded">${ic}</span></div><div><div class="qa-lbl">${lbl}</div></div></button>`).join('')}</div>
-      <div class="sdiv"><div class="sdiv-t">Guru — Hari Ini</div><div class="sdiv-l"></div></div><div class="card" style="padding:0; overflow:hidden; margin-bottom:10px;">${buildShiftSection('Guru', s.guru, 'admin-guru')}</div>
-      <div class="sdiv"><div class="sdiv-t">Siswa — Hari Ini</div><div class="sdiv-l"></div></div><div class="card" style="padding:0; overflow:hidden; margin-bottom:10px;">${buildShiftSection('Siswa', s.siswa, 'admin-siswa')}</div>
+      ${qaGridHtml}
+      ${guruSectionHtml}
+      ${siswaSectionHtml}
       <div class="sdiv"><div class="sdiv-t">Sedang Online</div><div class="sdiv-l"></div></div><div class="card" style="padding:14px; background:var(--bg2);"><div style="font-size:.78rem;font-weight:700;color:var(--tx);margin-bottom:4px;display:flex;align-items:center;gap:6px;"><div class="mode-dot"></div> Live Monitor</div><div id="dashboard-online-users"><span style="font-size:0.75rem;color:var(--tx3);">Memeriksa koneksi...</span></div></div>`;
   }
   else if(role==='Guru'){
@@ -2078,31 +2486,37 @@ function renderDashboardContent(container, data){
     </div>
   `;
 
+  let qaGuruHtml = '';
+  let guruSiswaHtml = '';
+
+  if (isSiswaAktif) {
+    qaGuruHtml = `
+    <div class="qa-grid">
+      <button class="qa-btn" onclick="loadPage('data-siswa')">
+        <div class="qa-icon" style="background:var(--grn-b); color:var(--grn);"><span class="material-symbols-rounded">groups</span></div>
+        <div><div class="qa-lbl">Data Siswa</div><div class="qa-sub">Kelola daftar</div></div>
+      </button>
+      <button class="qa-btn" onclick="loadPage('laporan-siswa')">
+        <div class="qa-icon" style="background:var(--blu-b); color:var(--blu);"><span class="material-symbols-rounded">summarize</span></div>
+        <div><div class="qa-lbl">Laporan</div><div class="qa-sub">Rekap absensi</div></div>
+      </button>
+    </div>`;
+
+    guruSiswaHtml = `
+    <div class="sdiv">
+      <div class="sdiv-t">Siswa — Hari Ini ${targetKelasText}</div>
+      <div class="sdiv-l"></div>
+    </div>
+    <div class="card" style="padding:0; overflow:hidden; margin-bottom:10px;">
+      ${buildShiftSection('Siswa', s.siswa, 'guru-siswa')}
+    </div>`;
+  }
+
   container.innerHTML = `
     ${bannerUlangTahun}
     ${bannerPengumuman} ${heroCardTemplate(extraGuru)}
     
-    <div class="qa-grid">
-      <button class="qa-btn" onclick="loadPage('data-siswa')">
-        <div class="qa-icon" style="background:var(--grn-b); color:var(--grn);">
-          <span class="material-symbols-rounded">groups</span>
-        </div>
-        <div>
-          <div class="qa-lbl">Data Siswa</div>
-          <div class="qa-sub">Kelola daftar</div>
-        </div>
-      </button>
-      
-      <button class="qa-btn" onclick="loadPage('laporan-siswa')">
-        <div class="qa-icon" style="background:var(--blu-b); color:var(--blu);">
-          <span class="material-symbols-rounded">summarize</span>
-        </div>
-        <div>
-          <div class="qa-lbl">Laporan</div>
-          <div class="qa-sub">Rekap absensi</div>
-        </div>
-      </button>
-    </div>
+    ${qaGuruHtml}
 
     <div class="sdiv">
       <div class="sdiv-t">Kehadiran Saya — Bulan Ini</div>
@@ -2148,13 +2562,7 @@ function renderDashboardContent(container, data){
       </div>
     </div>
 
-    <div class="sdiv">
-      <div class="sdiv-t">Siswa — Hari Ini ${targetKelasText}</div>
-      <div class="sdiv-l"></div>
-    </div>
-    <div class="card" style="padding:0; overflow:hidden; margin-bottom:10px;">
-      ${buildShiftSection('Siswa', s.siswa, 'guru-siswa')}
-    </div>
+    ${guruSiswaHtml}
 
     <div class="sdiv">
       <div class="sdiv-t">Sedang Online</div>
@@ -2313,7 +2721,10 @@ function buildMasterTable(container, type, list){
           </button>` : ''}
           
           ${canCreate ? `
-          <button class="btn btn-p btn-sm btn-ic" onclick="openDataModal('${type}','CREATE')" title="Tambah Data">
+          <button class="btn btn-s btn-sm btn-ic" onclick="openImportModal('${type}')" title="Import Data via Excel" style="color: var(--acc); border-color: var(--acc); background: var(--grn-b);">
+            <span class="material-symbols-rounded ms" style="font-size:18px;">upload_file</span>
+          </button>
+          <button class="btn btn-p btn-sm btn-ic" onclick="openDataModal('${type}','CREATE')" title="Tambah Data Manual">
             <span class="material-symbols-rounded ms" style="font-size:18px;">add</span>
           </button>` : ''}
         </div>
@@ -2392,13 +2803,21 @@ function filterMainTable(){
   }); 
 }
 
-function openDataModal(type, mode, id=null){
+async function openDataModal(type, mode, id=null){
+  if(type === 'GURU' && (!APP.masterCache['SISWA'] || APP.masterCache['SISWA'].length === 0)){
+    Swal.fire({title:'Memuat referensi kelas...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+    try {
+      const r = await callAPI('getMasterData', {type: 'SISWA'});
+      if(r.status === 'success') APP.masterCache['SISWA'] = r.data;
+      Swal.close();
+    } catch(e) { Swal.close(); }
+  }
   FORM_STATE.mode=mode; FORM_STATE.type=type; FORM_STATE.editId=id; document.getElementById('modal-title').textContent=(mode==='CREATE'?'Tambah':'Edit')+' '+(type==='GURU'?'Guru/Admin':'Siswa');
   const fields=document.getElementById('form-fields'); 
   const depts=[...new Set((APP.masterCache['GURU']||[]).map(g=>g.dept).filter(Boolean))].sort(); 
   const classes=[...new Set((APP.masterCache['SISWA']||[]).map(s=>s.kelas).filter(Boolean))].sort();
   const optDepts=depts.map(d=>`<option value="${d}">`).join(''); 
-  let passHtml = `<div class="field" style="grid-column:1/-1;"><label>Kata Sandi Akun</label><input class="input" type="password" id="f-pass" placeholder="${mode==='UPDATE' ? 'Kosongkan jika tidak ingin mengubah sandi' : 'Minimal 6 karakter'}"></div>`;
+  let passHtml = `<div class="field" style="grid-column:1/-1;"><label>Kata Sandi Akun</label><div style="position:relative;"><input class="input" type="password" id="f-pass" placeholder="${mode==='UPDATE' ? 'Kosongkan jika tidak ingin mengubah sandi' : 'Minimal 6 karakter'}"><button type="button" onclick="toggleLoginPass('f-pass', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--tx4);padding:2px;"><span class="material-symbols-rounded" style="font-size:18px;">visibility</span></button></div></div>`;
   
   if(type==='GURU'){
     fields.innerHTML=`
@@ -3242,120 +3661,267 @@ function printMyHistory(){
 }
 
 /* ═══════════════════════════════════════════
-   HARI LIBUR
+   HARI LIBUR (KALENDER INTERAKTIF)
 ═══════════════════════════════════════════ */
+let currentCalDate = new Date();
+
 function renderLiburPage(){
   const v=document.getElementById('pg-libur');v.classList.remove('hidden');
   v.innerHTML=`
-    <div class="card">
-      <div class="sec-hdr">
-        <div class="sec-t">📅 Hari Libur</div>
-        ${APP.user.role==='Admin' || APP.user.role==='SuperAdmin' ? `<button class="btn btn-p btn-sm" onclick="addLibur()"><span class="material-symbols-rounded ms">add</span> Tambah</button>` : ''}
+    <div class="card" style="padding:0; overflow:hidden; border:none; box-shadow:var(--sh3); margin-bottom:16px;">
+      <div style="background:linear-gradient(135deg, var(--red), #9f1239); padding:24px 20px; color:#fff; text-align:center; position:relative;">
+        <span class="material-symbols-rounded" style="position:absolute; left:-10px; bottom:-20px; font-size:120px; color:rgba(255,255,255,0.1); pointer-events:none;">event_available</span>
+        <h2 style="margin:0; font-size:1.5rem; font-weight:800; letter-spacing:-0.02em; position:relative; z-index:2;">Kalender Akademik</h2>
+        <p style="margin:4px 0 0; font-size:0.85rem; opacity:0.9; position:relative; z-index:2;">Ketuk angka pada kalender untuk menetapkan hari libur.</p>
       </div>
-      <div id="libur-list"><div class="fc" style="height:140px;gap:10px;color:var(--tx3);"><div class="spinner"></div></div></div>
-    </div>`;
+      <div style="padding:16px; background:var(--surf);">
+        ${APP.user.role==='Admin' || APP.user.role==='SuperAdmin' ? `
+        <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+          <button class="btn btn-p" style="background:var(--red);" onclick="addLibur()"><span class="material-symbols-rounded ms">add</span> Tambah Manual</button>
+          <button class="btn btn-s" style="color:var(--red); border-color:var(--red-b); background:var(--red-b);" onclick="openModal('modal-import-libur')"><span class="material-symbols-rounded ms">upload_file</span> Import Excel</button>
+        </div>` : ''}
+        
+        <div id="calendar-container">
+          <div class="fc" style="height:240px;color:var(--tx3);"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
     
-  callAPI('getDashboardData', {})
-    .then(r => {
-      let list = r.data?.libur || [];
-      const el = document.getElementById('libur-list');
-      if(!list.length){el.innerHTML=`<div class="empty-st"><span class="material-symbols-rounded">event_available</span>Belum ada hari libur.</div>`;return;}
-      
-      // PENGURUTAN: Terbaru di urutan teratas
-      list.sort((a, b) => {
-        const dA = normalizeDateForCompare(a.tanggal);
-        const dB = normalizeDateForCompare(b.tanggal);
-        return dB.localeCompare(dA); 
-      });
-
-      el.innerHTML=`<div class="tbl-w"><table>
-        <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Aksi</th></tr></thead>
-        <tbody>${list.map(x=>`<tr>
-          <td><code class="mono" style="font-size:.78rem;font-weight:600;background:var(--bg2);padding:2px 6px;border-radius:4px;border:1px solid var(--bdr);">${formatDateNormal(x.tanggal)}</code></td>
-          <td style="font-size:.84rem;">${x.keterangan}</td>
-          <td>
-            ${APP.user.role==='Admin' || APP.user.role==='SuperAdmin' ? `
-            <div class="flex gap-2">
-              <button class="btn btn-s btn-sm btn-ic" onclick="editLibur('${x.tanggal}', '${escHtml(x.keterangan)}')" title="Edit"><span class="material-symbols-rounded ms">edit</span></button>
-              <button class="btn btn-d btn-sm btn-ic" onclick="deleteLibur('${x.tanggal}')" title="Hapus"><span class="material-symbols-rounded ms">delete</span></button>
-            </div>
-            `:'—'}
-          </td>
-        </tr>`).join('')}</tbody>
-      </table></div>`;
-    }).catch(console.error);
+    <div class="sdiv"><div class="sdiv-t">Daftar Libur Bulan Ini</div><div class="sdiv-l"></div></div>
+    <div id="libur-list-bottom">
+      <div class="fc" style="height:80px;"><div class="spinner"></div></div>
+    </div>
+  `;
+  
+  fetchAndRenderCalendar();
 }
 
-function addLibur(){
-  Swal.fire({
-    title:'Tambah Hari Libur',
-    html:`<div style="text-align:left;padding:0 .5rem;">
-      <div class="field"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Tanggal Libur</label>
-        <input type="date" id="l-tgl" class="swal2-input" style="margin:4px 0 0;width:100%;box-sizing:border-box;"></div>
-      <div class="field mt-3"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Keterangan</label>
-        <input type="text" id="l-ket" class="swal2-input" placeholder="Misal: Libur Idul Fitri" style="margin:4px 0 0;width:100%;box-sizing:border-box;"></div>
-    </div>`,
-    showCancelButton:true,confirmButtonText:'Simpan Data',cancelButtonText:'Batal',
-    preConfirm:()=>{
-      const tgl=document.getElementById('l-tgl').value;
-      const ket=document.getElementById('l-ket').value.trim();
-      if(!tgl||!ket)return Swal.showValidationMessage('Harap isi semua kolom (Tanggal & Keterangan).');
-      return{tgl,ket};
+function fetchAndRenderCalendar() {
+  callAPI('getDashboardData', {}).then(r => {
+    const listLibur = r.data?.libur || [];
+    window.holidaysData = listLibur; 
+    drawCalendar(currentCalDate.getFullYear(), currentCalDate.getMonth());
+  }).catch(console.error);
+}
+
+function drawCalendar(year, month) {
+  const container = document.getElementById('calendar-container');
+  const listContainer = document.getElementById('libur-list-bottom');
+  if(!container) return;
+
+  const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+  const dayNames = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+  
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  
+  let html = `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; background:var(--surf2); padding:10px 14px; border-radius:var(--r2); border:1px solid var(--bdr);">
+      <button class="btn btn-s btn-ic" onclick="changeCalMonth(-1)"><span class="material-symbols-rounded ms">chevron_left</span></button>
+      <div style="font-weight:800; font-size:1.15rem; color:var(--tx);">${monthNames[month]} ${year}</div>
+      <button class="btn btn-s btn-ic" onclick="changeCalMonth(1)"><span class="material-symbols-rounded ms">chevron_right</span></button>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; text-align:center; font-weight:800; font-size:0.75rem; text-transform:uppercase; color:var(--tx3); margin-bottom:10px; border-bottom:2px solid var(--bdr); padding-bottom:10px;">
+      ${dayNames.map((d, i) => `<div style="color:${i === 0 ? 'var(--red)' : (i === 5 ? 'var(--grn)' : 'inherit')}">${d}</div>`).join('')}
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; min-height:240px; align-content:start;">
+  `;
+
+  for(let i = 0; i < firstDay; i++) {
+    html += `<div style="padding:10px; background:transparent;"></div>`;
+  }
+
+  const holidaysThisMonth = [];
+  const isAdmin = (APP.user.role==='Admin' || APP.user.role==='SuperAdmin');
+
+  for(let day = 1; day <= daysInMonth; day++) {
+    const dateObj = new Date(year, month, day);
+    const dayOfWeek = dateObj.getDay();
+    const dateStrStr = `${String(day).padStart(2,'0')}/${String(month+1).padStart(2,'0')}/${year}`;
+    
+    const holiday = window.holidaysData.find(h => h.tanggal === dateStrStr);
+    
+    let bgStr = "var(--surf)"; let clrStr = "var(--tx)"; let borderStr = "1px solid var(--bdr)"; let clickAction = "";
+
+    if (holiday) {
+      bgStr = "var(--red-b)"; clrStr = "var(--red)"; borderStr = "2px solid #fca5a5";
+      holidaysThisMonth.push(holiday);
+      if(isAdmin) clickAction = `onclick="editLibur('${holiday.tanggal}', '${escHtml(holiday.keterangan)}')"`;
+    } else if (dayOfWeek === 0) { // Minggu
+      clrStr = "var(--red)"; bgStr = "var(--surf2)"; borderStr = "1px dashed #fca5a5";
+      if(isAdmin) clickAction = `onclick="addLiburWithDate('${dateStrStr}')"`;
+    } else if (dayOfWeek === 5) { // Jumat
+      clrStr = "var(--grn)"; bgStr = "var(--grn-b)"; borderStr = "1px dashed var(--grn-m)";
+      if(isAdmin) clickAction = `onclick="addLiburWithDate('${dateStrStr}')"`;
+    } else {
+      if(isAdmin) clickAction = `onclick="addLiburWithDate('${dateStrStr}')"`;
     }
+
+    const today = new Date();
+    if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear() && !holiday) {
+      borderStr = "2px solid var(--blu)"; bgStr = "var(--blu-b)"; clrStr = "var(--blu)";
+    }
+
+    html += `
+      <div ${clickAction} style="padding:14px 4px; text-align:center; border-radius:var(--r2); background:${bgStr}; color:${clrStr}; border:${borderStr}; cursor:${isAdmin?'pointer':'default'}; transition:all 0.2s cubic-bezier(.34,1.56,.64,1); display:flex; flex-direction:column; align-items:center; gap:4px; box-shadow:var(--sh1);" onmouseover="this.style.transform='scale(1.1)'; this.style.zIndex='10'" onmouseout="this.style.transform='scale(1)'; this.style.zIndex='1'" title="${holiday ? holiday.keterangan : 'Klik untuk jadikan hari libur'}">
+        <div style="font-weight:800; font-size:1.1rem; font-family:var(--fm); line-height:1;">${day}</div>
+        ${holiday ? `<span class="material-symbols-rounded" style="font-size:14px; margin-top:2px;">event_busy</span>` : '<span style="height:14px; margin-top:2px; display:block;"></span>'}
+      </div>
+    `;
+  }
+  html += `</div>`;
+  container.innerHTML = html;
+
+  if(listContainer) {
+    if(holidaysThisMonth.length === 0) {
+      listContainer.innerHTML = `<div class="card" style="padding:24px; text-align:center;"><div class="empty-st" style="padding:0;"><span class="material-symbols-rounded">event_available</span>Tidak ada hari libur akademik di bulan ini.</div></div>`;
+    } else {
+      listContainer.innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          ${holidaysThisMonth.map(h => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:16px; background:var(--surf); border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:var(--sh1); border-left:4px solid var(--red);">
+              <div style="display:flex; align-items:center; gap:14px;">
+                <div class="fc" style="width:40px; height:40px; background:var(--red-b); color:var(--red); border-radius:50%; font-weight:bold; border:1px solid #fca5a5;"><span class="material-symbols-rounded ms">celebration</span></div>
+                <div>
+                  <div style="font-weight:800; color:var(--tx); font-size:0.95rem; margin-bottom:2px;">${h.keterangan}</div>
+                  <div style="font-size:0.75rem; color:var(--tx3); font-weight:600; font-family:var(--fm); display:flex; align-items:center; gap:4px;"><span class="material-symbols-rounded" style="font-size:12px;">calendar_today</span> ${h.tanggal}</div>
+                </div>
+              </div>
+              ${isAdmin ? `
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-s btn-sm btn-ic" style="color:var(--tx2); background:var(--bg2);" onclick="editLibur('${h.tanggal}', '${escHtml(h.keterangan)}')" title="Edit"><span class="material-symbols-rounded ms">edit_note</span></button>
+                <button class="btn btn-s btn-sm btn-ic" style="color:var(--red); background:var(--red-b); border-color:#fca5a5;" onclick="deleteLibur('${h.tanggal}')" title="Hapus"><span class="material-symbols-rounded ms">delete</span></button>
+              </div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+  }
+}
+
+function changeCalMonth(dir) {
+  currentCalDate.setMonth(currentCalDate.getMonth() + dir);
+  drawCalendar(currentCalDate.getFullYear(), currentCalDate.getMonth());
+}
+
+function addLiburWithDate(dateStrStr) {
+  // Konversi format tanggal agar cocok dengan input kalender
+  let isoDate = dateStrStr;
+  if (dateStrStr.includes('/')) {
+    const p = dateStrStr.split('/');
+    isoDate = `${p[2]}-${p[1]}-${p[0]}`;
+  }
+  
+  Swal.fire({
+    title:'Tetapkan Hari Libur',
+    html:`<div style="text-align:left;padding:0 .5rem;">
+      <div class="fgrid">
+        <div class="field"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Dari Tanggal</label>
+          <input type="date" id="l-tgl" class="swal2-input" value="${isoDate}" style="margin:4px 0 0;width:100%;box-sizing:border-box;"></div>
+        <div class="field"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Sampai Tanggal</label>
+          <input type="date" id="l-tgl-end" class="swal2-input" style="margin:4px 0 0;width:100%;box-sizing:border-box;" placeholder="Opsional"></div>
+      </div>
+      <div class="field mt-3"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Keterangan / Nama Acara</label>
+        <input type="text" id="l-ket" class="swal2-input" placeholder="Misal: Libur Semester Ganjil" style="margin:4px 0 0;width:100%;box-sizing:border-box;"></div>
+      <div style="font-size:0.75rem; color:var(--tx4); margin-top:8px; line-height:1.4;"><span class="material-symbols-rounded" style="font-size:14px; vertical-align:middle; color:var(--acc);">tips_and_updates</span> <b>Tips:</b> Isi "Sampai Tanggal" jika ingin membuat libur panjang berhari-hari sekaligus. Kosongkan jika hanya 1 hari.</div>
+    </div>`,
+    showCancelButton:true,confirmButtonText:'Simpan Libur',cancelButtonText:'Batal', confirmButtonColor:'var(--red)',
+    width: '480px'
   }).then(r=>{
     if(r.isConfirmed){
-      // Tambahan Loading state agar aplikasi tidak terkesan diam/macet
+      const tglStart = document.getElementById('l-tgl').value;
+      const tglEnd = document.getElementById('l-tgl-end').value;
+      const ket = document.getElementById('l-ket').value.trim();
+      
+      if(!tglStart || !ket) return Swal.fire('Gagal', 'Harap isi Tanggal Awal dan Keterangan Acara.', 'error');
+      
       Swal.fire({title:'Menyimpan...', allowOutsideClick:false, didOpen:()=>Swal.showLoading()});
-      callAPI('manageLibur', {action: 'ADD', data: r.value}).then(j => {
-        Swal.fire(j.status==='success'?'Berhasil!':'Gagal', j.message, j.status);
-        if(j.status==='success') renderLiburPage();
-      }).catch(handleError);
+
+      // LOGIKA JIKA RENTANG LIBUR PANJANG (MULTI-HARI)
+      if (tglEnd && tglEnd > tglStart) {
+        const startD = new Date(tglStart);
+        const endD = new Date(tglEnd);
+        const dateArray = [];
+        
+        let currentD = new Date(startD);
+        while (currentD <= endD) {
+          const iso = `${currentD.getFullYear()}-${String(currentD.getMonth()+1).padStart(2,'0')}-${String(currentD.getDate()).padStart(2,'0')}`;
+          dateArray.push({ tanggal: iso, keterangan: ket });
+          currentD.setDate(currentD.getDate() + 1);
+        }
+        
+        // Meminjam otak "Import Massal" untuk menembakkan banyak tanggal sekaligus
+        callAPI('importLiburMassal', { data: dateArray }).then(j => {
+          if(j.status === 'success') { 
+            Swal.close(); 
+            fetchAndRenderCalendar(); 
+            Swal.fire({icon:'success', title:'Tersimpan!', text:`Rentang ${dateArray.length} hari libur berhasil dijadwalkan.`, timer:2500, showConfirmButton:false}); 
+          }
+          else Swal.fire('Gagal', j.message, 'error');
+        }).catch(handleError);
+
+      } 
+      // LOGIKA JIKA HANYA 1 HARI
+      else {
+        if(tglEnd && tglEnd < tglStart) return Swal.fire('Format Salah', 'Tanggal Akhir tidak boleh lebih kecil dari Tanggal Awal.', 'error');
+        
+        callAPI('manageLibur', {action: 'ADD', data: {tgl: tglStart, ket: ket}}).then(j => {
+          if(j.status === 'success') { 
+            Swal.close(); 
+            fetchAndRenderCalendar(); 
+            Swal.fire({icon:'success', title:'Tersimpan!', timer:1500, showConfirmButton:false}); 
+          }
+          else Swal.fire('Gagal', j.message, 'error');
+        }).catch(handleError);
+      }
     }
   });
 }
 
+function addLibur() {
+  const d = new Date();
+  const isoDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  addLiburWithDate(isoDate); // Memanggil fungsi cerdas di atas
+}
+
 function editLibur(oldTgl, oldKet){
-  // Convert Format DD/MM/YYYY ke YYYY-MM-DD untuk Input HTML
   let isoDate = oldTgl;
   if (oldTgl.includes('/')) {
     const p = oldTgl.split('/');
     if(p.length === 3) isoDate = `${p[2]}-${p[1]}-${p[0]}`;
   }
-  
   Swal.fire({
-    title:'Edit Hari Libur',
+    title:'Edit Keterangan Libur',
     html:`<div style="text-align:left;padding:0 .5rem;">
       <div class="field"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Tanggal Libur</label>
         <input type="date" id="e-tgl" class="swal2-input" value="${isoDate}" style="margin:4px 0 0;width:100%;box-sizing:border-box;"></div>
-      <div class="field mt-3"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Keterangan</label>
+      <div class="field mt-3"><label style="font-weight:600;font-size:.8rem;color:var(--tx3);">Keterangan Baru</label>
         <input type="text" id="e-ket" class="swal2-input" value="${oldKet}" style="margin:4px 0 0;width:100%;box-sizing:border-box;"></div>
     </div>`,
-    showCancelButton:true,confirmButtonText:'Simpan Perubahan',cancelButtonText:'Batal',
-    preConfirm:()=>{
-      const newTgl=document.getElementById('e-tgl').value;
-      const newKet=document.getElementById('e-ket').value.trim();
-      if(!newTgl||!newKet)return Swal.showValidationMessage('Harap isi semua kolom.');
-      return{oldTgl: oldTgl, newTgl: newTgl, newKet: newKet};
-    }
+    showCancelButton:true,confirmButtonText:'Simpan Perubahan',cancelButtonText:'Batal', confirmButtonColor:'var(--blu)'
   }).then(r=>{
     if(r.isConfirmed){
+      const newTgl=document.getElementById('e-tgl').value;
+      const newKet=document.getElementById('e-ket').value.trim();
+      if(!newTgl||!newKet) return Swal.fire('Gagal', 'Tidak boleh kosong.', 'error');
       Swal.fire({title:'Memperbarui...', allowOutsideClick:false, didOpen:()=>Swal.showLoading()});
-      callAPI('manageLibur', {action: 'EDIT', data: r.value}).then(j => {
-        Swal.fire(j.status==='success'?'Berhasil!':'Gagal', j.message, j.status);
-        if(j.status==='success') renderLiburPage();
+      callAPI('manageLibur', {action: 'EDIT', data: {oldTgl: oldTgl, newTgl: newTgl, newKet: newKet}}).then(j => {
+        if(j.status==='success') { Swal.close(); fetchAndRenderCalendar(); }
+        else Swal.fire('Gagal', j.message, 'error');
       }).catch(handleError);
     }
   });
 }
 
 function deleteLibur(tgl){
-  Swal.fire({title:'Hapus Libur?',text:`Tanggal ${formatDateNormal(tgl)} akan dihapus.`,icon:'warning',showCancelButton:true,confirmButtonText:'Hapus',confirmButtonColor:'#b91c1c',cancelButtonText:'Batal'})
+  Swal.fire({title:'Hapus Libur?',text:`Tanggal ${formatDateNormal(tgl)} akan dihapus dari daftar libur akademik.`,icon:'warning',showCancelButton:true,confirmButtonText:'Hapus',confirmButtonColor:'#b91c1c',cancelButtonText:'Batal'})
     .then(r=>{
       if(r.isConfirmed) {
         Swal.fire({title:'Menghapus...', allowOutsideClick:false, didOpen:()=>Swal.showLoading()});
         callAPI('manageLibur', {action: 'DELETE', data: {tgl: tgl}}).then(j=>{
-          Swal.fire(j.status==='success'?'Dihapus!':'Gagal', j.message, j.status);
-          if(j.status==='success') renderLiburPage();
+          if(j.status==='success') { Swal.close(); fetchAndRenderCalendar(); }
+          else Swal.fire('Gagal', j.message, 'error');
         }).catch(handleError);
       }
     });
@@ -3431,7 +3997,6 @@ function renderIdCardPage(){
    CONFIG (UI/UX OPTIMIZED + DRAG & DROP)
 ═══════════════════════════════════════════ */
 let mapInstance=null, mapMarker=null, mapCircle=null;
-
 function initConfigPage(){
   const v = document.getElementById('pg-config');
   v.classList.remove('hidden');
@@ -3441,227 +4006,259 @@ function initConfigPage(){
   const tipeApp = APP.config.TIPE_ABSENSI || 'PRO'; 
   
   v.innerHTML = `
-    <div class="cfg-hdr" style="display:flex; justify-content:space-between; align-items:center;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
       <div>
-        <h2>Konfigurasi Sistem</h2>
-        <p>Tahan dan geser judul kotak (Drag & Drop) untuk mengatur tata letak.</p>
+        <h2 style="font-size:1.5rem; font-weight:800; color:var(--tx); letter-spacing:-0.02em; margin-bottom:6px;">Konfigurasi Sistem</h2>
+        <p style="font-size:0.85rem; color:var(--tx3); margin:0; line-height:1.5;">Kelola preferensi operasional dan fitur aplikasi.<br>Tahan ikon <span class="material-symbols-rounded" style="font-size:14px; vertical-align:middle;">drag_indicator</span> dan geser untuk mengatur tata letak kartu.</p>
       </div>
-      <button class="btn btn-s btn-sm" onclick="resetConfigLayout()" title="Kembalikan tata letak ke awal" style="color:var(--tx3);"><span class="material-symbols-rounded ms">restore</span> Reset Tata Letak</button>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-s" onclick="forceRefreshConfig()" title="Tarik ulang data terbaru" style="height:40px; font-weight:600; border-color:var(--bdr2); box-shadow:var(--sh1);"><span class="material-symbols-rounded ms" style="color:var(--acc);">sync</span> Sinkronkan</button>
+        <button class="btn btn-s" onclick="resetConfigLayout()" title="Kembalikan tata letak awal" style="height:40px; font-weight:600; border-color:var(--bdr2); box-shadow:var(--sh1);"><span class="material-symbols-rounded ms" style="color:var(--tx4);">restore</span> Reset Layout</button>
+      </div>
     </div>
     
     <div class="cfg-wrapper">
-      <div class="cfg-column" id="cfg-col-1" style="display:flex; flex-direction:column; gap:16px; min-height:100px;">
+      <div class="cfg-column" id="cfg-col-1" style="display:flex; flex-direction:column; gap:20px; min-height:100px;">
         
         ${APP.user.role === 'SuperAdmin' ? `
-        <div class="cfg-card" id="cfg-c-lisensi" style="border: 2px solid var(--ylw); background: var(--ylw-b); box-shadow: 0 4px 12px rgba(125, 102, 8, 0.1);">
-          <div class="cfg-card-header drag-handle" style="border-bottom-color: rgba(125, 102, 8, 0.2);">
-            <div class="cfg-card-icon" style="background:var(--ylw); color:#fff;"><span class="material-symbols-rounded">workspace_premium</span></div>
-            <div><div class="cfg-card-title" style="color:var(--ylw);">Lisensi Sistem</div><div class="cfg-card-subtitle" style="color:rgba(125, 102, 8, 0.8);">Hak Akses Eksklusif Super Admin</div></div>
-            <span class="material-symbols-rounded" style="margin-left:auto; color:var(--ylw); opacity:0.5;">drag_indicator</span>
+        <div class="card" id="cfg-c-lisensi" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--ylw-b); color:var(--ylw);"><span class="material-symbols-rounded">workspace_premium</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Lisensi Sistem</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">Hak Akses Eksklusif Super Admin</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
           </div>
-          <div class="field" style="margin-bottom:4px;">
-            <label style="color:var(--ylw);">Tipe Aplikasi Terpasang</label>
-            <select class="input" id="cfg-tipe-app" style="border-color:var(--ylw); font-weight:600; color:var(--ylw);">
+          <div class="field" style="margin-bottom:12px;">
+            <label style="color:var(--tx2);">Tipe Aplikasi Terpasang</label>
+            <select class="input" id="cfg-tipe-app" style="font-weight:600; height:44px;">
               <option value="PRO">🌟 Absensi Pro (Full Fitur)</option>
               <option value="LITE">🍃 Absensi Lite (Fitur Terbatas)</option>
             </select>
           </div>
-          <div class="field-hint" style="color:rgba(125, 102, 8, 0.9);"><span class="material-symbols-rounded" style="color:var(--ylw);">info</span> Mode Lite akan menyembunyikan Notifikasi & Kendali Mesin dari Admin.</div>
-          <div class="cfg-action-bar mt-3"><button class="btn btn-p wf" style="background:var(--ylw); color:#fff; font-weight:bold;" onclick="saveConfigSection('LISENSI')"><span class="material-symbols-rounded ms">verified</span> Simpan Lisensi</button></div>
+          <div style="font-size:0.75rem; color:var(--tx4); display:flex; gap:6px;"><span class="material-symbols-rounded" style="font-size:16px; color:var(--ylw);">info</span> Mode Lite menyembunyikan Notifikasi & Kendali Mesin dari Admin.</div>
+          <div style="margin-top:24px; display:flex; justify-content:flex-end;"><button class="btn btn-p" style="height:42px; padding:0 24px; border-radius:8px;" onclick="saveConfigSection('LISENSI')">Simpan Perubahan</button></div>
         </div>
         ` : ''}
 
-        <div class="cfg-card" id="cfg-c-profil">
-          <div class="cfg-card-header drag-handle">
-            <div class="cfg-card-icon" style="background:var(--blu-b); color:var(--blu);"><span class="material-symbols-rounded">apartment</span></div>
-            <div><div class="cfg-card-title">Profil Instansi</div><div class="cfg-card-subtitle">Nama dan alamat yang tampil di kop laporan</div></div>
-            <span class="material-symbols-rounded" style="margin-left:auto; color:var(--tx4); opacity:0.5;">drag_indicator</span>
+        <div class="card" id="cfg-c-profil" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--bg2); color:var(--tx2);"><span class="material-symbols-rounded">apartment</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Profil Instansi</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">Identitas dan logo sekolah</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
           </div>
-          <div class="field"><label>Nama Sekolah / Instansi</label><input class="input" type="text" id="cfg-nama" placeholder="Contoh: SMA Negeri 1..."></div>
-          <div class="field"><label>Alamat Lengkap</label><textarea class="input" id="cfg-alamat" rows="2" placeholder="Jalan Raya No..."></textarea></div>
-          <div class="cfg-action-bar"><button class="btn btn-p wf" onclick="saveConfigSection('INFO')"><span class="material-symbols-rounded ms">save</span> Simpan Profil</button></div>
+          ${APP.user.role === 'SuperAdmin' ? `
+          <div class="field"><label>Nama Aplikasi Sistem</label><input class="input" type="text" id="cfg-nama-app" placeholder="Contoh: E-Absensi Pro" style="font-weight:600; height:44px;"></div>
+          <div class="field" style="margin-bottom:8px;">
+            <label>Link URL Logo Instansi</label>
+            <input class="input" type="url" id="cfg-logo" placeholder="https://contoh.com/logo.png" style="height:44px;">
+          </div>
+          <div style="font-size:0.75rem; color:var(--tx4); display:flex; gap:6px; margin-bottom:20px;"><span class="material-symbols-rounded" style="font-size:16px;">lightbulb</span> Kosongkan untuk logo bawaan. Gunakan rasio 1:1 transparan.</div>
+          ` : ''}
+          <div class="field"><label>Nama Sekolah / Instansi</label><input class="input" type="text" id="cfg-nama" placeholder="Contoh: SMA Negeri 1..." style="height:44px;"></div>
+          <div class="field"><label>Alamat Lengkap</label><textarea class="input" id="cfg-alamat" rows="2" placeholder="Jalan Raya No..." style="padding:12px;"></textarea></div>
+          <div style="margin-top:24px; display:flex; justify-content:flex-end;"><button class="btn btn-p" style="height:42px; padding:0 24px; border-radius:8px;" onclick="saveConfigSection('INFO')">Simpan Perubahan</button></div>
         </div>
 
-        <div class="cfg-card" id="cfg-c-geo">
-          <div class="cfg-card-header drag-handle">
-            <div class="cfg-card-icon" style="background:var(--grn-b); color:var(--grn);"><span class="material-symbols-rounded">map</span></div>
-            <div><div class="cfg-card-title">Geofencing & Jangkauan</div><div class="cfg-card-subtitle">Pembatasan area absen berbasis GPS</div></div>
-            <span class="material-symbols-rounded" style="margin-left:auto; color:var(--tx4); opacity:0.5;">drag_indicator</span>
+        <div class="card" id="cfg-c-sapaan" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--bg2); color:var(--tx2);"><span class="material-symbols-rounded">record_voice_over</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Personalisasi Panggilan</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">Atur kata sapaan antarmuka pengguna</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
+          </div>
+          <div class="fgrid" style="gap:16px;">
+            <div class="field"><label>Guru Laki-laki</label><input class="input" type="text" id="cfg-sapaan-gl" placeholder="Bpk. " style="height:44px;"></div>
+            <div class="field"><label>Guru Perempuan</label><input class="input" type="text" id="cfg-sapaan-gp" placeholder="Ibu " style="height:44px;"></div>
+            <div class="field"><label>Siswa Laki-laki</label><input class="input" type="text" id="cfg-sapaan-sl" placeholder="Ananda, " style="height:44px;"></div>
+            <div class="field"><label>Siswa Perempuan</label><input class="input" type="text" id="cfg-sapaan-sp" placeholder="Ananda, " style="height:44px;"></div>
+          </div>
+          <div style="font-size:0.75rem; color:var(--tx4); display:flex; gap:6px; margin-top:4px;"><span class="material-symbols-rounded" style="font-size:16px;">tips_and_updates</span> Beri spasi di akhir kata jika diperlukan (Contoh: "Kak ").</div>
+          <div style="margin-top:24px; display:flex; justify-content:flex-end;"><button class="btn btn-p" style="height:42px; padding:0 24px; border-radius:8px;" onclick="saveConfigSection('SAPAAN')">Simpan Perubahan</button></div>
+        </div>
+
+        <div class="card" id="cfg-c-geo" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--bg2); color:var(--tx2);"><span class="material-symbols-rounded">map</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Geofencing Titik Absen</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">Pembatasan area GPS (Radius)</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
           </div>
           
-          <div id="leaflet-map" style="height:250px; width:100%; border-radius:var(--r2); border:1px solid var(--bdr); margin-bottom:16px; position:relative; z-index:1;"></div>
+          <div id="leaflet-map" style="height:260px; width:100%; border-radius:8px; border:1px solid var(--bdr); margin-bottom:20px; z-index:1;"></div>
           
-          <div class="fgrid">
-            <div class="field"><label>Latitude</label><input class="input mono" type="text" id="cfg-lat" oninput="this.value=this.value.replace(/[^0-9.\\-]/g,'');syncMapFromInput()"></div>
-            <div class="field"><label>Longitude</label><input class="input mono" type="text" id="cfg-lng" oninput="this.value=this.value.replace(/[^0-9.\\-]/g,'');syncMapFromInput()"></div>
+          <div class="fgrid" style="gap:16px;">
+            <div class="field"><label>Latitude</label><input class="input mono" type="text" id="cfg-lat" oninput="this.value=this.value.replace(/[^0-9.\\-]/g,'');syncMapFromInput()" style="height:44px;"></div>
+            <div class="field"><label>Longitude</label><input class="input mono" type="text" id="cfg-lng" oninput="this.value=this.value.replace(/[^0-9.\\-]/g,'');syncMapFromInput()" style="height:44px;"></div>
             <div class="field" style="grid-column:1/-1;">
-              <label>Radius Jangkauan Maksimal</label>
+              <label>Radius Jangkauan (Meter)</label>
               <div style="position:relative;">
-                <input class="input mono" type="number" id="cfg-rad" min="10" max="9999" oninput="syncMapRadius()" style="padding-right:60px;">
-                <span style="position:absolute; right:16px; top:50%; transform:translateY(-50%); font-weight:600; color:var(--tx3);">Meter</span>
+                <input class="input mono" type="number" id="cfg-rad" min="10" max="9999" oninput="syncMapRadius()" style="padding-right:60px; height:44px; font-weight:600;">
+                <span style="position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:0.8rem; font-weight:600; color:var(--tx4);">Meter</span>
               </div>
             </div>
           </div>
-          <div class="cfg-action-bar" style="display:grid; grid-template-columns:40px 1fr; gap:10px;">
-            <button class="btn btn-s btn-ic" onclick="findMyLocation()" title="Lacak Lokasi Saya"><span class="material-symbols-rounded ms">my_location</span></button>
-            <button class="btn btn-p wf" onclick="saveConfigSection('MAP')"><span class="material-symbols-rounded ms">save</span> Simpan Titik GPS</button>
+          <div style="margin-top:24px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+            <button class="btn btn-s btn-ic" onclick="findMyLocation()" title="Lacak Lokasi Saya" style="height:42px; border-radius:8px;"><span class="material-symbols-rounded">my_location</span></button>
+            <button class="btn btn-p" style="height:42px; padding:0 24px; border-radius:8px;" onclick="saveConfigSection('MAP')">Simpan Perubahan</button>
           </div>
         </div>
 
       </div>
 
-      <div class="cfg-column" id="cfg-col-2" style="display:flex; flex-direction:column; gap:16px; min-height:100px;">
+      <div class="cfg-column" id="cfg-col-2" style="display:flex; flex-direction:column; gap:20px; min-height:100px;">
         
-        <div class="cfg-card" id="cfg-c-shift">
-          <div class="cfg-card-header drag-handle">
-            <div class="cfg-card-icon" style="background:var(--ylw-b); color:var(--ylw);"><span class="material-symbols-rounded">schedule</span></div>
-            <div><div class="cfg-card-title">Jadwal Shift & Waktu</div><div class="cfg-card-subtitle">Pengaturan jam masuk, pulang, toleransi</div></div>
-            <span class="material-symbols-rounded" style="margin-left:auto; color:var(--tx4); opacity:0.5;">drag_indicator</span>
+        <div class="card" id="cfg-c-shift" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--bg2); color:var(--tx2);"><span class="material-symbols-rounded">schedule</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Jadwal & Waktu Shift</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">Toleransi keterlambatan dan jam kerja</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
           </div>
           
-          <div class="field" style="margin-bottom:16px;">
+          <div class="field" style="margin-bottom:24px;">
             <label>Batas Toleransi Keterlambatan</label>
             <div style="position:relative;">
-              <input class="input mono" type="number" id="cfg-tol" min="0" placeholder="15" style="padding-right:60px;">
-              <span style="position:absolute; right:16px; top:50%; transform:translateY(-50%); font-weight:600; color:var(--tx3);">Menit</span>
+              <input class="input mono" type="number" id="cfg-tol" min="0" placeholder="15" style="padding-right:60px; height:44px; font-weight:600;">
+              <span style="position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:0.8rem; font-weight:600; color:var(--tx4);">Menit</span>
             </div>
           </div>
           
-          <div class="cfg-sub-box">
-            <div class="cfg-sub-title" style="color:#b45309;"><span class="material-symbols-rounded" style="font-size:16px;">wb_sunny</span> Shift Pagi</div>
-            <div class="field"><select class="input" id="cfg-status-p" onchange="toggleShiftInputs('pagi')"><option value="AKTIF">🟢 Status: Aktif</option><option value="NONAKTIF">🔴 Status: Nonaktif</option></select></div>
-            <div class="fgrid">
-              <div class="field"><label>Jam Masuk</label><input class="input mono" type="time" id="cfg-in-p"></div>
-              <div class="field"><label>Jam Pulang</label><input class="input mono" type="time" id="cfg-out-p"></div>
-              <div class="field" style="grid-column:1/-1;"><label>Jam Pulang Khusus Jumat</label><input class="input mono" type="time" id="cfg-out-p-jumat"></div>
+          <div style="border:1px solid var(--bdr); border-radius:12px; padding:20px; margin-bottom:16px;">
+            <div style="font-size:0.9rem; font-weight:700; color:var(--tx); margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span class="material-symbols-rounded" style="font-size:18px; color:var(--tx3);">wb_sunny</span> Shift Pagi</div>
+            <div class="field"><label>Status Operasional</label><select class="input" id="cfg-status-p" onchange="toggleShiftInputs('pagi')" style="height:42px;"><option value="AKTIF">Diaktifkan</option><option value="NONAKTIF">Dinonaktifkan</option></select></div>
+            <div class="fgrid" style="gap:12px;">
+              <div class="field"><label>Jam Masuk</label><input class="input mono" type="time" id="cfg-in-p" style="height:42px;"></div>
+              <div class="field"><label>Jam Pulang</label><input class="input mono" type="time" id="cfg-out-p" style="height:42px;"></div>
+              <div class="field" style="grid-column:1/-1;"><label>Jam Pulang (Khusus Jumat)</label><input class="input mono" type="time" id="cfg-out-p-jumat" style="height:42px;"></div>
             </div>
           </div>
           
-          <div class="cfg-sub-box" style="margin-bottom:0;">
-            <div class="cfg-sub-title" style="color:var(--blu);"><span class="material-symbols-rounded" style="font-size:16px;">nights_stay</span> Shift Malam</div>
-            <div class="field"><select class="input" id="cfg-status-m" onchange="toggleShiftInputs('malam')"><option value="AKTIF">🟢 Status: Aktif</option><option value="NONAKTIF">🔴 Status: Nonaktif</option></select></div>
-            <div class="fgrid">
-              <div class="field"><label>Jam Masuk</label><input class="input mono" type="time" id="cfg-in-m"></div>
-              <div class="field"><label>Jam Pulang</label><input class="input mono" type="time" id="cfg-out-m"></div>
-              <div class="field" style="grid-column:1/-1;"><label>Jam Pulang Khusus Jumat</label><input class="input mono" type="time" id="cfg-out-m-jumat"></div>
+          <div style="border:1px solid var(--bdr); border-radius:12px; padding:20px;">
+            <div style="font-size:0.9rem; font-weight:700; color:var(--tx); margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span class="material-symbols-rounded" style="font-size:18px; color:var(--tx3);">nights_stay</span> Shift Malam</div>
+            <div class="field"><label>Status Operasional</label><select class="input" id="cfg-status-m" onchange="toggleShiftInputs('malam')" style="height:42px;"><option value="AKTIF">Diaktifkan</option><option value="NONAKTIF">Dinonaktifkan</option></select></div>
+            <div class="fgrid" style="gap:12px;">
+              <div class="field"><label>Jam Masuk</label><input class="input mono" type="time" id="cfg-in-m" style="height:42px;"></div>
+              <div class="field"><label>Jam Pulang</label><input class="input mono" type="time" id="cfg-out-m" style="height:42px;"></div>
+              <div class="field" style="grid-column:1/-1;"><label>Jam Pulang (Khusus Jumat)</label><input class="input mono" type="time" id="cfg-out-m-jumat" style="height:42px;"></div>
             </div>
           </div>
-          <div class="cfg-action-bar"><button class="btn btn-p wf" onclick="saveConfigSection('TIME')"><span class="material-symbols-rounded ms">save</span> Simpan Jadwal Shift</button></div>
+          <div style="margin-top:24px; display:flex; justify-content:flex-end;"><button class="btn btn-p" style="height:42px; padding:0 24px; border-radius:8px;" onclick="saveConfigSection('TIME')">Simpan Perubahan</button></div>
         </div>
 
-        <div class="cfg-card" id="cfg-c-kendali">
-          <div class="cfg-card-header drag-handle">
-            <div class="cfg-card-icon" style="background:var(--red-b); color:var(--red);"><span class="material-symbols-rounded">admin_panel_settings</span></div>
-            <div><div class="cfg-card-title">Kendali Mesin & Otoritas</div><div class="cfg-card-subtitle">Hak akses scan dan pengaturan UI</div></div>
-            <span class="material-symbols-rounded" style="margin-left:auto; color:var(--tx4); opacity:0.5;">drag_indicator</span>
+        <div class="card" id="cfg-c-kendali" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--bg2); color:var(--tx2);"><span class="material-symbols-rounded">admin_panel_settings</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Otoritas Mesin & Akses</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">Buka tutup antarmuka pengguna</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
           </div>
           
-          <div class="cfg-sub-box">
-            <div class="cfg-sub-title"><span class="material-symbols-rounded" style="font-size:16px;">power_settings_new</span> Buka/Tutup Mesin Absensi</div>
+          <div style="border:1px solid var(--bdr); border-radius:12px; padding:20px; margin-bottom:16px;">
+            <div style="font-size:0.85rem; font-weight:700; color:var(--tx); margin-bottom:14px; display:flex; align-items:center; gap:8px;"><span class="material-symbols-rounded" style="font-size:16px; color:var(--tx4);">visibility</span> Visibilitas Antarmuka</div>
             
-            <div class="field" style="margin-bottom:4px; border-bottom:1px dashed var(--bdr); padding-bottom:12px;">
+            <div class="field" style="margin-bottom:12px;">
               <label>Menu Pusat Download Laporan (Admin)</label>
-              <select class="input" id="cfg-halaman-download">
-              <option value="AKTIF">🟢 Ditampilkan (Aktif)</option>
-              <option value="NONAKTIF">🔴 Disembunyikan (Nonaktif)</option>
-               </select>
-            </div>
-            
-            <div class="fgrid" style="margin-top:12px;">
-              <div class="field" style="margin-bottom:4px;"><label>Akses Guru/Admin</label><select class="input" id="cfg-absen-guru"><option value="AKTIF">🟢 Dibuka</option><option value="NONAKTIF">🔴 Ditutup</option></select></div>
-              <div class="field" style="margin-bottom:4px;"><label>Akses Siswa</label><select class="input" id="cfg-absen-siswa"><option value="AKTIF">🟢 Dibuka</option><option value="NONAKTIF">🔴 Ditutup</option></select></div>
-            </div>
-            <div class="field" style="margin-top:12px; border-top:1px dashed var(--bdr); padding-top:12px;">
-              <label>Banner Ulang Tahun (Dashboard)</label>
-              <select class="input" id="cfg-banner-ultah">
-                <option value="AKTIF">🟢 Tampilkan (Aktif)</option>
-                <option value="NONAKTIF">🔴 Sembunyikan (Nonaktif)</option>
+              <select class="input" id="cfg-halaman-download" style="height:42px;">
+                <option value="AKTIF">Ditampilkan</option>
+                <option value="NONAKTIF">Disembunyikan</option>
               </select>
             </div>
-            <button class="btn btn-s wf mt-2" onclick="saveConfigSection('KONTROL_MESIN')" style="font-size:0.75rem; height:32px;"><span class="material-symbols-rounded ms">save</span> Simpan Kendali Utama</button>
+            
+            ${APP.user.role === 'SuperAdmin' ? `
+            <div class="field" style="margin-bottom:12px;">
+              <label>Menu Pusat Broadcast (Admin)</label>
+              <select class="input" id="cfg-halaman-broadcast" style="height:42px;">
+                <option value="AKTIF">Ditampilkan</option>
+                <option value="NONAKTIF">Disembunyikan</option>
+              </select>
+            </div>` : ''}
+
+            <div class="field" style="margin-bottom:0;">
+              <label>Banner Ulang Tahun di Dashboard</label>
+              <select class="input" id="cfg-banner-ultah" style="height:42px;">
+                <option value="AKTIF">Ditampilkan</option>
+                <option value="NONAKTIF">Disembunyikan</option>
+              </select>
+            </div>
+            
+            <div class="fgrid" style="margin-top:16px; padding-top:16px; border-top:1px dashed var(--bdr);">
+              <div class="field" style="margin-bottom:0;"><label>Akses Mesin Guru</label><select class="input" id="cfg-absen-guru" style="height:42px;"><option value="AKTIF">Dibuka</option><option value="NONAKTIF">Ditutup</option></select></div>
+              <div class="field" style="margin-bottom:0;"><label>Akses Mesin Siswa</label><select class="input" id="cfg-absen-siswa" style="height:42px;"><option value="AKTIF">Dibuka</option><option value="NONAKTIF">Ditutup</option></select></div>
+            </div>
+            <div style="margin-top:16px; display:flex; justify-content:flex-end;"><button class="btn btn-s" style="height:36px; font-size:0.8rem;" onclick="saveConfigSection('KONTROL_MESIN')">Terapkan Visibilitas</button></div>
           </div>
           
-          <div class="cfg-sub-box">
-            <div class="cfg-sub-title"><span class="material-symbols-rounded" style="font-size:16px;">qr_code_scanner</span> Izin Metode Scan (Global Guru)</div>
-            <div class="fgrid">
-              <div class="field" style="margin-bottom:4px;"><label>Scan QR Code</label><select class="input" id="cfg-scan-qr"><option value="AKTIF">🟢 Diizinkan</option><option value="NONAKTIF">🔴 Dilarang</option></select></div>
-              <div class="field" style="margin-bottom:4px;"><label>Scan Wajah</label><select class="input" id="cfg-scan-face"><option value="AKTIF">🟢 Diizinkan</option><option value="NONAKTIF">🔴 Dilarang</option></select></div>
-              <div class="field" style="margin-bottom:4px; grid-column:1/-1;"><label>Absen Manual</label><select class="input" id="cfg-scan-manual"><option value="AKTIF">🟢 Diizinkan</option><option value="NONAKTIF">🔴 Dilarang</option></select></div>
+          <div style="border:1px solid var(--bdr); border-radius:12px; padding:20px; margin-bottom:16px;">
+            <div style="font-size:0.85rem; font-weight:700; color:var(--tx); margin-bottom:14px; display:flex; align-items:center; gap:8px;"><span class="material-symbols-rounded" style="font-size:16px; color:var(--tx4);">qr_code_scanner</span> Metode Perekaman (Global Guru)</div>
+            <div class="fgrid" style="gap:12px;">
+              <div class="field" style="margin-bottom:0;"><label>Scan QR Code</label><select class="input" id="cfg-scan-qr" style="height:42px;"><option value="AKTIF">Diizinkan</option><option value="NONAKTIF">Dilarang</option></select></div>
+              <div class="field" style="margin-bottom:0;"><label>Scan Wajah</label><select class="input" id="cfg-scan-face" style="height:42px;"><option value="AKTIF">Diizinkan</option><option value="NONAKTIF">Dilarang</option></select></div>
+              <div class="field" style="margin-bottom:0; grid-column:1/-1;"><label>Absen Manual</label><select class="input" id="cfg-scan-manual" style="height:42px;"><option value="AKTIF">Diizinkan</option><option value="NONAKTIF">Dilarang</option></select></div>
             </div>
-            <button class="btn btn-s wf mt-2" onclick="saveConfigSection('METODE_SCAN')" style="font-size:0.75rem; height:32px;"><span class="material-symbols-rounded ms">save</span> Simpan Izin Metode</button>
+            <div style="margin-top:16px; display:flex; justify-content:flex-end;"><button class="btn btn-s" style="height:36px; font-size:0.8rem;" onclick="saveConfigSection('METODE_SCAN')">Terapkan Izin</button></div>
           </div>
 
-          <div class="cfg-sub-box" style="margin-bottom:0;">
-            <div class="cfg-sub-title"><span class="material-symbols-rounded" style="font-size:16px;">robot_2</span> Sistem Auto-Alpha (Otomatis)</div>
-            <div class="field" style="margin-bottom:4px;">
-              <select class="input" id="cfg-auto-alpha"><option value="NONAKTIF">🔴 Mesin Mati (Nonaktif)</option><option value="AKTIF">🟢 Mesin Menyala (Aktif)</option></select>
+          <div style="border:1px solid var(--bdr); border-radius:12px; padding:20px;">
+            <div style="font-size:0.85rem; font-weight:700; color:var(--tx); margin-bottom:14px; display:flex; align-items:center; gap:8px;"><span class="material-symbols-rounded" style="font-size:16px; color:var(--tx4);">robot_2</span> Auto-Alpha Harian</div>
+            <div class="field" style="margin-bottom:8px;">
+              <select class="input" id="cfg-auto-alpha" style="height:42px;"><option value="NONAKTIF">Mesin Dinonaktifkan</option><option value="AKTIF">Mesin Diaktifkan</option></select>
             </div>
-            <div class="field-hint"><span class="material-symbols-rounded">warning</span> Jika Aktif, otomatis melabeli "Alpha" bagi yang tidak absen saat batas waktu habis.</div>
-            <button class="btn btn-s wf mt-2" onclick="saveConfigSection('AUTO_ABSEN')" style="font-size:0.75rem; height:32px;"><span class="material-symbols-rounded ms">save</span> Simpan Auto-Alpha</button>
+            <div style="font-size:0.75rem; color:var(--tx4);"><span class="material-symbols-rounded" style="font-size:14px; vertical-align:middle;">warning</span> Jika Aktif, sistem otomatis melabeli "Alpha" saat batas waktu absen habis.</div>
+            <div style="margin-top:16px; display:flex; justify-content:flex-end;"><button class="btn btn-s" style="height:36px; font-size:0.8rem;" onclick="saveConfigSection('AUTO_ABSEN')">Terapkan Auto-Alpha</button></div>
           </div>
         </div>
 
-        <div class="cfg-card" id="cfg-c-pengumuman">
-          <div class="cfg-card-header drag-handle" style="border-bottom-color:var(--bdr);">
-            <div class="cfg-card-icon" style="background:var(--acc); color:#fff; box-shadow:0 4px 10px rgba(45,106,79,0.3);"><span class="material-symbols-rounded">campaign</span></div>
-            <div><div class="cfg-card-title">Blast Pengumuman</div><div class="cfg-card-subtitle">Muncul di Dashboard & Push Notifikasi</div></div>
-            <span class="material-symbols-rounded" style="margin-left:auto; color:var(--tx4); opacity:0.5;">drag_indicator</span>
+        <div class="card" id="cfg-c-notif" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--bg2); color:var(--tx2);"><span class="material-symbols-rounded">chat</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Notifikasi & Kontak</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">WhatsApp API & In-App Peringatan</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
           </div>
-          <div class="field">
-            <label>Kirim Kepada</label>
-            <select class="input" id="bc-target">
-              <option value="SEMUA">🌐 Semua (Guru & Siswa)</option>
-              <option value="GURU">👨‍🏫 Hanya Guru / Admin</option>
-              <option value="SISWA">🎓 Hanya Siswa</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Pesan Pengumuman</label>
-            <textarea class="input" id="bc-msg" rows="3" placeholder="Ketik pengumuman di sini... (Pesan otomatis hilang besok)"></textarea>
-          </div>
-          <div class="cfg-action-bar">
-             <button class="btn btn-p wf" onclick="submitBroadcast()" style="background:var(--acc);"><span class="material-symbols-rounded ms">send</span> Kirim Pengumuman</button>
-          </div>
-        </div>
-
-        <div class="cfg-card" id="cfg-c-notif">
-          <div class="cfg-card-header drag-handle">
-            <div class="cfg-card-icon" style="background:#e0f2fe; color:#1d4ed8;"><span class="material-symbols-rounded">chat</span></div>
-            <div><div class="cfg-card-title">Integrasi Notifikasi & Kontak</div><div class="cfg-card-subtitle">WhatsApp API, In-App Popup, dan Pusat Bantuan</div></div>
-            <span class="material-symbols-rounded" style="margin-left:auto; color:var(--tx4); opacity:0.5;">drag_indicator</span>
-          </div>
-          <div class="fgrid">
-            <div class="field">
+          <div class="fgrid" style="gap:16px; margin-bottom:16px;">
+            <div class="field" style="margin-bottom:0;">
               <label>WhatsApp Gateway</label>
-              <select class="input" id="cfg-notif-wa"><option value="AKTIF">🟢 Aktif</option><option value="NONAKTIF">🔴 Nonaktif</option></select>
+              <select class="input" id="cfg-notif-wa" style="height:42px;"><option value="AKTIF">Aktif</option><option value="NONAKTIF">Nonaktif</option></select>
             </div>
-            <div class="field">
-              <label>Notifikasi Aplikasi</label>
-              <select class="input" id="cfg-notif-app"><option value="AKTIF">🟢 Aktif</option><option value="NONAKTIF">🔴 Nonaktif</option></select>
+            <div class="field" style="margin-bottom:0;">
+              <label>Notifikasi Aplikasi Internal</label>
+              <select class="input" id="cfg-notif-app" style="height:42px;"><option value="AKTIF">Aktif</option><option value="NONAKTIF">Nonaktif</option></select>
             </div>
           </div>
           
-          <div class="cfg-sub-box" style="margin-top:12px; margin-bottom:0;">
-            <div class="cfg-sub-title"><span class="material-symbols-rounded" style="font-size:16px;">support_agent</span> Kontak Bantuan Siswa</div>
-            <div class="field">
-              <label>WA Call Center / Operator (Pisahkan koma jika > 1)</label>
-              <input class="input mono" type="text" id="cfg-wa-operator" placeholder="Contoh: 0812345..., 085678...">
+          <div style="border:1px solid var(--bdr); border-radius:12px; padding:20px;">
+            <div style="font-size:0.85rem; font-weight:700; color:var(--tx); margin-bottom:14px; display:flex; align-items:center; gap:8px;"><span class="material-symbols-rounded" style="font-size:16px; color:var(--tx4);">support_agent</span> Pusat Bantuan Siswa</div>
+            <div class="field" style="margin-bottom:16px;">
+              <label>Nomor WA Operator (Pisahkan koma jika banyak)</label>
+              <input class="input mono" type="text" id="cfg-wa-operator" placeholder="Contoh: 0812..., 0856..." style="height:42px;">
             </div>
-            <div class="field">
-              <label>Tampilkan Kontak Wali Kelas ke Siswa</label>
-              <select class="input" id="cfg-wa-wali">
-                <option value="AKTIF">🟢 Ditampilkan</option>
-                <option value="NONAKTIF">🔴 Disembunyikan</option>
+            <div class="field" style="margin-bottom:0;">
+              <label>Izinkan Siswa Melihat WA Wali Kelas</label>
+              <select class="input" id="cfg-wa-wali" style="height:42px;">
+                <option value="AKTIF">Ditampilkan</option>
+                <option value="NONAKTIF">Disembunyikan</option>
               </select>
             </div>
           </div>
           ${APP.user.role === 'SuperAdmin' ? `
-          <div class="field" style="margin-top:12px; padding-top:12px; border-top:1px dashed var(--bdr);">
-            <label style="display:flex; align-items:center; gap:6px;"><span class="material-symbols-rounded" style="font-size:16px; color:#1d4ed8;">key</span> Token API Fonnte (WA)</label>
-            <input class="input mono" type="password" id="cfg-fonnte" placeholder="Masukkan Token Fonnte...">
+          <div class="field" style="margin-top:20px; padding-top:20px; border-top:1px dashed var(--bdr);">
+            <label style="color:var(--tx2);">Token API Fonnte (Koneksi WA)</label>
+            <input class="input mono" type="password" id="cfg-fonnte" placeholder="Masukkan Token API Fonnte..." style="height:44px;">
           </div>
           ` : ''}
-          <div class="cfg-action-bar"><button class="btn btn-p wf" onclick="saveConfigSection('NOTIF')"><span class="material-symbols-rounded ms">save</span> Simpan Pengaturan</button></div>
+          <div style="margin-top:24px; display:flex; justify-content:flex-end;"><button class="btn btn-p" style="height:42px; padding:0 24px; border-radius:8px;" onclick="saveConfigSection('NOTIF')">Simpan Perubahan</button></div>
+        </div>
+
+        <div class="card" id="cfg-c-database" style="padding:24px; border:1px solid var(--bdr); border-radius:var(--r3); box-shadow:0 4px 24px rgba(0,0,0,0.02);">
+          <div class="drag-handle" style="display:flex; align-items:center; gap:14px; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--bg2); cursor:grab;">
+            <div class="fc" style="width:42px; height:42px; border-radius:10px; background:var(--bg2); color:var(--tx2);"><span class="material-symbols-rounded">table_chart</span></div>
+            <div style="flex:1;"><div style="font-size:1.05rem; font-weight:700; color:var(--tx);">Akses Root Spreadsheet</div><div style="font-size:0.75rem; color:var(--tx3); font-weight:500; margin-top:2px;">Manajemen data mentah database</div></div>
+            <span class="material-symbols-rounded" style="color:var(--bdr2);">drag_indicator</span>
+          </div>
+          
+          <div style="margin-bottom:20px; font-size:0.8rem; color:var(--tx3); line-height:1.6;">
+             Anda akan diarahkan menuju ke lembar kerja asli Google Sheets. Peringatan: Mengubah struktur kolom secara asal dapat menyebabkan sistem error secara keseluruhan.
+          </div>
+          
+          <div>
+            <button class="btn btn-s wf" onclick="openSpreadsheetSecure()" style="height:44px; font-weight:600;">
+              <span class="material-symbols-rounded ms" style="font-size:20px;">open_in_new</span> Buka Tabel Database
+            </button>
+          </div>
         </div>
 
       </div>
@@ -3680,13 +4277,19 @@ function initConfigPage(){
       document.getElementById('cfg-c-kendali')?.classList.add('hidden');
       document.getElementById('cfg-c-notif')?.classList.add('hidden');
     }
-    if(document.getElementById('cfg-halaman-download')) document.getElementById('cfg-halaman-download').value = APP.config.HALAMAN_DOWNLOAD_AKTIF || 'NONAKTIF';
+    if(document.getElementById('cfg-halaman-broadcast')) document.getElementById('cfg-halaman-broadcast').value = APP.config.HALAMAN_BROADCAST_AKTIF || 'AKTIF';
     // Set value semua form...
     document.getElementById('cfg-lat').value = lat; document.getElementById('cfg-lng').value = lng; document.getElementById('cfg-rad').value = rad;
     if(document.getElementById('cfg-notif-wa')) document.getElementById('cfg-notif-wa').value = APP.config.NOTIF_WA_AKTIF || 'AKTIF';
     if(document.getElementById('cfg-notif-app')) document.getElementById('cfg-notif-app').value = APP.config.NOTIF_APP_AKTIF || 'AKTIF';
     if(document.getElementById('cfg-fonnte') && APP.user.role === 'SuperAdmin') document.getElementById('cfg-fonnte').value = APP.config.FONNTE_TOKEN || ''; 
+    if(document.getElementById('cfg-nama-app')) document.getElementById('cfg-nama-app').value = APP.config.NAMA_APLIKASI || 'E-Absensi Pro';
+    if(document.getElementById('cfg-logo')) document.getElementById('cfg-logo').value = APP.config.URL_LOGO || '';
     document.getElementById('cfg-nama').value = APP.config.NAMA_SEKOLAH || ''; document.getElementById('cfg-alamat').value = APP.config.ALAMAT_SEKOLAH || '';
+    document.getElementById('cfg-sapaan-gl').value = APP.config.SAPAAN_GURU_L || 'Bpk. ';
+    document.getElementById('cfg-sapaan-gp').value = APP.config.SAPAAN_GURU_P || 'Ibu ';
+    document.getElementById('cfg-sapaan-sl').value = APP.config.SAPAAN_SISWA_L || 'Ananda, ';
+    document.getElementById('cfg-sapaan-sp').value = APP.config.SAPAAN_SISWA_P || 'Ananda, ';
     if(document.getElementById('cfg-absen-guru')) document.getElementById('cfg-absen-guru').value = APP.config.ABSENSI_GURU_AKTIF || 'AKTIF';
     if(document.getElementById('cfg-absen-siswa')) document.getElementById('cfg-absen-siswa').value = APP.config.ABSENSI_SISWA_AKTIF || 'AKTIF';
     if(document.getElementById('cfg-banner-ultah')) document.getElementById('cfg-banner-ultah').value = APP.config.BANNER_ULTAH_AKTIF || 'AKTIF';
@@ -3788,6 +4391,21 @@ function resetConfigLayout() {
   });
 }
 
+function forceRefreshConfig() {
+  Swal.fire({ title: 'Menyinkronkan...', text: 'Menarik pengaturan terbaru dari Spreadsheet...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+  callAPI('clearMasterCache', { type: 'CONFIG' }).then(r => {
+    if (r.status === 'success') {
+      callAPI('getDashboardData', {}).then(res => {
+        if(res.status === 'success') {
+          APP.config = res.data.config || {};
+          Swal.fire({ icon: 'success', title: 'Tersinkronisasi!', text: 'Konfigurasi telah diperbarui sesuai isi Spreadsheet.', timer: 2000, showConfirmButton: false });
+          initConfigPage(); 
+        }
+      });
+    } else { Swal.fire('Gagal', r.message, 'error'); }
+  }).catch(handleError);
+}
+
 function initMap(lat, lng, rad) {
   const mapElement = document.getElementById('leaflet-map');
   if (!mapElement) {
@@ -3877,6 +4495,15 @@ function saveConfigSection(section){
     payload={ SHIFT_PAGI_AKTIF:document.getElementById('cfg-status-p').value, SHIFT_MALAM_AKTIF:document.getElementById('cfg-status-m').value, JAM_MASUK_PAGI:document.getElementById('cfg-in-p').value, JAM_PULANG_PAGI:document.getElementById('cfg-out-p').value, JAM_PULANG_JUMAT_PAGI:document.getElementById('cfg-out-p-jumat').value, JAM_MASUK_MALAM:document.getElementById('cfg-in-m').value, JAM_PULANG_MALAM:document.getElementById('cfg-out-m').value, JAM_PULANG_JUMAT_MALAM:document.getElementById('cfg-out-m-jumat').value, TOLERANSI:document.getElementById('cfg-tol').value };
   } else if(section==='INFO'){
     payload={NAMA_SEKOLAH:document.getElementById('cfg-nama').value,ALAMAT_SEKOLAH:document.getElementById('cfg-alamat').value};
+    if (document.getElementById('cfg-nama-app')) payload.NAMA_APLIKASI = document.getElementById('cfg-nama-app').value;
+    if (document.getElementById('cfg-logo')) payload.URL_LOGO = document.getElementById('cfg-logo').value;
+  } else if(section === 'SAPAAN'){
+    payload = {
+      SAPAAN_GURU_L: document.getElementById('cfg-sapaan-gl').value,
+      SAPAAN_GURU_P: document.getElementById('cfg-sapaan-gp').value,
+      SAPAAN_SISWA_L: document.getElementById('cfg-sapaan-sl').value,
+      SAPAAN_SISWA_P: document.getElementById('cfg-sapaan-sp').value
+    };
   } else if(section === 'LISENSI'){
     if (APP.user.role === 'SuperAdmin') { const elTipe = document.getElementById('cfg-tipe-app'); if(elTipe) payload.TIPE_ABSENSI = elTipe.value; }
   } else if(section === 'KONTROL_MESIN'){
@@ -3886,6 +4513,9 @@ function saveConfigSection(section){
       BANNER_ULTAH_AKTIF: document.getElementById('cfg-banner-ultah').value,
       HALAMAN_DOWNLOAD_AKTIF: document.getElementById('cfg-halaman-download').value
     };
+    if (document.getElementById('cfg-halaman-broadcast')) {
+      payload.HALAMAN_BROADCAST_AKTIF = document.getElementById('cfg-halaman-broadcast').value;
+    }
   } else if(section === 'AUTO_ABSEN'){
     payload = { AUTO_ALPHA: document.getElementById('cfg-auto-alpha').value };
   } else if(section === 'METODE_SCAN'){ 
@@ -3897,7 +4527,15 @@ function saveConfigSection(section){
     .then(r => {
       if(r.status==='success'){
         Object.assign(APP.config,payload);
-        if(payload.NAMA_SEKOLAH)document.getElementById('nav-school-name').textContent=payload.NAMA_SEKOLAH.split(' ')[0];
+        if(payload.NAMA_APLIKASI !== undefined || payload.URL_LOGO !== undefined) {
+          const appName = payload.NAMA_APLIKASI !== undefined ? payload.NAMA_APLIKASI : (APP.config.NAMA_APLIKASI || 'E-Absensi Pro');
+          localStorage.setItem('app_custom_name', appName);
+          
+          const logoUrl = payload.URL_LOGO !== undefined ? payload.URL_LOGO : (APP.config.URL_LOGO || '');
+          localStorage.setItem('app_custom_logo', logoUrl);
+          
+          applyAppBranding(appName, logoUrl);
+        }
         
         buildNav(); // <--- FIX: Refresh sidebar seketika setelah disave
         setActiveNav(APP.currentPage);
@@ -4831,6 +5469,277 @@ function submitBroadcast() {
   });
 }
 
+// FUNGSI LOGIKA KEAMANAN AKSES SPREADSHEET
+function openSpreadsheetSecure() {
+  const ssId = '1z5Dh7ULaltBjBoSJ9oU3ShlYOIyCKJPnGMVSMeRbmkE';
+  const url = `https://docs.google.com/spreadsheets/d/${ssId}/edit`;
+  
+  if (APP.user.role === 'SuperAdmin') {
+    // Super Admin langsung buka tanpa hambatan
+    window.open(url, '_blank');
+  } else {
+    // Role lain wajib melewati protokol keamanan
+    Swal.fire({
+      title: 'Protokol Keamanan Data',
+      html: `
+        <div style="text-align:left; font-size:0.85rem; color:var(--tx2);">
+          <p style="margin-bottom:12px;">Anda mencoba mengakses database mentah. Tindakan ini memerlukan otorisasi tingkat lanjut.</p>
+          <div class="field">
+            <label>Masukkan Password Akun Anda</label>
+            <input type="password" id="ss-secure-pass" class="input" placeholder="••••••••">
+          </div>
+          <div style="background:#fff4e5; padding:10px; border-radius:8px; border:1px solid #ffcc80; margin-top:10px;">
+            <label style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
+              <input type="checkbox" id="ss-agree" style="margin-top:3px;">
+              <span>Saya setuju untuk tidak mengubah struktur kolom dan bertanggung jawab atas keamanan data.</span>
+            </label>
+          </div>
+        </div>
+      `,
+      icon: 'shield',
+      showCancelButton: true,
+      confirmButtonText: 'Aktivasi & Buka Akses',
+      confirmButtonColor: '#0f9d58',
+      preConfirm: () => {
+        const pass = document.getElementById('ss-secure-pass').value;
+        const agree = document.getElementById('ss-agree').checked;
+        if (!pass) return Swal.showValidationMessage('Password wajib diisi!');
+        if (!agree) return Swal.showValidationMessage('Anda harus menyetujui persyaratan!');
+        return { pass, agree };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({title:'Memvalidasi...', allowOutsideClick:false, didOpen:()=>Swal.showLoading()});
+        // Panggil login handler di backend untuk cek password
+        callAPI('handleLogin', { username: APP.user.id, password: result.value.pass, type: 'GURU' })
+          .then(r => {
+            if (r.status === 'success') {
+              Swal.fire({icon:'success', title:'Akses Diaktifkan', text:'Mengarahkan ke Spreadsheet...', timer:1500, showConfirmButton:false});
+              setTimeout(() => window.open(url, '_blank'), 1500);
+            } else {
+              Swal.fire('Gagal Aktivasi', 'Kata sandi salah. Akses ditolak.', 'error');
+            }
+          }).catch(handleError);
+      }
+    });
+  }
+}
+
+// File: Index.html (Bagian JS, letakkan di bawah)
+
+// [MULAI MODIFIKASI: Pembuatan fungsi render Halaman Broadcast Baru & API Call]
+function renderBroadcastPage() {
+  const v = document.getElementById('pg-broadcast');
+  if(!v) return;
+  v.classList.remove('hidden');
+
+  v.innerHTML = `
+    <div style="max-width: 600px; margin: 0 auto;">
+      
+      <div style="background: linear-gradient(135deg, #4f46e5, #3730a3); border-radius: var(--r3); padding: 24px; color: #fff; position: relative; overflow: hidden; margin-bottom: 20px; box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);">
+        <div style="position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+        <span class="material-symbols-rounded" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 80px; color: rgba(255,255,255,0.15); pointer-events: none;">campaign</span>
+        
+        <div style="position: relative; z-index: 2;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px;">Pusat Broadcast</h2>
+          <p style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">Kirim pengumuman massal via WhatsApp atau Notifikasi Aplikasi</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="bc-tabs" style="margin-bottom: 16px;">
+        <button class="tab active" onclick="switchBcTab('app', this)">
+          <span class="material-symbols-rounded ms" style="font-size:18px;">notifications_active</span> Notif Aplikasi
+        </button>
+        <button class="tab" onclick="switchBcTab('wa-guru', this)">
+          <span class="material-symbols-rounded ms" style="font-size:18px;">co_present</span> WA Guru
+        </button>
+        <button class="tab" onclick="switchBcTab('wa-siswa', this)">
+          <span class="material-symbols-rounded ms" style="font-size:18px;">groups</span> WA Siswa
+        </button>
+      </div>
+
+      <div id="bc-tab-app" class="bc-content-panel">
+        <div class="card" style="box-shadow: var(--sh1); border-color: var(--bdr2);">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+            <div class="fc" style="width: 32px; height: 32px; background: var(--bg2); color: var(--tx2); border-radius: var(--r);">
+              <span class="material-symbols-rounded" style="font-size: 18px;">dashboard</span>
+            </div>
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: var(--tx);">Pengumuman Dashboard</div>
+              <div style="font-size: 0.72rem; color: var(--tx3);">Pesan akan muncul di layar semua pengguna selama 24 jam</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Kirim Kepada</label>
+            <select class="input" id="bc-app-target" style="border-color: var(--bdr2);">
+              <option value="SEMUA">🌐 Semua Pengguna Aktif</option>
+              <option value="GURU">👨‍🏫 Hanya Guru & Admin</option>
+              <option value="SISWA">🎓 Hanya Siswa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Isi Pesan Pengumuman</label>
+            <textarea class="input" id="bc-app-msg" rows="4" placeholder="Ketik pengumuman di sini..." style="border-color: var(--bdr2);"></textarea>
+          </div>
+          
+          <button class="btn btn-p wf mt-2" onclick="submitBroadcastApp()" style="height: 44px; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(45,106,79,0.2);">
+            <span class="material-symbols-rounded ms">send</span> Broadcast ke Dashboard
+          </button>
+        </div>
+      </div>
+
+      <div id="bc-tab-wa-guru" class="bc-content-panel hidden">
+        <div class="card" style="box-shadow: var(--sh1); border-color: #bfdbfe;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+            <div class="fc" style="width: 32px; height: 32px; background: var(--blu-b); color: var(--blu); border-radius: var(--r);">
+              <span class="material-symbols-rounded" style="font-size: 18px;">chat</span>
+            </div>
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: var(--tx);">Blast WA Guru / Pegawai</div>
+              <div style="font-size: 0.72rem; color: var(--tx3);">Mengirim pesan langsung ke nomor WA database Guru</div>
+            </div>
+          </div>
+
+          <div class="info-alert" style="margin-bottom: 14px;">
+            <span class="material-symbols-rounded">info</span>
+            <div class="info-alert-t">Sistem akan otomatis menambahkan sapaan <b>"Halo [Nama Guru],"</b> di awal pesan Anda.</div>
+          </div>
+
+          <div class="field">
+            <label>Pesan Broadcast WhatsApp</label>
+            <textarea class="input" id="bc-wa-guru-msg" rows="5" placeholder="Ketik pengumuman rapat, perubahan jadwal, dll..." style="border-color: #bfdbfe;"></textarea>
+          </div>
+          
+          <button class="btn btn-p wf mt-2" onclick="submitBroadcastWA('GURU')" style="background: var(--blu); height: 44px; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(29,78,216,0.25);">
+            <span class="material-symbols-rounded ms">rocket_launch</span> Kirim Blast WA Guru
+          </button>
+        </div>
+      </div>
+
+      <div id="bc-tab-wa-siswa" class="bc-content-panel hidden">
+        <div class="card" style="box-shadow: var(--sh1); border-color: #fbcfe8;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+            <div class="fc" style="width: 32px; height: 32px; background: #fdf2f8; color: #db2777; border-radius: var(--r);">
+              <span class="material-symbols-rounded" style="font-size: 18px;">chat</span>
+            </div>
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: var(--tx);">Blast WA Siswa</div>
+              <div style="font-size: 0.72rem; color: var(--tx3);">Mengirim pesan langsung ke nomor WA Siswa / Wali Murid</div>
+            </div>
+          </div>
+
+          <div class="info-alert" style="margin-bottom: 14px; background: #fdf2f8; border-color: #fbcfe8;">
+            <span class="material-symbols-rounded" style="color: #db2777;">info</span>
+            <div class="info-alert-t" style="color: #9d174d;">Sistem akan otomatis menambahkan sapaan <b>"Halo [Nama Siswa],"</b> di awal pesan Anda. Pastikan database siswa memiliki nomor WA yang valid.</div>
+          </div>
+
+          <div class="field">
+            <label>Pesan Broadcast WhatsApp</label>
+            <textarea class="input" id="bc-wa-siswa-msg" rows="5" placeholder="Ketik pengumuman libur, tagihan, jadwal ujian, dll..." style="border-color: #fbcfe8;"></textarea>
+          </div>
+          
+          <button class="btn btn-p wf mt-2" onclick="submitBroadcastWA('SISWA')" style="background: #db2777; height: 44px; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(219,39,119,0.25);">
+            <span class="material-symbols-rounded ms">rocket_launch</span> Kirim Blast WA Siswa
+          </button>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+function switchBcTab(tabId, btnEl) {
+  // Update Buttons
+  const tabsContainer = document.getElementById('bc-tabs');
+  if (tabsContainer) {
+    tabsContainer.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+  
+  // Update Panels
+  document.querySelectorAll('.bc-content-panel').forEach(p => p.classList.add('hidden'));
+  const targetPanel = document.getElementById(`bc-tab-${tabId}`);
+  if (targetPanel) targetPanel.classList.remove('hidden');
+}
+
+// Handler Broadcast Dashboard (App)
+function submitBroadcastApp() {
+  const target = document.getElementById('bc-app-target').value;
+  const msg = document.getElementById('bc-app-msg').value.trim();
+  
+  let titleTxt = 'Kirim Pengumuman?'; 
+  let descTxt = `Pesan ini akan tampil di Dashboard target (${target}).`; 
+  let btnTxt = 'Ya, Kirim'; 
+  let btnColor = 'var(--acc)';
+
+  if (!msg) { 
+    titleTxt = 'Nonaktifkan Pengumuman?'; 
+    descTxt = 'Pengumuman saat ini akan dihapus dari dashboard pengguna.'; 
+    btnTxt = 'Ya, Hapus'; 
+    btnColor = '#b91c1c'; 
+  }
+
+  Swal.fire({ 
+    title: titleTxt, text: descTxt, icon: 'question', 
+    showCancelButton: true, confirmButtonText: btnTxt, confirmButtonColor: btnColor 
+  }).then(r => {
+    if (r.isConfirmed) {
+      Swal.fire({title: 'Memproses...', allowOutsideClick: false, didOpen: () => Swal.showLoading()});
+      callAPI('sendBroadcastMessage', {target: target, msg: msg})
+        .then(resData => {
+          if (resData.status === 'success') { 
+            document.getElementById('bc-app-msg').value = ''; 
+            Swal.fire('Berhasil', resData.message, 'success'); 
+          } else { 
+            Swal.fire('Gagal', resData.message, 'error'); 
+          }
+        }).catch(handleError);
+    }
+  });
+}
+
+// Handler Broadcast WhatsApp API
+function submitBroadcastWA(target) {
+  const msgInputId = target === 'GURU' ? 'bc-wa-guru-msg' : 'bc-wa-siswa-msg';
+  const msg = document.getElementById(msgInputId).value.trim();
+
+  if (!msg) {
+    return Swal.fire('Peringatan', 'Pesan tidak boleh kosong.', 'warning');
+  }
+
+  const roleText = target === 'GURU' ? 'Guru & Pegawai' : 'Siswa / Wali Murid';
+
+  Swal.fire({
+    title: 'Kirim Blast WhatsApp?',
+    html: `Sistem akan mengirim pesan ke ratusan/ribuan kontak <b>${roleText}</b> secara berurutan.<br><br><span style="color:var(--red); font-size:0.8rem;">Proses ini memakan saldo/limit API Fonnte Anda. Pastikan pesan sudah benar.</span>`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: '<span class="material-symbols-rounded ms" style="vertical-align:middle;font-size:18px;">send</span> Kirim Sekarang',
+    confirmButtonColor: target === 'GURU' ? 'var(--blu)' : '#db2777',
+    cancelButtonText: 'Batal'
+  }).then(r => {
+    if (r.isConfirmed) {
+      Swal.fire({
+        title: 'Mempersiapkan Antrean...',
+        text: 'Sedang mengekstrak kontak dan mengolah pesan. Jangan tutup aplikasi.',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      callAPI('sendWABroadcast', { target: target, msg: msg })
+        .then(res => {
+          if (res.status === 'success') {
+            document.getElementById(msgInputId).value = '';
+            Swal.fire('Terkirim ke Antrean!', res.message, 'success');
+          } else {
+            Swal.fire('Gagal', res.message, 'error');
+          }
+        }).catch(handleError);
+    }
+  });
+}
+
 /* ═══════════════════════════════════════════
    SYSTEM LOCK CONTROL (SUPER ADMIN)
 ═══════════════════════════════════════════ */
@@ -4855,6 +5764,172 @@ function executeSystemLock(status) {
     }
   });
 }
+function renderTeladanPage() {
+  const v = document.getElementById('pg-teladan');
+  if(!v) return;
+  v.classList.remove('hidden');
+  
+  const d = new Date();
+  const defMonth = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  const defYear = d.getFullYear();
+
+  v.innerHTML = `
+    <div class="card" style="border-top: 4px solid var(--ylw); box-shadow: var(--sh3);">
+      <div class="sec-hdr">
+        <div class="sec-t" style="display:flex; align-items:center; gap:8px; font-size:1.1rem; color:var(--ylw);">
+          <span class="material-symbols-rounded" style="font-size:28px;">workspace_premium</span> Peringkat Teladan
+        </div>
+      </div>
+      <div class="fgrid" style="align-items:end;">
+        <div class="field" style="margin-bottom:0;">
+          <label>Tipe Periode</label>
+          <select class="input" id="tel-tipe" onchange="toggleTelFilter()">
+            <option value="month">Bulanan</option>
+            <option value="year">Tahunan</option>
+          </select>
+        </div>
+        <div class="field" id="wrap-tel-month" style="margin-bottom:0;">
+          <label>Pilih Bulan</label>
+          <input type="month" class="input" id="tel-month" value="${defMonth}" onchange="fetchTeladanData()">
+        </div>
+        <div class="field hidden" id="wrap-tel-year" style="margin-bottom:0;">
+          <label>Pilih Tahun</label>
+          <input type="number" class="input" id="tel-year" value="${defYear}" placeholder="YYYY" onchange="fetchTeladanData()">
+        </div>
+      </div>
+    </div>
+    <div id="teladan-content">
+      <div class="fc" style="height:200px; color:var(--tx3);"><div class="spinner"></div></div>
+    </div>
+  `;
+  setTimeout(() => fetchTeladanData(), 100);
+}
+
+function toggleTelFilter() {
+  const type = document.getElementById('tel-tipe').value;
+  if(type === 'month') {
+    document.getElementById('wrap-tel-month').classList.remove('hidden');
+    document.getElementById('wrap-tel-year').classList.add('hidden');
+  } else {
+    document.getElementById('wrap-tel-month').classList.add('hidden');
+    document.getElementById('wrap-tel-year').classList.remove('hidden');
+  }
+  fetchTeladanData();
+}
+
+function fetchTeladanData() {
+  const c = document.getElementById('teladan-content');
+  c.innerHTML = `<div class="fc" style="height:200px; color:var(--tx3);"><div class="spinner"></div></div>`;
+  
+  const type = document.getElementById('tel-tipe').value;
+  const payload = {};
+  if (type === 'month') payload.month = document.getElementById('tel-month').value;
+  else payload.year = document.getElementById('tel-year').value;
+
+  callAPI('getTopTeladan', payload).then(r => {
+    if(r.status === 'success') {
+      const conf = APP.config || {};
+      const isGuruAktif = conf.ABSENSI_GURU_AKTIF !== 'NONAKTIF';
+      const isSiswaAktif = conf.ABSENSI_SISWA_AKTIF !== 'NONAKTIF';
+      const role = APP.user.role;
+      
+      let html = '';
+      
+      if (role !== 'Siswa') {
+        // Jika Guru & Siswa sama-sama AKTIF
+        if (isGuruAktif && isSiswaAktif) {
+          html = `
+            <div class="tabs" id="teladan-tabs" style="margin-bottom:16px;">
+              <button class="tab active" onclick="switchTeladanTab('guru', this)"><span class="material-symbols-rounded ms">badge</span> Top Guru</button>
+              <button class="tab" onclick="switchTeladanTab('siswa', this)"><span class="material-symbols-rounded ms">school</span> Top Siswa</button>
+            </div>
+            <div id="teladan-guru" class="teladan-panel">
+              ${buildTeladanSection('🏆 Top 10 Guru & Pegawai', r.data.guru, 'var(--blu)', 'var(--blu-b)')}
+            </div>
+            <div id="teladan-siswa" class="teladan-panel hidden">
+              ${buildTeladanSection('🎓 Top 10 Siswa Teladan', r.data.siswa, 'var(--grn)', 'var(--grn-b)')}
+            </div>
+          `;
+        } 
+        // Jika HANYA Guru yang Aktif
+        else if (isGuruAktif && !isSiswaAktif) {
+          html = buildTeladanSection('🏆 Top 10 Guru & Pegawai', r.data.guru, 'var(--blu)', 'var(--blu-b)');
+        } 
+        // Jika HANYA Siswa yang Aktif
+        else if (!isGuruAktif && isSiswaAktif) {
+          html = buildTeladanSection('🎓 Top 10 Siswa Teladan', r.data.siswa, 'var(--grn)', 'var(--grn-b)');
+        } 
+        // Jika Keduanya DIMATIKAN
+        else {
+          html = `<div class="empty-st" style="margin-top:20px;"><span class="material-symbols-rounded" style="font-size:48px; color:var(--tx4);">event_busy</span><div style="margin-top:10px; font-weight:600; color:var(--tx2);">Mesin Absensi Sedang Dinonaktifkan</div></div>`;
+        }
+      } else {
+        // Jika yang login adalah SISWA
+        if (isSiswaAktif) {
+          html = buildTeladanSection('🎓 Top 10 Siswa Teladan', r.data.siswa, 'var(--grn)', 'var(--grn-b)');
+        } else {
+          html = `<div class="empty-st" style="margin-top:20px;"><span class="material-symbols-rounded" style="font-size:48px; color:var(--tx4);">event_busy</span><div style="margin-top:10px; font-weight:600; color:var(--tx2);">Mesin Absensi Siswa Dinonaktifkan</div></div>`;
+        }
+      }
+      
+      c.innerHTML = html;
+    } else {
+      c.innerHTML = `<div class="empty-st"><span class="material-symbols-rounded">error</span>${r.message}</div>`;
+    }
+  }).catch(e => {
+    c.innerHTML = `<div class="empty-st"><span class="material-symbols-rounded">wifi_off</span>Gagal mengambil data.</div>`;
+  });
+}
+
+function switchTeladanTab(targetId, btnEl) {
+  const container = btnEl.closest('.tabs');
+  container.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  btnEl.classList.add('active');
+  document.querySelectorAll('.teladan-panel').forEach(el => el.classList.add('hidden'));
+  document.getElementById('teladan-' + targetId).classList.remove('hidden');
+}
+
+function buildTeladanSection(title, data, color, bgColor) {
+  if (!data || data.length === 0) {
+    return `<div class="card"><div class="sec-t" style="color:${color}; margin-bottom:14px;">${title}</div><div class="empty-st" style="padding:20px;"><span class="material-symbols-rounded">sentiment_dissatisfied</span>Belum ada data kehadiran untuk periode ini.</div></div>`;
+  }
+
+  let listHtml = '';
+  data.forEach((item, idx) => {
+    const rank = idx + 1;
+    let badgeHtml = '';
+    if (rank === 1) badgeHtml = `<div style="width:28px;height:28px;background:#f59e0b;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;box-shadow:0 2px 4px rgba(245,158,11,.4);">1</div>`;
+    else if (rank === 2) badgeHtml = `<div style="width:28px;height:28px;background:#94a3b8;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;box-shadow:0 2px 4px rgba(148,163,184,.4);">2</div>`;
+    else if (rank === 3) badgeHtml = `<div style="width:28px;height:28px;background:#b45309;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;box-shadow:0 2px 4px rgba(180,83,9,.4);">3</div>`;
+    else badgeHtml = `<div style="width:28px;height:28px;background:var(--bg2);color:var(--tx3);border-radius:50%;border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:.8rem;">${rank}</div>`;
+
+    const initial = (item.nama || '?').charAt(0).toUpperCase();
+    const avatar = item.foto && item.foto.length > 10 
+      ? `<img src="${item.foto}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid ${color};">`
+      : `<div style="width:40px;height:40px;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:1.1rem;">${initial}</div>`;
+
+    listHtml += `
+      <div style="display:flex; align-items:center; gap:12px; padding:12px; border-bottom:1px solid var(--bdr); background:${rank <= 3 ? bgColor : 'transparent'}; border-radius:${rank <= 3 ? 'var(--r2)' : '0'}; margin-bottom:${rank <= 3 ? '6px' : '0'};">
+        <div style="flex-shrink:0;">${badgeHtml}</div>
+        <div style="flex-shrink:0;">${avatar}</div>
+        <div style="flex:1; min-width:0;">
+          <div class="trunc" style="font-weight:700; font-size:.9rem; color:var(--tx);">${item.nama}</div>
+          <div class="trunc" style="font-size:.72rem; color:var(--tx3);">${item.id} · ${item.info}</div>
+        </div>
+        <div style="text-align:right; flex-shrink:0;">
+          <div style="font-weight:800; font-size:1.1rem; font-family:var(--fm); color:${color}; line-height:1;">${item.hadir}</div>
+          <div style="font-size:.65rem; font-weight:600; color:var(--tx4); text-transform:uppercase;">Hadir</div>
+        </div>
+        <div style="text-align:right; flex-shrink:0; min-width:45px; border-left:1px dashed var(--bdr2); padding-left:8px;">
+          <div style="font-weight:800; font-size:.95rem; font-family:var(--fm); color:var(--tx2); line-height:1;">${item.tepatWaktu}</div>
+          <div style="font-size:.65rem; font-weight:600; color:var(--tx4); text-transform:uppercase;">Tepat</div>
+        </div>
+      </div>
+    `;
+  });
+
+  return `<div class="card" style="margin-bottom:16px;"><div class="sec-t" style="color:${color}; margin-bottom:14px; font-size:1.1rem;">${title}</div><div>${listHtml}</div></div>`;
+}
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -4865,151 +5940,6 @@ function executeSystemLock(status) {
       });
     });
   }
-// ==========================================
-// MESIN MODE DEMO & DATABASE SIMULASI
-// ==========================================
-// Menggunakan 'var' dan 'window' agar anti-error/anti-konflik
-var dToday = new Date();
-var dYest = new Date(dToday); dYest.setDate(dYest.getDate() - 1);
-var dTwoDays = new Date(dToday); dTwoDays.setDate(dTwoDays.getDate() - 2);
-
-var fmtDt = function(d) { return d.toISOString().slice(0,10); };
-
-var DEMO_DATABASE = {
-  attendance: [
-    { tanggal: fmtDt(dToday), masuk: '07:15', keluar: '—', ket: 'Tepat Waktu', status: 'Hadir', jarak: '15', foto: '—', waktu: 'Pagi' },
-    { tanggal: fmtDt(dYest), masuk: '07:20', keluar: '14:15', ket: 'Tepat Waktu', status: 'Hadir', jarak: '12', foto: '—', waktu: 'Pagi' },
-    { tanggal: fmtDt(dTwoDays), masuk: '—', keluar: '—', ket: 'Surat Keterangan Dokter', status: 'Sakit', jarak: '—', foto: '—', waktu: 'Pagi' }
-  ]
-};
-
-window.showDemoCredentials = function() {
-  if (typeof Swal !== 'undefined') {
-    Swal.fire({
-      title: 'Kredensial Demo',
-      html: `
-        <div style="text-align:left; margin-top: 5px;">
-          <p style="font-size: 0.8rem; color: var(--tx3); margin-bottom: 16px; text-align: center; line-height: 1.5;">Gunakan akses di bawah ini untuk menguji simulasi sistem E-Absensi tanpa memengaruhi data asli.</p>
-          
-          <div style="display:flex; align-items:center; gap:14px; background:var(--bg2); border:1px solid var(--bdr); padding:14px; border-radius:var(--r3); margin-bottom:10px; transition:all var(--dur) var(--ease);">
-            <div class="fc" style="width:42px; height:42px; border-radius:50%; background:var(--surf); color:var(--acc); flex-shrink:0; box-shadow:var(--sh1);">
-              <span class="material-symbols-rounded" style="font-size: 22px;">admin_panel_settings</span>
-            </div>
-            <div style="flex:1;">
-              <div style="font-size:0.7rem; font-weight:700; color:var(--acc); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Login Admin</div>
-              <div style="font-family:var(--fm); font-size:0.88rem; color:var(--tx); font-weight:600;"><span style="color:var(--tx4); font-weight:400; font-family:var(--f); font-size:0.75rem; width:28px; display:inline-block;">ID</span> admin@demo.com</div>
-              <div style="font-family:var(--fm); font-size:0.88rem; color:var(--tx); font-weight:600;"><span style="color:var(--tx4); font-weight:400; font-family:var(--f); font-size:0.75rem; width:28px; display:inline-block;">PW</span> admin123</div>
-            </div>
-          </div>
-
-          <div style="display:flex; align-items:center; gap:14px; background:var(--bg2); border:1px solid var(--bdr); padding:14px; border-radius:var(--r3); margin-bottom:10px; transition:all var(--dur) var(--ease);">
-            <div class="fc" style="width:42px; height:42px; border-radius:50%; background:var(--surf); color:#059669; flex-shrink:0; box-shadow:var(--sh1);">
-              <span class="material-symbols-rounded" style="font-size: 22px;">badge</span>
-            </div>
-            <div style="flex:1;">
-              <div style="font-size:0.7rem; font-weight:700; color:#059669; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Login Guru</div>
-              <div style="font-family:var(--fm); font-size:0.88rem; color:var(--tx); font-weight:600;"><span style="color:var(--tx4); font-weight:400; font-family:var(--f); font-size:0.75rem; width:28px; display:inline-block;">ID</span> guru@demo.com</div>
-              <div style="font-family:var(--fm); font-size:0.88rem; color:var(--tx); font-weight:600;"><span style="color:var(--tx4); font-weight:400; font-family:var(--f); font-size:0.75rem; width:28px; display:inline-block;">PW</span> guru123</div>
-            </div>
-          </div>
-
-          <div style="display:flex; align-items:center; gap:14px; background:var(--blu-b); border:1px solid #bfdbfe; padding:14px; border-radius:var(--r3);">
-            <div class="fc" style="width:42px; height:42px; border-radius:50%; background:var(--surf); color:var(--blu); flex-shrink:0; box-shadow:var(--sh1);">
-              <span class="material-symbols-rounded" style="font-size: 22px;">school</span>
-            </div>
-            <div style="flex:1;">
-              <div style="font-size:0.7rem; font-weight:700; color:var(--blu); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Login Siswa (Tab Siswa)</div>
-              <div style="font-family:var(--fm); font-size:0.88rem; color:var(--tx); font-weight:600;"><span style="color:var(--tx4); font-weight:400; font-family:var(--f); font-size:0.75rem; width:28px; display:inline-block;">ID</span> 1234567890</div>
-              <div style="font-size:0.7rem; color:var(--blu); opacity:0.8; margin-top:3px; font-weight:500;">(Tidak membutuhkan password)</div>
-            </div>
-          </div>
-        </div>
-      `,
-      showConfirmButton: false, // Menghilangkan tombol konfirmasi agar lebih minimalis
-      showCloseButton: true,    // Mengganti dengan tombol X (close) di pojok atas
-      customClass: { popup: 'swal2-popup' } 
-    });
-  } else {
-    alert("KREDENSIAL DEMO\n\n1. ADMIN\nEmail: admin@demo.com\nPass: admin123\n\n2. GURU\nEmail: guru@demo.com\nPass: guru123\n\n3. SISWA\nNISN: 1234567890");
-  }
-};
-  
-window.startDemoMode = function(role) {
-  Swal.fire({title: 'Memasuki Mode Demo...', allowOutsideClick: false, didOpen: () => Swal.showLoading()});
-  
-  var demoUser = {
-    Admin: { id: 'DEMO-ADM', nama: 'Administrator Demo', role: 'Admin', jk: 'L', email: 'admin.demo@sekolah.sch.id', hp: '08123456789' },
-    Guru: { id: 'DEMO-GURU', nama: 'Iwan Setiawan, S.Pd', role: 'Guru', jk: 'L', email: 'guru@demo.com', hp: '08123456780', kelasDiurus: 'X IPA 1', isPetugas: true, hak_scan: 'GLOBAL' },
-    Siswa: { id: 'DEMO-SISWA', nama: 'Budi Ardiansyah', role: 'Siswa', jk: 'L', kelas: 'X IPA 1', hp: '08123456781', ayah: 'Suhardi', ibu: 'Siti' }
-  };
-
-  setTimeout(function() {
-    APP.token = 'TOKEN-DEMO-ONLY';
-    APP.user = demoUser[role];
-    APP.isDemo = true; 
-    
-    sessionStorage.setItem('auth_token', APP.token);
-    sessionStorage.setItem('auth_user', JSON.stringify(APP.user));
-    
-    // OVERRIDE TOTAL: Cegah akses ke Google Script
-    var originalCallAPI = window.callAPI;
-    window.callAPI = async function(action, payload) {
-      if (!APP.isDemo) return originalCallAPI(action, payload);
-
-      if (action === 'submitAttendance') {
-        var jamSekarang = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
-        DEMO_DATABASE.attendance.unshift({
-          tanggal: fmtDt(new Date()),
-          masuk: jamSekarang, keluar: '—', ket: 'Simulasi Demo', status: payload.status || 'Hadir', jarak: '10', foto: payload.bukti || '—', waktu: 'Pagi'
-        });
-        return { status: 'success', message: '[MODE DEMO] Absen berhasil dicatat di simulasi.' };
-      }
-
-      if (action === 'getMyAttendance') return { status: 'success', data: DEMO_DATABASE.attendance };
-
-      if (action === 'getDashboardData') {
-        return {
-          status: 'success',
-          data: {
-            config: { NAMA_SEKOLAH: "Sekolah Demo Enterprise", SHIFT_PAGI_AKTIF: 'AKTIF', JAM_MASUK_PAGI: '07:30', JAM_PULANG_PAGI: '14:00' },
-            serverTime: fmtDt(new Date()),
-            stats: { guru: { pagi: { h:10, s:0, i:0, a:0 } }, siswa: { pagi: { h:150, s:2, i:1, a:0 } }, my: { h:2, s:1, i:0, a:0 } },
-            studentData: {
-              stats: { hadir: 2, sakit: 1, izin: 0, alpha: 0 },
-              today: DEMO_DATABASE.attendance[0].tanggal === fmtDt(new Date()) 
-                ? { masuk: DEMO_DATABASE.attendance[0].masuk, pulang: '—', status: DEMO_DATABASE.attendance[0].status, ket: 'Terekam' } 
-                : { masuk: '—', pulang: '—', status: 'Belum Absen', ket: '' }
-            },
-            broadcast: "Selamat datang di Mode Simulasi Demo E-Absensi Pro! Data yang Anda masukkan di sini tidak akan tersimpan ke database asli."
-          }
-        };
-      }
-
-      if (action === 'getMasterData' || action === 'getDropdownList') {
-        return { status: 'success', data: [ 
-          { id: 'DEMO-SISWA', nama: 'Budi Ardiansyah', kelas: 'X IPA 1', status: 'Aktif', jk: 'L' },
-          { id: 'DEMO-GURU', nama: 'Iwan Setiawan, S.Pd', dept: 'Matematika', status: 'Aktif', jk: 'L' } 
-        ] };
-      }
-
-      if (action === 'pingOnlineStatus') return { status: 'success', data: [ APP.user ] }; 
-      if (action === 'getMyProfile') return { status: 'success', data: APP.user };
-
-      return { status: 'success', message: '[MODE DEMO] Aksi berhasil disimulasikan.' };
-    };
-
-    Swal.close();
-    initApp();
-    
-    // Tambahkan Badge Demo
-    var demoBadge = document.createElement('div');
-    demoBadge.innerHTML = "MODE DEMO AKTIF";
-    demoBadge.style.cssText = "position:fixed; bottom:70px; left:50%; transform:translateX(-50%); background:var(--red); color:#fff; padding:6px 16px; border-radius:20px; font-weight:bold; font-size:0.75rem; z-index:9999; box-shadow:0 4px 10px rgba(0,0,0,0.3); pointer-events:none; letter-spacing:1px;";
-    document.body.appendChild(demoBadge);
-
-  }, 1000);
-};
-  
 </script>
 </body>
 </html>
