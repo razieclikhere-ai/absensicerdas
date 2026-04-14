@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Absensi Pro | Enterprise Edition</title>
+    <title>E-Absensi Pro | Solusi Absensi Digital Sekolah & Madrasah</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -11,36 +11,55 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F3F9F6;
+            background-color: #FAFAFA;
+        }
+
+        /* Gradient Background Blobs untuk efek Premium/Tech */
+        .bg-blob-1 {
+            position: absolute;
+            top: -10%; right: -5%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(74,222,128,0.15) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+            border-radius: 50%;
+        }
+        .bg-blob-2 {
+            position: absolute;
+            bottom: 10%; left: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(32,106,75,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+            border-radius: 50%;
         }
 
         /* Desain Bingkai HP (Mockup) */
         .phone-mockup {
-            border: 10px solid #1e293b;
-            border-radius: 40px;
+            border: 12px solid #0f172a;
+            border-radius: 45px;
             overflow: hidden;
-            width: 280px;
-            height: 580px;
-            box-shadow: 0 25px 50px -12px rgba(45, 122, 93, 0.25);
+            width: 290px;
+            height: 600px;
+            box-shadow: 0 25px 50px -12px rgba(21, 128, 61, 0.3), 0 0 0 2px #334155;
             position: relative;
             background: #ffffff;
             margin: 0 auto;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
         }
 
         .phone-mockup:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 60px -15px rgba(45, 122, 93, 0.4);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 35px 60px -15px rgba(21, 128, 61, 0.5), 0 0 0 2px #475569;
         }
 
         .notch {
             position: absolute;
             top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 100px; height: 25px;
-            background-color: #1e293b;
-            border-bottom-left-radius: 16px;
-            border-bottom-right-radius: 16px;
+            width: 120px; height: 30px;
+            background-color: #0f172a;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
             z-index: 10;
         }
 
@@ -55,13 +74,13 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(135deg, #206a4b 0%, #4ade80 100%);
+            background-image: linear-gradient(135deg, #15803d 0%, #22c55e 100%);
         }
 
         /* Animasi Mengambang */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
         .animate-float {
@@ -69,54 +88,69 @@
         }
 
         /* Tombol Toggle Switch (Bulanan/Tahunan) */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #15803d;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #15803d;
-        }
+        .toggle-checkbox:checked { right: 0; border-color: #15803d; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #15803d; }
         
-        /* Animasi Nadi (Pulse) untuk Tombol WhatsApp */
+        /* Animasi Nadi (Pulse) WhatsApp */
         @keyframes pulse-wa {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
-        .btn-whatsapp {
-            animation: pulse-wa 2s infinite;
-        }
+        .btn-whatsapp { animation: pulse-wa 2.5s infinite; }
+
+        /* Hide scrollbar for brand marquee */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-gray-800 antialiased selection:bg-green-200 selection:text-green-900">
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/6285763169783?text=Halo%20tim%20E-Absensi%20Pro,%20saya%20ingin%20bertanya%20seputar%20aplikasi%20ini." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20bd5a] text-white p-4 rounded-full shadow-2xl transition-transform duration-300 hover:scale-110 btn-whatsapp flex items-center justify-center group">
+    <a href="https://wa.me/6285763169783?text=Halo%20tim%20E-Absensi%20Pro,%20saya%20tertarik%20dengan%20aplikasinya.%20Bisa%20minta%20jadwal%20demo?" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20bd5a] active:scale-95 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:-translate-y-2 btn-whatsapp flex items-center justify-center group">
         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <span class="absolute right-16 bg-white text-gray-800 text-sm font-bold py-2 px-4 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-            Hubungi via WhatsApp
+        <span class="absolute right-16 bg-white text-gray-800 text-sm font-bold py-2 px-4 rounded-lg shadow-xl opacity-0 translate-x-4 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap border border-gray-100">
+            Konsultasi Gratis via WA
         </span>
     </a>
 
     <!-- Navigation -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-100">
+    <nav id="navbar" class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-40 border-b border-gray-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-green-700 text-white rounded-xl flex items-center justify-center shadow-md">
+                <!-- Logo -->
+                <a href="#" class="flex items-center group cursor-pointer transition-transform duration-300 active:scale-95">
+                    <div class="w-11 h-11 bg-gradient-to-br from-green-600 to-green-800 text-white rounded-xl flex items-center justify-center shadow-lg shadow-green-600/30 group-hover:shadow-green-600/50 group-hover:rotate-6 transition-all duration-300">
                         <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
                     </div>
-                    <span class="ml-3 font-extrabold text-2xl tracking-tight text-gray-900">E-ABSENSI PRO</span>
-                </div>
-                <div class="flex items-center space-x-2 md:space-x-6">
-                    <a href="#fitur" class="text-gray-500 hover:text-green-700 font-medium hidden md:block transition">Fitur</a>
-                    <a href="#demo" class="text-gray-500 hover:text-green-700 font-medium hidden md:block transition">Tampilan</a>
-                    <a href="#harga" class="text-gray-500 hover:text-green-700 font-medium hidden md:block transition">Harga</a>
+                    <span class="ml-3 font-extrabold text-2xl tracking-tight text-gray-900 group-hover:text-green-700 transition-colors duration-300">E-ABSENSI<span class="text-green-600">PRO</span></span>
+                </a>
+                
+                <div class="flex items-center space-x-2 md:space-x-8">
+                    <!-- Nav Links with Animated Underline -->
+                    <a href="#solusi" class="relative text-gray-600 hover:text-green-700 font-semibold hidden md:block transition-colors duration-300 group">
+                        Solusi
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#fitur" class="relative text-gray-600 hover:text-green-700 font-semibold hidden md:block transition-colors duration-300 group">
+                        Fitur
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#testimoni" class="relative text-gray-600 hover:text-green-700 font-semibold hidden md:block transition-colors duration-300 group">
+                        Testimoni
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#harga" class="relative text-gray-600 hover:text-green-700 font-semibold hidden md:block transition-colors duration-300 group">
+                        Harga
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
                     
-                    <!-- Diubah ke absensidemo.html -->
-                    <a href="absensidemo.html" class="hidden sm:inline-block text-green-700 hover:text-green-800 font-bold py-2 px-4 transition">Masuk</a>
-                    <a href="absensidemo.html" class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-5 rounded-lg transition shadow-md hover:shadow-green-600/30 flex items-center gap-2">
+                    <!-- Call to Actions -->
+                    <a href="absensidemo.html" class="hidden sm:inline-block text-green-700 hover:text-green-800 font-bold py-2 px-4 transition-colors duration-300 hover:bg-green-50 rounded-lg active:scale-95">Login Admin</a>
+                    
+                    <a href="absensidemo.html" class="bg-gray-900 hover:bg-green-600 active:bg-green-800 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-green-600/40 flex items-center gap-2 transform hover:-translate-y-1 active:scale-95">
                         <span>Coba Gratis</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -124,159 +158,335 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="relative overflow-hidden pt-16 pb-24 lg:pb-32 bg-gradient-to-b from-[#F3F9F6] to-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="relative overflow-hidden pt-16 pb-20 lg:pb-32 bg-[#FAFAFA]">
+        <div class="bg-blob-1"></div>
+        <div class="bg-blob-2"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
                 
-                <div class="w-full lg:w-1/2 pt-10 text-center lg:text-left z-10">
-                    <div class="inline-flex items-center gap-2 bg-green-100 text-green-800 text-xs sm:text-sm font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-6 border border-green-200">
+                <!-- Kiri: Copywriting -->
+                <div class="w-full lg:w-1/2 pt-10 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-white text-green-700 text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full uppercase tracking-wider mb-6 border border-green-100 shadow-sm cursor-default hover:shadow-md transition-shadow duration-300">
                         <span class="relative flex h-3 w-3">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-3 w-3 bg-green-600"></span>
                         </span>
-                        Edisi Sekolah & Madrasah
+                        Sistem Terpercaya 2026 Edisi Sekolah
                     </div>
                     
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.15]">
-                        Sistem Absensi Pintar <br>
-                        <span class="text-gradient">Profesional Enterprise</span>
+                        Tinggalkan Rekap Manual. <br>
+                        Sistem Absensi <span class="text-gradient hover:opacity-80 transition-opacity duration-300 cursor-default">Anti-Kecurangan.</span>
                     </h1>
                     
-                    <p class="mt-6 text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto lg:mx-0 font-medium">
-                        Ucapkan selamat tinggal pada rekap manual. Kelola kehadiran siswa dan guru secara real-time dengan teknologi QR Code dan penguncian GPS. Buktikan sendiri tanpa risiko!
+                    <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
+                        Pantau kehadiran siswa dan guru secara real-time. Dilengkapi teknologi <strong>Face Recognition</strong> dan <strong>Kunci Koordinat GPS</strong>. Solusi pasti untuk kedisiplinan madrasah & sekolah Anda.
                     </p>
                     
                     <div class="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                        <!-- Diubah ke absensidemo.html -->
-                        <a href="absensidemo.html" class="group bg-green-700 hover:bg-green-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-green-700/30 transition-all text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                            Mulai Uji Coba Gratis
+                        <!-- Primary Button Interaktif -->
+                        <a href="absensidemo.html" class="group bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-4 px-8 rounded-full shadow-xl shadow-green-600/30 hover:shadow-green-500/50 transition-all duration-300 text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1 active:scale-95">
+                            Mulai Demo Gratis
+                            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                         </a>
-                        <a href="#harga" class="bg-white text-green-700 border-2 border-green-200 hover:border-green-700 font-bold py-4 px-8 rounded-xl shadow-sm transition-all text-lg flex items-center justify-center transform hover:-translate-y-1">
-                            Lihat Paket Harga
+                        
+                        <!-- Secondary Button Interaktif -->
+                        <a href="#testimoni" class="bg-white text-gray-700 hover:text-green-700 hover:bg-green-50 active:bg-gray-100 border-2 border-gray-200 hover:border-green-300 font-bold py-4 px-8 rounded-full shadow-sm hover:shadow-md transition-all duration-300 text-lg flex items-center justify-center gap-2 transform hover:-translate-y-1 active:scale-95 group">
+                            <svg class="w-5 h-5 text-yellow-400 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            Lihat Testimoni
                         </a>
+                    </div>
+
+                    <div class="mt-8 flex items-center justify-center lg:justify-start gap-4 text-sm font-medium text-gray-500">
+                        <span class="flex items-center gap-1 cursor-default hover:text-green-600 transition-colors duration-300"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tanpa Kartu Kredit</span>
+                        <span class="flex items-center gap-1 cursor-default hover:text-green-600 transition-colors duration-300"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Setup 5 Menit</span>
                     </div>
                 </div>
 
-                <div class="w-full lg:w-1/2 mt-16 lg:mt-0 flex justify-center animate-float">
-                    <div class="phone-mockup">
-                        <div class="notch"></div>
-                        <!-- Placeholder Image agar tidak broken link -->
-                        <img src="https://i.ibb.co.com/RxkxR84/Whats-App-Image-2026-04-14-at-00-51-59.jpg" alt="Login App" class="phone-screen" id="img-login">
+                <!-- Kanan: Visual Mockup -->
+                <div class="w-full lg:w-1/2 mt-16 lg:mt-0 flex justify-center animate-float relative cursor-pointer group" onclick="document.getElementById('demo-btn').click();">
+                    <!-- Ornamen melayang dengan hover effect -->
+                    <div class="absolute top-10 -left-10 bg-white p-4 rounded-2xl shadow-xl z-20 border border-gray-100 hidden md:block transition-all duration-300 group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-2xl">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-green-100 p-2 rounded-full text-green-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">Budi Santoso</p>
+                                <p class="text-sm font-bold text-gray-900">Hadir Tepat Waktu</p>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="phone-mockup group-hover:shadow-green-500/50">
+                        <div class="notch"></div>
+                        <img src="https://i.postimg.cc/LXP52MQn/Whats-App-Image-2026-04-14-at-00-51-59.jpg" alt="Aplikasi E-Absensi Pro" class="phone-screen transition-transform duration-700 group-hover:scale-105" id="img-login">
+                        
+                        <!-- Overlay CTA inside phone on hover -->
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">Coba Aplikasi</span>
+                        </div>
+                    </div>
+                    <a href="absensidemo.html" id="demo-btn" class="hidden"></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Features Section -->
-    <div id="fitur" class="py-20 bg-white">
+    <!-- Social Proof / Trust Banner -->
+    <div class="py-10 bg-white border-y border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl tracking-tight">Teknologi Mutakhir <br class="sm:hidden">Dalam Satu Genggaman</h2>
-                <div class="h-1 w-20 bg-green-500 mx-auto mt-4 rounded-full"></div>
+            <p class="text-center text-sm font-bold text-gray-400 uppercase tracking-[0.2em] mb-8 cursor-default">Telah Dipercaya oleh 500+ Sekolah & Madrasah</p>
+            <div class="flex overflow-x-auto no-scrollbar justify-start md:justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 cursor-ew-resize">
+                <h3 class="text-xl font-bold text-gray-800 whitespace-nowrap hover:text-green-700 transition-colors duration-300 hover:scale-110">🏛️ MAN 1 Model</h3>
+                <h3 class="text-xl font-bold text-gray-800 whitespace-nowrap hover:text-green-700 transition-colors duration-300 hover:scale-110">🎓 SMAN 3 Unggulan</h3>
+                <h3 class="text-xl font-bold text-gray-800 whitespace-nowrap hover:text-green-700 transition-colors duration-300 hover:scale-110">🏫 SDIT Al-Falah</h3>
+                <h3 class="text-xl font-bold text-gray-800 whitespace-nowrap hover:text-green-700 transition-colors duration-300 hover:scale-110">🕌 Ponpes Darussalam</h3>
+                <h3 class="text-xl font-bold text-gray-800 whitespace-nowrap hover:text-green-700 transition-colors duration-300 hover:scale-110">🏢 SMK Bina Karya</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem & Solution (Why Choose Us) -->
+    <div id="solusi" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-green-600 font-bold tracking-wider uppercase text-sm">Masalah Anda Selesai</span>
+                <h2 class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">Mengapa Harus Pindah ke E-Absensi Pro?</h2>
+                <p class="mt-4 text-xl text-gray-600">Sistem tradisional memakan waktu dan rawan manipulasi. Kami mendesain E-Absensi untuk memecahkan 3 masalah utama sekolah.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
-                    <div class="w-14 h-14 bg-green-50 group-hover:bg-green-600 rounded-2xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-colors">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                <!-- Benefit Cards Interaktif -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-green-200 group cursor-default">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300 group-hover:rotate-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Multi-Scanner Kehadiran</h3>
-                    <p class="text-gray-500">Dukung absensi melalui scan QR Code, Foto Wajah, hingga validasi manual dengan penguncian radius lokasi (GPS).</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition-colors">Anti-Titip Absen</h3>
+                    <p class="text-gray-600 leading-relaxed">Dengan validasi <span class="font-semibold text-gray-900">GPS Radius</span> dan <span class="font-semibold text-gray-900">Face Recognition</span>, siswa atau guru tidak bisa lagi absen dari luar area.</p>
                 </div>
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
-                    <div class="w-14 h-14 bg-blue-50 group-hover:bg-blue-600 rounded-2xl flex items-center justify-center mb-6 text-blue-600 group-hover:text-white transition-colors">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-green-200 group cursor-default">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300 group-hover:-rotate-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Dashboard Real-Time</h3>
-                    <p class="text-gray-500">Pantau statistik kehadiran (Hadir, Sakit, Izin, Alpha) secara langsung dan akurat setiap detik.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition-colors">Hemat Waktu Rekap</h3>
+                    <p class="text-gray-600 leading-relaxed">Akhir bulan tidak perlu lagi begadang. Rekapitulasi otomatis dalam hitungan detik. Tinggal Export ke Excel!</p>
                 </div>
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
-                    <div class="w-14 h-14 bg-orange-50 group-hover:bg-orange-500 rounded-2xl flex items-center justify-center mb-6 text-orange-600 group-hover:text-white transition-colors">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-green-200 group cursor-default">
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#25D366] group-hover:text-white transition-colors duration-300 group-hover:scale-110">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Laporan & Ekspor XLSX</h3>
-                    <p class="text-gray-500">Filter laporan absen berdasarkan bulan atau kelas, lalu cetak atau unduh ke format Excel (XLSX) dengan satu klik.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition-colors">Transparansi Orang Tua</h3>
+                    <p class="text-gray-600 leading-relaxed">Orang tua merasa aman dengan notifikasi kehadiran via <span class="font-semibold text-green-600">WhatsApp (Powered by FOnte)</span> saat anak tiba di sekolah dan pulang.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fitur Inti -->
+    <div id="fitur" class="py-24 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl tracking-tight">Teknologi Mutakhir <br class="sm:hidden">Dalam Satu Genggaman</h2>
+                <div class="h-1 w-24 bg-green-500 mx-auto mt-6 rounded-full transition-all duration-500 hover:w-32 cursor-pointer"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card Fitur Interaktif -->
+                <div class="group p-6 rounded-2xl hover:bg-gray-50 transition-colors duration-300 cursor-default">
+                    <div class="w-12 h-12 bg-green-50 group-hover:bg-green-600 group-hover:shadow-lg rounded-xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-all duration-300 transform group-hover:-translate-y-2 group-hover:rotate-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">Multi-Scanner</h3>
+                    <p class="text-gray-500 text-sm">Dukung absen via QR Code, Face Scanner, hingga PIN khusus per siswa.</p>
+                </div>
+                
+                <div class="group p-6 rounded-2xl hover:bg-gray-50 transition-colors duration-300 cursor-default">
+                    <div class="w-12 h-12 bg-green-50 group-hover:bg-green-600 group-hover:shadow-lg rounded-xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-all duration-300 transform group-hover:-translate-y-2 group-hover:-rotate-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">Dashboard Real-Time</h3>
+                    <p class="text-gray-500 text-sm">Pantau statistik kehadiran kelas dan guru secara langsung, akurat detik itu juga.</p>
+                </div>
+
+                <div class="group p-6 rounded-2xl hover:bg-gray-50 transition-colors duration-300 cursor-default">
+                    <div class="w-12 h-12 bg-green-50 group-hover:bg-green-600 group-hover:shadow-lg rounded-xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-all duration-300 transform group-hover:-translate-y-2 group-hover:rotate-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">1-Click Excel Export</h3>
+                    <p class="text-gray-500 text-sm">Filter data berdasarkan bulan/kelas, lalu unduh laporan Excel dengan satu klik.</p>
+                </div>
+
+                <div class="group p-6 rounded-2xl hover:bg-gray-50 transition-colors duration-300 cursor-default">
+                    <div class="w-12 h-12 bg-green-50 group-hover:bg-[#25D366] group-hover:shadow-lg shadow-[#25D366]/40 rounded-xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-all duration-300 transform group-hover:-translate-y-2 group-hover:-rotate-3">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#25D366] transition-colors">Notifikasi WA (FOnte)</h3>
+                    <p class="text-gray-500 text-sm">Wali murid otomatis menerima chat WhatsApp real-time saat siswa melakukan presensi berkat API FOnte.</p>
+                </div>
+
+                <div class="group p-6 rounded-2xl hover:bg-gray-50 transition-colors duration-300 cursor-default">
+                    <div class="w-12 h-12 bg-green-50 group-hover:bg-green-600 group-hover:shadow-lg rounded-xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-all duration-300 transform group-hover:-translate-y-2 group-hover:rotate-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">GPS & Anti-Fake</h3>
+                    <p class="text-gray-500 text-sm">Cegah kecurangan dengan penguncian kordinat lokasi (radius) dan pencegahan fake GPS.</p>
+                </div>
+
+                <div class="group p-6 rounded-2xl hover:bg-gray-50 transition-colors duration-300 cursor-default">
+                    <div class="w-12 h-12 bg-green-50 group-hover:bg-green-600 group-hover:shadow-lg rounded-xl flex items-center justify-center mb-6 text-green-600 group-hover:text-white transition-all duration-300 transform group-hover:-translate-y-2 group-hover:-rotate-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">Keamanan Data Bank</h3>
+                    <p class="text-gray-500 text-sm">Data siswa dienkripsi menggunakan standar keamanan tinggi dan server cloud mandiri.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TESTIMONIAL SECTION -->
+    <div id="testimoni" class="py-24 bg-green-900 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-green-300 font-bold tracking-wider uppercase text-sm">Bukti Nyata</span>
+                <h2 class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">Apa Kata Mereka Yang Sudah Hijrah?</h2>
+                <p class="mt-4 text-green-100 text-lg">Bergabunglah dengan ratusan sekolah yang sudah merasakan kemudahan manajemen kehadiran.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testi Cards Interaktif -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl relative transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl hover:shadow-green-900/50 cursor-default group">
+                    <div class="absolute -top-5 right-8 text-6xl text-green-200 group-hover:text-green-400 transition-colors duration-300">"</div>
+                    <div class="flex text-yellow-400 mb-4 group-hover:scale-105 transform origin-left transition-transform duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 font-medium italic">"Luar biasa! Dulu rekap bulanan bisa makan waktu 3 hari oleh TU kami. Sejak pakai E-Absensi Pro, akhir bulan tinggal klik export Excel. 5 menit beres! Guru juga makin disiplin karena GPS Lock."</p>
+                    <div class="flex items-center">
+                        <img src="https://ui-avatars.com/api/?name=Ahmad+Syafiq&background=0D8ABC&color=fff&rounded=true" alt="User" class="w-12 h-12 rounded-full border-2 border-green-100 group-hover:border-green-400 transition-colors duration-300">
+                        <div class="ml-4">
+                            <h4 class="text-sm font-bold text-gray-900">Ahmad Syafiq, M.Pd.</h4>
+                            <p class="text-xs text-gray-500">Kepala Sekolah - MIN 1 Medan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-xl relative transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl hover:shadow-green-900/50 cursor-default group">
+                    <div class="absolute -top-5 right-8 text-6xl text-green-200 group-hover:text-green-400 transition-colors duration-300">"</div>
+                    <div class="flex text-yellow-400 mb-4 group-hover:scale-105 transform origin-left transition-transform duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 font-medium italic">"Sangat mengatasi masalah 'titip absen' antar teman. Sistem pendeteksi wajahnya pintar, tidak bisa diakali pakai foto. Tim support-nya juga sangat responsif kalau kami ada kendala."</p>
+                    <div class="flex items-center">
+                        <img src="https://ui-avatars.com/api/?name=Siti+Aisyah&background=15803d&color=fff&rounded=true" alt="User" class="w-12 h-12 rounded-full border-2 border-green-100 group-hover:border-green-400 transition-colors duration-300">
+                        <div class="ml-4">
+                            <h4 class="text-sm font-bold text-gray-900">Siti Aisyah, S.Kom</h4>
+                            <p class="text-xs text-gray-500">Operator Yayasan - SDIT Bina Insan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-xl relative transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl hover:shadow-green-900/50 cursor-default group">
+                    <div class="absolute -top-5 right-8 text-6xl text-green-200 group-hover:text-green-400 transition-colors duration-300">"</div>
+                    <div class="flex text-yellow-400 mb-4 group-hover:scale-105 transform origin-left transition-transform duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 font-medium italic">"Wali murid sangat mengapresiasi fitur notifikasi kehadiran. Mereka merasa tenang anaknya sampai di sekolah dengan selamat. Investasi sistem yang sangat worth-it untuk sekolah kami."</p>
+                    <div class="flex items-center">
+                        <img src="https://ui-avatars.com/api/?name=Drs+Supriyadi&background=F59E0B&color=fff&rounded=true" alt="User" class="w-12 h-12 rounded-full border-2 border-green-100 group-hover:border-green-400 transition-colors duration-300">
+                        <div class="ml-4">
+                            <h4 class="text-sm font-bold text-gray-900">Drs. Supriyadi</h4>
+                            <p class="text-xs text-gray-500">Waka Kesiswaan - SMAN 3</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Pricing Section -->
-    <div id="harga" class="py-20 bg-[#F8FAFC]">
+    <div id="harga" class="py-24 bg-[#FAFAFA]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">Pilihan Paket Fleksibel</h2>
-                <p class="mt-4 text-lg text-gray-500">Mulai dari coba gratis hingga investasi terbaik untuk madrasah/sekolah Anda.</p>
+                <h2 class="text-3xl font-extrabold text-gray-900">Pilih Investasi Terbaik Anda</h2>
+                <p class="mt-4 text-lg text-gray-600">Transparan, tanpa biaya tersembunyi. Upgrade atau batalkan kapan saja.</p>
                 
-                <div class="flex items-center justify-center mt-8">
-                    <span class="text-gray-600 font-semibold mr-3">Bulanan</span>
-                    <div class="relative inline-block w-14 mr-2 align-middle select-none transition duration-200 ease-in">
-                        <input type="checkbox" name="toggle" id="billing-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200" onchange="updatePricing()"/>
-                        <label for="billing-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                <div class="flex items-center justify-center mt-8 bg-white inline-flex p-2 rounded-full border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer" onclick="document.getElementById('billing-toggle').click()">
+                    <span class="text-gray-600 font-semibold mx-4 select-none">Bulanan</span>
+                    <div class="relative inline-block w-14 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="toggle" id="billing-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200" onchange="updatePricing()" checked/>
+                        <label for="billing-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-green-700 cursor-pointer transition-colors duration-300"></label>
                     </div>
-                    <span class="text-gray-900 font-bold ml-3">Tahunan <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full ml-1">(Hemat 2 Bulan)</span></span>
+                    <span class="text-gray-900 font-bold mx-4 flex items-center select-none">Tahunan <span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-0.5 rounded-full ml-2 animate-pulse">Hemat 2 Bulan!</span></span>
                 </div>
             </div>
 
-            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
                 
-                <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-2xl font-bold text-gray-900">Uji Coba</h3>
-                    <p class="text-gray-500 mt-2">Coba semua fitur dasar tanpa risiko sepeser pun.</p>
+                <!-- Uji Coba -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-xl hover:border-green-300 transition-all duration-300 hover:-translate-y-2 group">
+                    <h3 class="text-2xl font-bold text-gray-900 group-hover:text-green-700 transition-colors">Free Trial</h3>
+                    <p class="text-gray-500 mt-2">Buktikan sendiri sebelum membeli.</p>
                     <div class="mt-6 flex items-baseline text-5xl font-extrabold text-gray-900">
-                        <span class="text-2xl mr-1">Rp</span>
-                        <span>0</span>
-                        <span class="text-xl text-gray-500 font-medium ml-1"> / 14 hari</span>
+                        <span class="text-2xl mr-1">Rp</span><span>0</span><span class="text-xl text-gray-500 font-medium ml-1"> / 14 hr</span>
                     </div>
-                    <ul class="mt-8 space-y-4">
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Akses Penuh 14 Hari</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Maksimal 50 Siswa/Guru</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Uji Coba QR Code</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tanpa Kartu Kredit</li>
+                    <ul class="mt-8 space-y-4 text-gray-600">
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Akses Penuh Semua Fitur</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Maksimal 50 Data Percobaan</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tanpa Masukkan Kartu Kredit</li>
                     </ul>
-                    <!-- Diubah ke absensidemo.html -->
-                    <a href="absensidemo.html" class="mt-8 block w-full bg-white border-2 border-green-700 text-green-700 hover:bg-green-50 font-bold py-3 px-4 rounded-xl text-center transition">Mulai Coba Gratis</a>
+                    <a href="absensidemo.html" class="mt-8 block w-full bg-white border-2 border-green-600 text-green-700 hover:bg-green-50 active:bg-green-100 font-bold py-3.5 px-4 rounded-xl text-center transition-all duration-300 active:scale-95">Mulai Coba Gratis</a>
                 </div>
 
-                <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-2xl font-bold text-gray-900">Paket Lite</h3>
-                    <p class="text-gray-500 mt-2">Cocok untuk sekolah dengan jumlah siswa terbatas.</p>
-                    <div class="mt-6 flex items-baseline text-5xl font-extrabold text-gray-900">
-                        <span class="text-2xl mr-1">Rp</span>
-                        <span id="price-lite">150</span>
-                        <span class="text-xl text-gray-500 font-medium ml-1">.000 <span id="period-lite">/ bln</span></span>
-                    </div>
-                    <ul class="mt-8 space-y-4">
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Maksimal 500 Siswa/Guru</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Scan QR Code Biasa</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Dashboard & Laporan PDF</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 1 Akun Admin</li>
-                    </ul>
-                    <!-- Diubah ke absensidemo.html -->
-                    <a href="absensidemo.html" class="mt-8 block w-full bg-green-50 text-green-700 hover:bg-green-100 font-bold py-3 px-4 rounded-xl text-center transition">Pilih Paket Lite</a>
-                </div>
-
-                <div class="bg-gray-900 rounded-3xl p-8 border-2 border-green-500 shadow-2xl relative transform md:-translate-y-4">
+                <!-- Paket Pro (Best Seller) -->
+                <div class="bg-gray-900 rounded-3xl p-8 border border-gray-800 shadow-2xl relative transform md:-translate-y-4 md:scale-105 z-10 hover:shadow-green-900/50 hover:-translate-y-6 transition-all duration-300">
                     <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <span class="bg-green-500 text-white text-sm font-bold px-4 py-1 rounded-full uppercase tracking-wide">Paling Laris</span>
+                        <span class="bg-gradient-to-r from-green-400 to-green-600 text-white text-sm font-bold px-5 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-green-500/30">Paling Laris</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-white">Paket Pro</h3>
-                    <p class="text-gray-400 mt-2">Solusi lengkap untuk madrasah/sekolah besar.</p>
-                    <div class="mt-6 flex items-baseline text-5xl font-extrabold text-white">
-                        <span class="text-2xl mr-1">Rp</span>
-                        <span id="price-pro">350</span>
-                        <span class="text-xl text-gray-400 font-medium ml-1">.000 <span id="period-pro">/ bln</span></span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Paket Pro Enterprise</h3>
+                    <p class="text-gray-400 mt-2">Solusi tuntas untuk sekolah menengah & besar.</p>
+                    <div class="mt-6 flex items-baseline text-5xl font-extrabold text-white transition-all duration-300">
+                        <span class="text-2xl mr-1">Rp</span><span id="price-pro">3.500</span><span class="text-xl text-gray-400 font-medium ml-1">.000 <span id="period-pro">/ thn</span></span>
                     </div>
                     <ul class="mt-8 space-y-4 text-gray-300">
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong class="text-white ml-1">Unlimited</strong> Siswa & Guru</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Face Recognition & GPS Lock</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Ekspor Laporan Excel (XLSX)</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Peringkat Teladan (Gamifikasi)</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong class="text-white ml-1">Unlimited</strong> Akun Admin/Guru</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong class="text-white ml-1">Unlimited</strong> Kuota Siswa & Guru</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Face Recognition AI & GPS Lock</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Integrasi <strong class="text-white mx-1">WhatsApp FOnte</strong> (Wali Murid)</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-green-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Prioritas Layanan Support 24/7</li>
                     </ul>
-                    <!-- Diubah ke absensidemo.html -->
-                    <a href="absensidemo.html" class="mt-8 block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl text-center shadow-lg transition">Pilih Paket Pro</a>
+                    <a href="absensidemo.html" class="mt-8 block w-full bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-bold py-4 px-4 rounded-xl text-center shadow-lg shadow-green-600/30 transition-all duration-300 active:scale-[0.98]">Ambil Paket Pro</a>
+                </div>
+
+                <!-- Paket Lite -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-xl hover:border-gray-300 transition-all duration-300 hover:-translate-y-2 group">
+                    <h3 class="text-2xl font-bold text-gray-900 group-hover:text-gray-700 transition-colors">Paket Lite</h3>
+                    <p class="text-gray-500 mt-2">Cukup untuk TK/SD dengan siswa terbatas.</p>
+                    <div class="mt-6 flex items-baseline text-5xl font-extrabold text-gray-900">
+                        <span class="text-2xl mr-1">Rp</span><span id="price-lite">1.500</span><span class="text-xl text-gray-500 font-medium ml-1">.000 <span id="period-lite">/ thn</span></span>
+                    </div>
+                    <ul class="mt-8 space-y-4 text-gray-600">
+                        <li class="flex items-start"><svg class="w-6 h-6 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Maksimal 500 Siswa/Guru</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Scan QR Code & PIN Saja</li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Dashboard & Laporan Standar</li>
+                    </ul>
+                    <a href="absensidemo.html" class="mt-8 block w-full bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200 font-bold py-3.5 px-4 rounded-xl text-center transition-all duration-300 active:scale-95 border border-transparent hover:border-gray-200">Pilih Paket Lite</a>
                 </div>
 
             </div>
@@ -284,44 +494,85 @@
     </div>
 
     <script>
+        // Update Pricing Toggle Script
         function updatePricing() {
             const isYearly = document.getElementById('billing-toggle').checked;
             
-            // Harga Lite
-            document.getElementById('price-lite').innerText = isYearly ? '1.500' : '150';
-            document.getElementById('period-lite').innerText = isYearly ? '/ thn' : '/ bln';
+            // Animasi fade out kecil
+            const prices = document.querySelectorAll('#price-lite, #price-pro, #period-lite, #period-pro');
+            prices.forEach(el => {
+                el.style.transform = "translateY(-10px)";
+                el.style.opacity = 0;
+            });
             
-            // Harga Pro
-            document.getElementById('price-pro').innerText = isYearly ? '3.500' : '350';
-            document.getElementById('period-pro').innerText = isYearly ? '/ thn' : '/ bln';
+            setTimeout(() => {
+                document.getElementById('price-lite').innerText = isYearly ? '1.500' : '150';
+                document.getElementById('period-lite').innerText = isYearly ? '/ thn' : '/ bln';
+                
+                document.getElementById('price-pro').innerText = isYearly ? '3.500' : '350';
+                document.getElementById('period-pro').innerText = isYearly ? '/ thn' : '/ bln';
+                
+                // Animasi fade in
+                prices.forEach(el => {
+                    el.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+                    el.style.transform = "translateY(0)";
+                    el.style.opacity = 1;
+                });
+            }, 150);
         }
+
+        // Navbar Scroll Effect Script
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md', 'bg-white/95');
+                nav.classList.remove('bg-white/80', 'shadow-sm');
+            } else {
+                nav.classList.remove('shadow-md', 'bg-white/95');
+                nav.classList.add('bg-white/80', 'shadow-sm');
+            }
+        });
     </script>
 
-    <!-- Bottom CTA -->
-    <div class="bg-gradient-to-br from-green-800 to-green-900 py-20 relative overflow-hidden">
+    <!-- Bottom CTA (Call to Action yang Mendesak) -->
+    <div class="bg-gradient-to-br from-green-800 to-gray-900 py-20 relative overflow-hidden group">
+        <!-- Animated Background Pattern -->
+        <div class="absolute inset-0 opacity-20 transition-transform duration-[10s] group-hover:scale-110" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Mulai Transformasi Digital Sekolah Anda Hari Ini</h2>
-            <p class="text-green-100 text-lg mb-10">Coba gratis 14 hari tanpa syarat. Jika ada pertanyaan, tim spesialis kami siap membantu menjelaskan langsung ke Anda.</p>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-6 cursor-default">Siap Mendisiplinkan Sekolah Anda?</h2>
+            <p class="text-green-100 text-lg sm:text-xl mb-10 max-w-2xl mx-auto cursor-default">Jangan tunda lagi. Mulai digitalkan sistem absensi sekolah Anda hari ini. Coba gratis 14 hari, batal kapan saja tanpa denda.</p>
             
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <!-- Diubah ke absensidemo.html -->
-                <a href="absensidemo.html" class="inline-flex items-center justify-center gap-3 bg-white text-green-800 font-bold py-4 px-8 rounded-full shadow-lg hover:bg-green-50 transition-all text-lg transform hover:scale-105">
-                    Mulai Coba Gratis Sekarang
+                <a href="absensidemo.html" class="inline-flex items-center justify-center gap-3 bg-white text-green-900 font-bold py-4 px-8 rounded-full shadow-2xl hover:bg-gray-100 active:bg-gray-200 transition-all duration-300 text-lg transform hover:scale-105 active:scale-95 border border-transparent">
+                    🚀 Mulai Uji Coba Gratis
                 </a>
-                <a href="https://wa.me/6285763169783?text=Halo%20tim%20E-Absensi%20Pro,%20saya%20ingin%20tanya%20sebelum%20mencoba%20gratis." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-[#20bd5a] transition-all text-lg transform hover:scale-105">
+                <a href="https://wa.me/6285763169783?text=Halo%20tim%20E-Absensi%20Pro,%20saya%20butuh%20bantuan%20penjelasan%20produk." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-transparent text-white border-2 border-green-500 font-bold py-4 px-8 rounded-full hover:bg-green-800 active:bg-green-900 transition-all duration-300 text-lg transform hover:scale-105 active:scale-95">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     Tanya via WhatsApp
                 </a>
             </div>
+            <p class="mt-6 text-sm text-green-300">Balasan responsif di bawah 5 menit jam kerja.</p>
         </div>
     </div>
 
-    <footer class="bg-gray-900 text-gray-400 py-10 border-t border-gray-800 text-center">
-        <div class="mb-4">
-            <span class="text-white font-bold text-lg">E-Absensi Pro</span>
-            <p class="mt-2 text-sm">Layanan Bantuan: 0857-6316-9783</p>
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900 text-center">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-left flex flex-col items-center md:items-start group cursor-pointer">
+                <span class="text-white font-extrabold text-2xl tracking-tight mb-2 group-hover:text-green-500 transition-colors duration-300">E-ABSENSI<span class="text-green-600 group-hover:text-white transition-colors duration-300">PRO</span></span>
+                <p class="text-sm">Partner Digitalisasi Sekolah Masa Depan.</p>
+            </div>
+            
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="#" class="hover:text-white hover:-translate-y-0.5 transition-all duration-300">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-white hover:-translate-y-0.5 transition-all duration-300">Syarat & Ketentuan</a>
+                <a href="#" class="hover:text-white hover:-translate-y-0.5 transition-all duration-300">Dokumentasi</a>
+            </div>
         </div>
-        <p class="font-medium text-sm">&copy; 2026 E-Absensi Pro - Sekolah/Madrasah Edition. All rights reserved.</p>
+        <div class="mt-8 border-t border-gray-800 pt-8 text-sm">
+            &copy; 2026 E-Absensi Pro - Enterprise Edition. All rights reserved.
+        </div>
     </footer>
 
 </body>
